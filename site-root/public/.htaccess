@@ -15,9 +15,8 @@
     RewriteRule ^ %1 [L,R=301]
 
 	# Always remove www
-	RewriteEngine on
-	RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
-	RewriteRule ^(.*)$ https://%1/$1/ [R=301,L]
+	RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+	RewriteRule ^(.*)$ http://%1%{REQUEST_URI} [R=301,QSA,NC,L]
 
     # Send Requests To Front Controller...
     # RewriteCond %{REQUEST_FILENAME} !-d
