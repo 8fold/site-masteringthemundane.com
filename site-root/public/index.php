@@ -178,6 +178,6 @@
 		</section>
 	</article>
 	<footer>
-		<p>Copyright © 2023–2024 Mastering the Mundane.</p>
+		<p>Copyright © 2023–<?php print(date('Y')); ?> Mastering the Mundane.</p>
 	</footer>
 </body>
