@@ -16,7 +16,7 @@
 	<meta name="theme-color" content="#ffffff">
 
   	<!-- HTML Meta Tags -->
-  	<title>Mastering the Mundane</title>
+  	<title><?php print($pageTitle); ?></title>
   	<meta name="description" content="Josh Bruce helps individuals and organization make peace with space, time, and money. Whether itʼs physical, digital, or downsizing, Josh can probably help. Josh Bruce has been working as a coach for over a decade and is a self-proclaimed productivity super-freak.">
 	<meta name="keywords" content="Time Management, Self Management, Life Management, Life Coaching, Productivity Coaching, Financial Coaching, Professional Organization, bookkeeping, accoutability partner, digital organization, onsite, on-site, remote, hybrid, josh, bruce, josh bruce">
 
@@ -66,6 +66,10 @@
 			background-position: center center;
 		}
 
+        article p, article ul {
+            line-height: 1.5rem;
+        }
+
 		[is="sr-only"] {
 			position: absolute;
   		  	left: -999em;
@@ -80,7 +84,7 @@
 			font-size: 1.5rem;
 		}
 
-		section {
+		article[is="home"] > section {
 			margin-top: 4rem;
 			padding: 2rem;
 			padding-top: 75px;
@@ -89,15 +93,15 @@
 			background-position: top center;
 		}
 
-		section:first-of-type {
+		article[is="home"] > section:first-of-type {
 			background-image: url('/ui/icon-time.svg');
 		}
 
-		section:nth-of-type(2) {
+		article[is="home"] > section:nth-of-type(2) {
 			background-image: url('/ui/icon-space.svg');
 		}
 
-		section:last-of-type {
+		article[is="home"] > section:last-of-type {
 			background-image: url('/ui/icon-money.svg');
 		}
 
@@ -106,23 +110,48 @@
 		}
 
 		section a {
-			display: block;
-			background-color: hsla(10, 98%, 26%, 1);
-			padding: 1rem 0.2rem;
-			border-radius: 5px;
-			text-decoration: none;
-			font-weight: bold;
-			color: hsla(10, 100%, 100%, 1);
-			text-align: center;
+            color: hsla(0, 0%, 0%, 1);
+            text-decoration-color: hsla(10, 98%, 26%, 1);
+            text-decoration-thickness: 0.1rem;
+            text-underline-offset: 0.1rem;
 			transition:
-				background-color 0.3s,
-				color 0.3s;
+				text-decoration-thickness 0.3s;
 		}
 
 		section a:hover {
+            text-decoration-thickness: 0rem;
+		}
+
+        article[is="home"] > section a {
+            display: block;
+			padding: 1rem 0.2rem;
+			border-radius: 5px;
+            background-color: hsla(10, 98%, 26%, 1);
+            color: hsla(10, 100%, 100%, 1);
+            text-decoration: none;
+            text-align: center;
+            font-weight: bold;
+			transition:
+				background-color 0.3s,
+				color 0.3s;
+        }
+
+        article[is="home"] > section a:hover {
 			background-color: hsla(10, 74%, 90%, 1);
 			color: hsla(10, 0%, 0%, 1);
-		}
+        }
+
+        figure > img {
+            margin: 0 auto;
+            display: block;
+            border: 2px solid hsla(10, 98%, 26%, 1);
+        }
+
+        figure > figcaption {
+            margin-top: 0.5rem;
+            text-align: center;
+            font-size: 0.75rem;
+        }
 
 		footer {
 			margin-top: 4rem;
@@ -140,44 +169,22 @@
 
 			article {
 				display: grid;
-				grid-template-columns: auto auto auto;
 				column-gap: 2rem;
 				min-height: 100vh;
 			}
 
-			section {
+			article[is="home"] {
+				grid-template-columns: auto auto auto;
+			}
+
+			article[is="home"] > section {
 				padding-top: 100px;
 			}
+
+            article[is="book-details"] {
+                grid-template-columns: auto auto;
+            }
 		}
 	</style>
 </head>
 <body>
-	<header>
-		<h1><a href="/"><span is="sr-only">Mastering the Mundane</span></a></h1>
-		<blockquote>
-			<p>Just because itʼs mundane,<br>doesnʼt mean itʼs easy.</p>
-		</blockquote>
-	</header>
-	<article>
-		<p is="sr-only">Assisting you in making peace with: <a href="#time">time</a>, <a href="#space">space</a>, and <a href="#money">money</a>.</p>
-		<section>
-			<h2 id="time">Time</h2>
-			<p>Create or upgrade your time management system.</p>
-			<p><a href="https://calendly.com/joshbruce/lets-talk">Schedule<br>free consultation</a></p>
-			<p><a href="https://leanpub.com/master-the-mundane">Sign up for<br>book notifications</a></p>
-		</section>
-		<section>
-			<h2 id="space">Space</h2>
-			<p>Make your physical and digital spaces work <em>with</em> you.</p>
-			<p><a href="https://calendly.com/joshbruce/lets-talk">Schedule<br>free consultation</a></p>
-		</section>
-		<section>
-			<h2 id="money">Money</h2>
-			<p>Get a grip on your finances and relationship with money.</p>
-			<p><a href="https://calendly.com/joshbruce/lets-talk">Schedule<br>free consultation</a></p>
-		</section>
-	</article>
-	<footer>
-		<p>Copyright © 2023–2024 Mastering the Mundane.</p>
-	</footer>
-</body>
