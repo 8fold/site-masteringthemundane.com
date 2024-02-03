@@ -31,4 +31,4 @@ require_once($relativeToRoot . 'header.php');
 		<p><a href="https://calendly.com/mastering-the-mundane/30min">Schedule<br>free consultation</a></p>
 	</section>
 </article>
-<?php require_once('./foot.php'); ?>
+<?php require_once($relativeToRoot . 'foot.php'); ?>
