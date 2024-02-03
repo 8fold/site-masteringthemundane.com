@@ -1,5 +1,9 @@
 <?php
-$description = 'Josh Bruce helps individuals and organizations make peace with space, time, and money. Whether itʼs physical, digital, or downsizing, Josh can probably help. Josh Bruce has been working as a coach for over a decade and is a self-proclaimed productivity super-freak.'
+$description = 'Josh Bruce helps individuals and organizations make peace with space, time, and money. Whether itʼs physical, digital, or downsizing, Josh can probably help. Josh Bruce has been working as a coach for over a decade and is a self-proclaimed productivity super-freak.';
+
+$poster = 'https://mastering-the-mundane.com/media/poster.png';
+
+$domain = 'https://mastering-the-mundane.com';
 ?>
 <!doctype html>
 <head>
@@ -24,19 +28,19 @@ $description = 'Josh Bruce helps individuals and organizations make peace with s
 	<meta name="keywords" content="Time Management, Self Management, Life Management, Life Coaching, Productivity Coaching, Financial Coaching, Professional Organization, bookkeeping, accoutability partner, digital organization, onsite, on-site, remote, hybrid, josh, bruce, josh bruce">
 
   	<!-- Facebook Meta Tags -->
-  	<meta property="og:url" content="https://mastering-the-mundane.com">
+  	<meta property="og:url" content="<?php print($domain); ?>">
   	<meta property="og:type" content="website">
   	<meta property="og:title" content="Mastering the Mundane">
   	<meta property="og:description" content="<?php print($description); ?>">
-  	<meta property="og:image" content="https://mastering-the-mundane.com/media/poster.png">
+  	<meta property="og:image" content="<?php print($poster); ?>">
 
   	<!-- Twitter Meta Tags -->
   	<meta name="twitter:card" content="summary_large_image">
   	<meta property="twitter:domain" content="mastering-the-mundane.com">
-  	<meta property="twitter:url" content="https://mastering-the-mundane.com">
+  	<meta property="twitter:url" content="<?php print($domain); ?>">
   	<meta name="twitter:title" content="Mastering the Mundane">
   	<meta name="twitter:description" content="<?php print($description); ?>">
-  	<meta name="twitter:image" content="https://mastering-the-mundane.com/media/poster.png">
+  	<meta name="twitter:image" content="<?php print($poster); ?>">
 
 	<style type="text/css">
 		@charset "UTF-8";
