@@ -1,8 +1,9 @@
 <?php
-// Always the same
-$domain = 'mastering-the-mundane.com';
-
-$url = 'https://' . $domain;
+require_once('./constants.php');
+// // Always the same
+// $domain = 'mastering-the-mundane.com';
+//
+// $url = 'https://' . $domain;
 
 // May change page to page
 $description = 'Josh Bruce helps individuals make peace with time, space, and money. Whether itʼs physical, digital, or downsizing, Josh can probably help. Josh Bruce has been working as a coach for over a decade and is a self-proclaimed productivity super-freak.';
