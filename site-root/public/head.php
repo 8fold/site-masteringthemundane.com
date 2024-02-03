@@ -1,9 +1,11 @@
 <?php
-$description = 'Josh Bruce helps individuals and organizations make peace with space, time, and money. Whether itʼs physical, digital, or downsizing, Josh can probably help. Josh Bruce has been working as a coach for over a decade and is a self-proclaimed productivity super-freak.';
+$description = 'Josh Bruce helps individuals make peace with time, space, and money. Whether itʼs physical, digital, or downsizing, Josh can probably help. Josh Bruce has been working as a coach for over a decade and is a self-proclaimed productivity super-freak.';
 
 $poster = 'https://mastering-the-mundane.com/media/poster.png';
 
-$domain = 'https://mastering-the-mundane.com';
+$domain = 'mastering-the-mundane.com';
+
+$url = 'https://' . $domain;
 ?>
 <!doctype html>
 <head>
@@ -36,8 +38,8 @@ $domain = 'https://mastering-the-mundane.com';
 
   	<!-- Twitter Meta Tags -->
   	<meta name="twitter:card" content="summary_large_image">
-  	<meta property="twitter:domain" content="mastering-the-mundane.com">
-  	<meta property="twitter:url" content="<?php print($domain); ?>">
+  	<meta property="twitter:domain" content="<?php print($domain); ?>">
+  	<meta property="twitter:url" content="<?php print($url); ?>">
   	<meta name="twitter:title" content="<?php print($pageTitle); ?>">
   	<meta name="twitter:description" content="<?php print($description); ?>">
   	<meta name="twitter:image" content="<?php print($poster); ?>">
