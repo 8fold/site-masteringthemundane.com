@@ -9,7 +9,7 @@ $poster = $url . '/media/poster.png';
 
 require_once($relativeToRoot . 'constants.php');
 require_once($relativeToRoot . 'head.php');
-require_once($relativeToRoot . '/header.php');
+require_once($relativeToRoot . 'header.php');
 ?>
 <article is="home">
 	<p is="sr-only">Assisting you in making peace with: <a href="#time">time</a>, <a href="#space">space</a>, and <a href="#money">money</a>.</p>
