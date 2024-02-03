@@ -30,7 +30,7 @@ $domain = 'https://mastering-the-mundane.com';
   	<!-- Facebook Meta Tags -->
   	<meta property="og:url" content="<?php print($domain); ?>">
   	<meta property="og:type" content="website">
-  	<meta property="og:title" content="Mastering the Mundane">
+  	<meta property="og:title" content="<?php print($pageTitle); ?>">
   	<meta property="og:description" content="<?php print($description); ?>">
   	<meta property="og:image" content="<?php print($poster); ?>">
 
@@ -38,7 +38,7 @@ $domain = 'https://mastering-the-mundane.com';
   	<meta name="twitter:card" content="summary_large_image">
   	<meta property="twitter:domain" content="mastering-the-mundane.com">
   	<meta property="twitter:url" content="<?php print($domain); ?>">
-  	<meta name="twitter:title" content="Mastering the Mundane">
+  	<meta name="twitter:title" content="<?php print($pageTitle); ?>">
   	<meta name="twitter:description" content="<?php print($description); ?>">
   	<meta name="twitter:image" content="<?php print($poster); ?>">
 
