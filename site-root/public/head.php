@@ -1,23 +1,5 @@
 <?php
 require_once('./constants.php');
-
-function description(string $description = ''): string {
-    if (strlen($description) > 0) {
-        return $description;
-    }
-    return 'Josh Bruce helps individuals make peace with time, space, and money. Whether itʼs physical, digital, or downsizing, Josh can probably help. Josh Bruce has been working as a coach for over a decade and is a self-proclaimed productivity super-freak.';
-}
-
-function poster(string $poster = ''): string {
-    if (strlen($poster) > 0) {
-        return $poster;
-    }
-    return 'https://mastering-the-mundane.com/media/poster.png';
-}
-
-function keywords(): string {
-    return 'Time Management, Self Management, Life Management, Life Coaching, Productivity Coaching, Financial Coaching, Professional Organization, bookkeeping, accoutability partner, digital organization, onsite, on-site, remote, hybrid, josh, bruce, josh bruce';
-}
 ?>
 <!doctype html>
 <head>
@@ -38,14 +20,14 @@ function keywords(): string {
 
   	<!-- HTML Meta Tags -->
   	<title><?php print($pageTitle); ?></title>
-  	<meta name="description" content="<?php print(description()); ?>">
-	<meta name="keywords" content="<?php print(keywords()); ?>">
+  	<meta name="description" content="<?php print($description); ?>">
+	<meta name="keywords" content="<?php print($keywords); ?>">
 
   	<!-- Facebook Meta Tags -->
   	<meta property="og:url" content="<?php print($domain); ?>">
   	<meta property="og:type" content="website">
   	<meta property="og:title" content="<?php print($pageTitle); ?>">
-  	<meta property="og:description" content="<?php print(description()); ?>">
+  	<meta property="og:description" content="<?php print($description); ?>">
   	<meta property="og:image" content="<?php print($poster); ?>">
 
   	<!-- Twitter Meta Tags -->
@@ -53,7 +35,7 @@ function keywords(): string {
   	<meta property="twitter:domain" content="<?php print($domain); ?>">
   	<meta property="twitter:url" content="<?php print($url); ?>">
   	<meta name="twitter:title" content="<?php print($pageTitle); ?>">
-  	<meta name="twitter:description" content="<?php print(description()); ?>">
+  	<meta name="twitter:description" content="<?php print($description); ?>">
   	<meta name="twitter:image" content="<?php print($poster); ?>">
 
 	<style type="text/css">
