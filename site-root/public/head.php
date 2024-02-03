@@ -7,10 +7,13 @@ function description(string $description = '') {
     }
     return 'Josh Bruce helps individuals make peace with time, space, and money. Whether itʼs physical, digital, or downsizing, Josh can probably help. Josh Bruce has been working as a coach for over a decade and is a self-proclaimed productivity super-freak.';
 }
-// May change page to page
-// $description = 'Josh Bruce helps individuals make peace with time, space, and money. Whether itʼs physical, digital, or downsizing, Josh can probably help. Josh Bruce has been working as a coach for over a decade and is a self-proclaimed productivity super-freak.';
 
-$poster = 'https://mastering-the-mundane.com/media/poster.png';
+function poster(string $poster = '') {
+    if (strlen($poster) > 0) {
+        return $poster;
+    }
+    return 'https://mastering-the-mundane.com/media/poster.png';
+}
 ?>
 <!doctype html>
 <head>
