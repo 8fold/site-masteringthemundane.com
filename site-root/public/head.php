@@ -1,12 +1,14 @@
 <?php
 require_once('./constants.php');
-// // Always the same
-// $domain = 'mastering-the-mundane.com';
-//
-// $url = 'https://' . $domain;
 
+function description(string $description = '') {
+    if (strlen($description) > 0) {
+        return $description;
+    }
+    return 'Josh Bruce helps individuals make peace with time, space, and money. Whether itʼs physical, digital, or downsizing, Josh can probably help. Josh Bruce has been working as a coach for over a decade and is a self-proclaimed productivity super-freak.';
+}
 // May change page to page
-$description = 'Josh Bruce helps individuals make peace with time, space, and money. Whether itʼs physical, digital, or downsizing, Josh can probably help. Josh Bruce has been working as a coach for over a decade and is a self-proclaimed productivity super-freak.';
+// $description = 'Josh Bruce helps individuals make peace with time, space, and money. Whether itʼs physical, digital, or downsizing, Josh can probably help. Josh Bruce has been working as a coach for over a decade and is a self-proclaimed productivity super-freak.';
 
 $poster = 'https://mastering-the-mundane.com/media/poster.png';
 ?>
@@ -29,14 +31,14 @@ $poster = 'https://mastering-the-mundane.com/media/poster.png';
 
   	<!-- HTML Meta Tags -->
   	<title><?php print($pageTitle); ?></title>
-  	<meta name="description" content="<?php print($description); ?>">
+  	<meta name="description" content="<?php print(description()); ?>">
 	<meta name="keywords" content="Time Management, Self Management, Life Management, Life Coaching, Productivity Coaching, Financial Coaching, Professional Organization, bookkeeping, accoutability partner, digital organization, onsite, on-site, remote, hybrid, josh, bruce, josh bruce">
 
   	<!-- Facebook Meta Tags -->
   	<meta property="og:url" content="<?php print($domain); ?>">
   	<meta property="og:type" content="website">
   	<meta property="og:title" content="<?php print($pageTitle); ?>">
-  	<meta property="og:description" content="<?php print($description); ?>">
+  	<meta property="og:description" content="<?php print(description()); ?>">
   	<meta property="og:image" content="<?php print($poster); ?>">
 
   	<!-- Twitter Meta Tags -->
@@ -44,7 +46,7 @@ $poster = 'https://mastering-the-mundane.com/media/poster.png';
   	<meta property="twitter:domain" content="<?php print($domain); ?>">
   	<meta property="twitter:url" content="<?php print($url); ?>">
   	<meta name="twitter:title" content="<?php print($pageTitle); ?>">
-  	<meta name="twitter:description" content="<?php print($description); ?>">
+  	<meta name="twitter:description" content="<?php print(description()); ?>">
   	<meta name="twitter:image" content="<?php print($poster); ?>">
 
 	<style type="text/css">
