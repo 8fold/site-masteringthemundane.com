@@ -1,3 +1,6 @@
+<?php
+$description = 'Josh Bruce helps individuals and organizations make peace with space, time, and money. Whether itʼs physical, digital, or downsizing, Josh can probably help. Josh Bruce has been working as a coach for over a decade and is a self-proclaimed productivity super-freak.'
+?>
 <!doctype html>
 <head>
 	<!-- Character set and mobile fix -->
@@ -17,14 +20,14 @@
 
   	<!-- HTML Meta Tags -->
   	<title><?php print($pageTitle); ?></title>
-  	<meta name="description" content="Josh Bruce helps individuals and organizations make peace with space, time, and money. Whether itʼs physical, digital, or downsizing, Josh can probably help. Josh Bruce has been working as a coach for over a decade and is a self-proclaimed productivity super-freak.">
+  	<meta name="description" content="<?php print($description); ?>">
 	<meta name="keywords" content="Time Management, Self Management, Life Management, Life Coaching, Productivity Coaching, Financial Coaching, Professional Organization, bookkeeping, accoutability partner, digital organization, onsite, on-site, remote, hybrid, josh, bruce, josh bruce">
 
   	<!-- Facebook Meta Tags -->
   	<meta property="og:url" content="https://mastering-the-mundane.com">
   	<meta property="og:type" content="website">
   	<meta property="og:title" content="Mastering the Mundane">
-  	<meta property="og:description" content="Josh Bruce helps individuals and organizations make peace with space, time, and money. Whether itʼs physical, digital, or downsizing, Josh can probably help. Josh Bruce has been working as a coach for over a decade and is a self-proclaimed productivity super-freak.">
+  	<meta property="og:description" content="<?php print($description); ?>">
   	<meta property="og:image" content="https://mastering-the-mundane.com/media/poster.png">
 
   	<!-- Twitter Meta Tags -->
@@ -32,7 +35,7 @@
   	<meta property="twitter:domain" content="mastering-the-mundane.com">
   	<meta property="twitter:url" content="https://mastering-the-mundane.com">
   	<meta name="twitter:title" content="Mastering the Mundane">
-  	<meta name="twitter:description" content="Josh Bruce helps individuals and organizations make peace with space, time, and money. Whether itʼs physical, digital, or downsizing, Josh can probably help. Josh Bruce has been working as a coach for over a decade and is a self-proclaimed productivity super-freak.">
+  	<meta name="twitter:description" content="<?php print($description); ?>">
   	<meta name="twitter:image" content="https://mastering-the-mundane.com/media/poster.png">
 
 	<style type="text/css">
@@ -43,7 +46,7 @@
     		font-style: normal;
     		src: url(/fonts/Atkinson-Hyperlegible-Regular-102a.woff2);
     		font-display:block
-		}
+		}git
 
 		@font-face {
     		font-family: "hyper-bold";
