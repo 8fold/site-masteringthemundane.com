@@ -109,7 +109,8 @@
 			text-align: center;
 		}
 
-		section a {
+		section a,
+        nav a {
             color: hsla(0, 0%, 0%, 1);
             text-decoration-color: hsla(10, 98%, 26%, 1);
             text-decoration-thickness: 0.1rem;
@@ -118,7 +119,8 @@
 				text-decoration-thickness 0.3s;
 		}
 
-		section a:hover {
+		section a:hover,
+        nav a:hover {
             text-decoration-thickness: 0rem;
 		}
 
@@ -183,6 +185,32 @@
 
             article[is="book-details"] {
                 grid-template-columns: auto auto;
+            }
+
+            nav {
+                text-align: center;
+            }
+
+            nav > ul {
+                margin: 0 auto;
+                padding: 0;
+                display: flex;
+                /* grid-template-columns: min-content; */
+                /* display: inline; */
+                list-style: none;
+            }
+
+            nav a {
+                display: inline-block;
+                padding: 1rem;
+            }
+
+            /* nav > ul > li {
+                float: left;
+            } */
+
+            nav > ul > li:first-of-type:after {
+                content: '|';
             }
 		}
 	</style>
