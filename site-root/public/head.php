@@ -1,6 +1,3 @@
-<?php
-require_once('./constants.php');
-?>
 <!doctype html>
 <head>
 	<!-- Character set and mobile fix -->
