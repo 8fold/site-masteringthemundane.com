@@ -1,5 +1,5 @@
 <!doctype html>
-<head>
+<head lang="en-US">
 	<!-- Character set and mobile fix -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1">
