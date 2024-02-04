@@ -26,6 +26,8 @@ If you feel so inclined to contribute back to improving the codebase, please do 
 
 Note: For now, you can push directly to `main` as well. However, if things start going pear-shaped because we aren't operating in a pair-shaped manner, we'll need to enforce [short-lived branches](https://trunkbaseddevelopment.com/short-lived-feature-branches/) and [pull requests](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request).
 
+Also, watching the first 8m 30s of [this talk](https://youtu.be/jeX4fan9xHI?t=173) should help.
+
 ## Details
 
 It feels like we, the web development community, have a fair amount of limiting beliefs when it comes to web design and development. I'm sure part of that is on me and what I get exposed to. I'm sure it's also reinforced due to working with certain clients.
