@@ -1,0 +1,181 @@
+@charset "UTF-8";
+@font-face {
+	font-family: "hyper-reg";
+	font-weight: 400;
+	font-style: normal;
+	src: url(/fonts/Atkinson-Hyperlegible-Regular-102a.woff2);
+	font-display:block
+}git
+
+@font-face {
+	font-family: "hyper-bold";
+	font-weight: 700;
+	font-style: normal;
+	src: url(/fonts/Atkinson-Hyperlegible-Bold-102a.woff2);
+	font-display:block
+}
+
+* {
+	font-family: "hyper-reg", Verdana, Geneva, sans-serif;
+}
+
+h1 > a {
+	display: block;
+	height: 50px;
+	width: auto;
+	background-image: url('/ui/mark.svg');
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+article p, article ul {
+    line-height: 1.5rem;
+}
+
+[is="sr-only"] {
+	position: absolute;
+	  	left: -999em;
+		right: auto;
+}
+
+blockquote {
+	margin-top: 2rem;
+	margin-bottom: 4rem;
+	text-align: center;
+	font-style: italic;
+	font-size: 1.5rem;
+}
+
+article[is="home"] > section {
+	margin-top: 4rem;
+	padding: 2rem;
+	padding-top: 75px;
+	background-repeat: no-repeat;
+	background-size: 100px auto;
+	background-position: top center;
+}
+
+article[is="home"] > section:first-of-type {
+	background-image: url('/ui/icon-time.svg');
+}
+
+article[is="home"] > section:nth-of-type(2) {
+	background-image: url('/ui/icon-space.svg');
+}
+
+article[is="home"] > section:last-of-type {
+	background-image: url('/ui/icon-money.svg');
+}
+
+section > h2 {
+	text-align: center;
+}
+
+section a,
+nav a {
+    color: hsla(0, 0%, 0%, 1);
+    text-decoration-color: hsla(10, 98%, 26%, 1);
+    text-decoration-thickness: 0.1rem;
+    text-underline-offset: 0.1rem;
+	transition:
+		text-decoration-thickness 0.3s;
+}
+
+section a:hover,
+nav a:hover {
+    text-decoration-thickness: 0rem;
+}
+
+article[is="home"] > section a {
+    display: block;
+	padding: 1rem 0.2rem;
+	border-radius: 5px;
+    background-color: hsla(10, 98%, 26%, 1);
+    color: hsla(10, 100%, 100%, 1);
+    text-decoration: none;
+    text-align: center;
+    font-weight: bold;
+	transition:
+		background-color 0.3s,
+		color 0.3s;
+}
+
+article[is="home"] > section a:hover {
+	background-color: hsla(10, 74%, 90%, 1);
+	color: hsla(10, 0%, 0%, 1);
+}
+
+figure > img {
+    margin: 0 auto;
+    display: block;
+    border: 2px solid hsla(10, 98%, 26%, 1);
+}
+
+figure > figcaption {
+    margin-top: 0.5rem;
+    text-align: center;
+    font-size: 0.75rem;
+}
+
+footer {
+	margin-top: 4rem;
+}
+
+footer > p {
+	text-align: center;
+}
+
+@media screen and (min-width: 700pt) {
+	body {
+		max-width: 800pt;
+		margin: 0 auto;
+	}
+
+	article {
+		display: grid;
+		column-gap: 2rem;
+		min-height: 100vh;
+	}
+
+	article[is="home"] {
+		grid-template-columns: auto auto auto;
+	}
+
+	article[is="home"] > section {
+		padding-top: 100px;
+	}
+
+    article[is="book-details"] {
+        grid-template-columns: auto auto;
+    }
+
+    nav {
+        text-align: center;
+    }
+
+    nav > ul {
+        margin: 0 auto;
+        padding: 0;
+        display: flex;
+        /* grid-template-columns: min-content; */
+        /* display: inline; */
+        list-style: none;
+    }
+
+    nav a {
+        display: inline-block;
+        padding: 1rem;
+    }
+
+    /* nav > ul > li {
+        float: left;
+    } */
+
+    nav > ul > li:after {
+        content: '|';
+    }
+
+    nav > ul > li:last-of-type:after {
+        content: '';
+    }
+}
