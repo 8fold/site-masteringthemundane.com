@@ -1,8 +1,23 @@
+<?php
+
+$uri = $_SERVER['REQUEST_URI'];
+
+$navigation = [
+    '/' => 'Home',
+    '/time/' => 'Time',
+    '/booking/' => 'Book now'
+];
+
+?>
     <nav>
         <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/time/">Time</a></li>
-            <li><a href="/booking/">Book now</a></li>
+            <?php foreach ($navigation as $href => $linkText) {
+                $class = '';
+                if ($uri === $href) {
+                    $class = ' class="current" ';
+                }
+                print('<li><a '. $class . 'href="' . $href . '">' . $linkText . '</a></li>');
+            } ?>
         </ul>
     </nav>
 	<footer>
