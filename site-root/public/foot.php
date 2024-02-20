@@ -1,6 +1,7 @@
     <nav>
         <ul>
             <li><a href="/">Home</a></li>
+            <li><a href="/time/">Time</a></li>
             <li><a href="/booking/">Book now</a></li>
         </ul>
     </nav>
