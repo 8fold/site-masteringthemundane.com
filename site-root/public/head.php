@@ -210,8 +210,12 @@
                 float: left;
             } */
 
-            nav > ul > li:first-of-type:after {
+            nav > ul > li:after {
                 content: '|';
+            }
+
+            nav > ul > li:last-of-type:after {
+                content: '';
             }
 		}
 	</style>
