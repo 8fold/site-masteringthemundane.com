@@ -21,7 +21,7 @@ $navigation = [
         </ul>
     </nav>
 	<footer>
-		<p>Copyright © 2023–<?php date('Y'); ?> Mastering the Mundane.</p>
+		<p>Copyright © 2023–<?php print(date('Y')); ?> Mastering the Mundane.</p>
 	</footer>
 </body>
 </html>
