@@ -108,7 +108,7 @@ article[is="home"] > section a:hover {
 figure > img {
     margin: 0 auto;
     display: block;
-    border: 2px solid hsla(10, 98%, 26%, 1);
+    border: 2px solid hsla(0, 0%, 0%, 1);
 }
 
 figure > figcaption {
