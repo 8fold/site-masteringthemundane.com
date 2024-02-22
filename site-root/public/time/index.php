@@ -27,7 +27,7 @@ require_once($relativeToRoot . 'header.php');
     <section>
         <h3 id="step-two">Step two</h3>
         <p>Youʼve read the book and taken your system as far as you can on your own, and want to direct feedback and attention.</p>
-        <?php require_once($relativeToRoot . 'calendly-widget.php'); ?>
+        <?php require_once($relativeToRoot . 'calendar-widget.php'); ?>
     </section>
     <section>
         <h3>Step three</h3>

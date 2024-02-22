@@ -15,7 +15,7 @@ require_once($relativeToRoot . 'header.php');
 <article is="booking">
     <section>
         <h2>Book 30 minute free consultation</h2>
-        <?php require_once($relativeToRoot . 'calendly-widget.php'); ?>
+        <?php require_once($relativeToRoot . 'calendar-widget.php'); ?>
     </section>
 </article>
 <?php require_once($relativeToRoot . 'foot.php'); ?>
