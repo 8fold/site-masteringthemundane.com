@@ -17,7 +17,7 @@ require_once('../../header.php');
         <p>The questions and exercises will help you create a personal productivity system while also giving you the values, principles, practices, and tools to act as guidelines and guardrails as you use, improve, and customize the system for your preferred ways of working and thinking.</p>
         <p>Available primarily at:</p>
         <ul>
-            <li><a href="https://opencollective.com/mastering-the-mundane/projects/book-mastering-the-mundane?slug=book-mastering-the-mundane">Crowdfunding with rewards</a> (Open Collective)</li>
+            <li><a href="https://opencollective.com/mastering-the-mundane/projects/book-mastering-the-mundane">Crowdfunding with rewards</a> (Open Collective)</li>
             <li><a href="https://leanpub.com/master-the-mundane">Leanpub</a> (<abbr title="Digital Rights Management">DRM</abbr> free)</li>
         </ul>
     </section>
