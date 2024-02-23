@@ -5,14 +5,14 @@ require_once($relativeToRoot . 'constants.php');
 
 $pageTitle = "Coaching and Mentoring | Mastering the Mundane";
 
-$description = 'Josh Bruce helps individuals make peace with time, space, and money. Whether itʼs physical, digital, or downsizing, Josh can probably help. Josh Bruce has been working as a coach for over a decade and is a self-proclaimed productivity super-freak.';
+$description = 'Josh Bruce has spent his life trying to make peace with time, space, and money while also helping others do the same. Heʼs worked with individuals, The United States Federal Government Agencies, micro-businesses, Fortune 500 companies in the for-profit and not-for-profit categories.';
 
 $poster = $url . '/media/poster.png';
 
 require_once($relativeToRoot . 'head.php');
 require_once($relativeToRoot . 'header.php');
 ?>
-<article is="booking">
+<article is="coaching-and-mentoring">
     <section>
         <h2>Coaching and Mentoring</h2>
         <p>We will work together to update and refine your current systems. Weʼll focus primarily on your systems for time, space, and money. However, we may explore any subject youʼd like as long as I feel comfortable in my ability to help you navigate it. One of the explicit goals is to help you become independent of me over time as opposed to making you dependent upon me and any guidance I may be able to provide.</p>
