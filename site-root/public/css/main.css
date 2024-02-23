@@ -15,8 +15,23 @@
 	font-display:block
 }
 
+:root {
+	--header-font: "hyper-bold", Verdana, Geneva, sans-serif;
+	--body-font: "hyper-reg", Verdana, Geneva, sans-serif;
+
+	--color-black: hsla(0, 0%, 0%, 1);
+	--color-white: hsla(10, 100%, 100%, 1);
+	--color-theme: hsla(10, 98%, 26%, 1);
+}
+
 * {
-	font-family: "hyper-reg", Verdana, Geneva, sans-serif;
+	font-family: var(--body-font);
+}
+
+h1,
+h2,
+h3 {
+	font-family: var(--header-font);
 }
 
 h1 > a {
@@ -77,8 +92,8 @@ section > h2 {
 
 section a,
 nav a {
-    color: hsla(0, 0%, 0%, 1);
-    text-decoration-color: hsla(10, 98%, 26%, 1);
+    color: var(--color-black);
+    text-decoration-color: var(--color-theme);
     text-decoration-thickness: 0.1rem;
     text-underline-offset: 0.1rem;
 	transition:
@@ -129,8 +144,8 @@ article[is="home"] > section a {
     display: block;
 	padding: 1rem 0.2rem;
 	border-radius: 5px;
-    background-color: hsla(10, 98%, 26%, 1);
-    color: hsla(10, 100%, 100%, 1);
+    background-color: var(--color-theme);
+    color: var(--color-white);
     text-decoration: none;
     text-align: center;
     font-weight: bold;
@@ -147,7 +162,7 @@ article[is="home"] > section a:hover {
 figure > img {
     margin: 0 auto;
     display: block;
-    border: 2px solid hsla(0, 0%, 0%, 1);
+    border: 2px solid var(--color-black);
 }
 
 figure > figcaption {
