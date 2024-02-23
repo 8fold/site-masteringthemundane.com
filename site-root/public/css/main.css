@@ -166,12 +166,12 @@ footer > p {
 	}
 
 	article {
-		display: grid;
-		column-gap: 2rem;
-		min-height: 100vh;
 	}
 
 	article[is="home"] {
+		display: grid;
+		column-gap: 2rem;
+		min-height: 100vh;
 		grid-template-columns: auto auto auto;
 	}
 

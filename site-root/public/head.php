@@ -37,6 +37,6 @@
   	<meta name="twitter:image" content="<?php print($poster); ?>">
 
     <!-- Styles w/ query cache break -->
-    <link type="text/css" rel="stylesheet" href="/css/main.css?v=1.0.0">
+    <link type="text/css" rel="stylesheet" href="/css/main.css?v=1.0.1">
 </head>
 <body>
