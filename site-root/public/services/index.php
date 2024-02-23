@@ -15,7 +15,7 @@ require_once($relativeToRoot . 'header.php');
 <article is="services">
     <section>
         <h2>Services</h2>
-        <p>Unlike our <a href="/coaching-and-mentoring/">coaching and mentoring</a> our flat-fee services tend to be more about delegation and collaboration. In other words, I will be there directly performing or working with you to make progress on the things that are meaningful to you.</p>
+        <p>Unlike <a href="/coaching-and-mentoring/">coaching and mentoring</a> our flat-fee services tend to be more about delegation and collaboration. In other words, I will be there directly performing or working with you to make progress on the things that are meaningful to you.</p>
         <p><b>Before we decide to work together</b>, schedule <a href="https://cal.com/mastering-the-mundane/introduction" rel="noopener noreferrer" target="_blank">a 30-minute introduction</a> (no cost).</p>
         <dl>
             <dt>Bookkeeping</dt>
