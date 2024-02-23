@@ -26,6 +26,8 @@ ErrorDocument 500 /error-500.html
 	# Handle redirects
 	Redirect 301 /booking/ /coaching-and-mentoring/
 	Redirect 301 /booking /coaching-and-mentoring/
+	Redirect 301 /time/ /books/
+	Redirect 301 /time /books/
 
     # Send Requests To Front Controller...
     # RewriteCond %{REQUEST_FILENAME} !-d

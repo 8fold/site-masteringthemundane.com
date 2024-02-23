@@ -4,7 +4,7 @@ $uri = $_SERVER['REQUEST_URI'];
 
 $navigation = [
     '/' => 'Home',
-    '/time/' => 'Time',
+    '/books/' => 'Books',
     '/coaching-and-mentoring/' => 'Coaching and Mentoring',
     '/services/' => 'Services'
 ];
