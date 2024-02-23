@@ -17,18 +17,18 @@ require_once($relativeToRoot . 'header.php');
 	<section>
 		<h2 id="time">Time</h2>
 		<p>Create or upgrade your time management system.</p>
-		<p><a href="/booking/">Schedule<br>free consultation</a></p>
+		<p><a href="/booking/">Schedule<br>a session</a></p>
 		<p><a href="/books/time-mastering-the-mundane/">The book</a></p>
 	</section>
 	<section>
 		<h2 id="space">Space</h2>
 		<p>Make your physical and digital spaces work <em>with</em> you.</p>
-		<p><a href="/booking/">Schedule<br>free consultation</a></p>
+		<p><a href="/booking/">Schedule<br>a session</a></p>
 	</section>
 	<section>
 		<h2 id="money">Money</h2>
 		<p>Get a grip on your finances and relationship with money.</p>
-		<p><a href="/booking/">Schedule<br>free consultation</a></p>
+		<p><a href="/booking/">Schedule<br>a session</a></p>
 	</section>
 </article>
 <?php require_once($relativeToRoot . 'foot.php'); ?>
