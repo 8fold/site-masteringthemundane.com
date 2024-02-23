@@ -39,7 +39,7 @@ require_once($relativeToRoot . 'header.php');
             <li>A book idea is added to <a href="#the-hopper">the hopper</a> and a crowdfunding project is created on <a href="https://opencollective.com/mastering-the-mundane/projects" rel="noopener noreferrer" target="_blank">Open Collective</a>.<br><small>This helps prioritize the books.</small></li>
             <li>A certain amount of time each day is dedicated to working on the primary book.<br><small>Less time will often be spent on a secondary and tertiary book as well.</small></li>
             <li>Once enough of the primary book is considered stable, it will be made available as a free sample and Community Edition on <a href="https://leanpub.com/u/itsjoshbruce" rel="noopener noreferrer" target="_blank">Leanpub</a>.</li>
-            <li>Once the first few Parts of the book are considered stable, new Parts will be adding every one or two weeks for purchase on Leanpub.</li>
+            <li>Once the first few Parts of the book are considered stable, new Parts will be added every one or two weeks for purchase on Leanpub.</li>
             <li>Once the complete book is available for purchase on Leanpub, we will use <a href="https://www.scribl.com" rel="noopener noreferrer" target="_blank">Scribl</a> to mass-distribute the electronic text and audio versions of the book.</li>
             <li>Within a week or two of the mass-distribution through Scribl being completed, weʼll make a print edition of the book available, and that edition (iteration) of the book will be considered done.</li>
         </ul>
