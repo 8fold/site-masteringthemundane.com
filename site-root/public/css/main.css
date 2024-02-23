@@ -36,6 +36,10 @@ h3 {
 	font-family: var(--header-font);
 }
 
+li {
+	padding: 0.5rem 0rem;
+}
+
 a[rel~=noreferrer]:after{
   content: var(--icon-new-window);
   display: inline-block;
@@ -116,41 +120,6 @@ nav a:hover {
     text-decoration-thickness: 0rem;
 }
 
-nav {
-    text-align: center;
-}
-
-nav > ul {
-    margin: 0 auto;
-    padding: 0;
-    display: flex;
-    /* grid-template-columns: min-content; */
-    /* display: inline; */
-    list-style: none;
-}
-
-nav a,
-nav span {
-    display: inline-block;
-    padding: 1rem;
-}
-
-nav a.current {
-	text-decoration: none;
-}
-
-/* nav > ul > li {
-    float: left;
-} */
-
-nav > ul > li:after {
-    content: '|';
-}
-
-nav > ul > li:last-of-type:after {
-    content: '';
-}
-
 article[is="home"] > section a {
     display: block;
 	padding: 1rem 0.2rem;
@@ -196,9 +165,6 @@ footer > p {
 		margin: 0 auto;
 	}
 
-	article {
-	}
-
 	article[is="home"] {
 		display: grid;
 		column-gap: 2rem;
@@ -213,4 +179,29 @@ footer > p {
     article[is="book-details"] {
         grid-template-columns: auto auto;
     }
+
+	nav {
+    	text-align: center;
+	}
+
+	nav > ul {
+    	margin: 0 auto;
+    	padding: 0;
+    	display: flex;
+    	list-style: none;
+	}
+
+	nav > ul > li:after {
+    	content: '|';
+	}
+
+	nav > ul > li:last-of-type:after {
+		content: '';
+	}
+
+	nav a,
+	nav span {
+    	display: inline-block;
+    	padding: 1rem;
+	}
 }
