@@ -18,7 +18,7 @@ require_once($relativeToRoot . 'header.php');
 		<h2 id="time">Time</h2>
 		<p>Create or upgrade your time management system.</p>
 		<p><a href="/booking/">Schedule<br>free consultation</a></p>
-		<p><a href="https://leanpub.com/master-the-mundane">Sign up for<br>book notifications</a></p>
+		<p><a href="/books/time-mastering-the-mundane/">The book</a></p>
 	</section>
 	<section>
 		<h2 id="space">Space</h2>

@@ -13,11 +13,14 @@ $navigation = [
     <nav>
         <ul>
             <?php foreach ($navigation as $href => $linkText) {
-                if ($uri === $href) {
-                    print('<li><span>' . $linkText . '</li>');
+                if (
+                    ($uri !== '/' and $href === '/') or
+                    str_starts_with($uri, $href) === false
+                ) {
+                    print('<li><a '. $class . 'href="' . $href . '">' . $linkText . '</a></li>');
 
                 } else {
-                    print('<li><a '. $class . 'href="' . $href . '">' . $linkText . '</a></li>');
+                    print('<li><span>' . $linkText . '</li>');
 
                 }
             } ?>
