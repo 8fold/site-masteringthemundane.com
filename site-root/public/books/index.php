@@ -54,7 +54,7 @@ require_once($relativeToRoot . 'header.php');
         <p>You can help guide our writing schedule and focus by contributing to the crowdfunding campaigns.</p>
         <ol>
             <li><a href="#time-mastering-the-mundane">Time: Mastering the Mundane</a></li>
-            <li>Money: Mastering the Mundane (<a href="https://opencollective.com/mastering-the-mundane/projects/book-mastering-the-mundane-mon" rel="noopener noreferrer" target="_blank">Open Collective)</a></li>
+            <li>Money: Mastering the Mundane (<a href="https://opencollective.com/mastering-the-mundane/projects/book-mastering-the-mundane-mon" rel="noopener noreferrer" target="_blank">Open Collective</a>)</li>
             <li>Others:
                 <ul>
                     <li>Space: Mastering the Mundane (<a href="https://opencollective.com/mastering-the-mundane/projects/book-mastering-the-mundane-spa" rel="noopener noreferrer" target="_blank">Open Collective</a>)</li>
