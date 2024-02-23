@@ -17,7 +17,7 @@ $navigation = [
                     ($uri !== '/' and $href === '/') or
                     str_starts_with($uri, $href) === false
                 ) {
-                    print('<li><a '. $class . 'href="' . $href . '">' . $linkText . '</a></li>');
+                    print('<li><a href="' . $href . '">' . $linkText . '</a></li>');
 
                 } else {
                     print('<li><span>' . $linkText . '</li>');
