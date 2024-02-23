@@ -26,7 +26,7 @@ require_once($relativeToRoot . 'header.php');
         <p>For virtual and video calls I usually use <a href="https://www.gather.town" rel="noopener noreferrer" target="_blank">Gather</a>. You donʼt need to download or install anything, but you can. If we decide to use Gather, Iʼll send a link on the day of our scheduled session.</p>
         <p>Phone and in-person are also options. If in-person requires travel, additional costs will be billed separately.</p>
         <h3>Services</h3>
-        <p>We also offer <a href="/services/">flat-fee services</a> as well.</p>
+        <p>We also offer <a href="/services/">flat-fee services</a>.</p>
     </section>
 </article>
 <?php require_once($relativeToRoot . 'foot.php'); ?>
