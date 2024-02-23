@@ -22,6 +22,8 @@
 	--color-black: hsla(0, 0%, 0%, 1);
 	--color-white: hsla(10, 100%, 100%, 1);
 	--color-theme: hsla(10, 98%, 26%, 1);
+
+	--icon-new-window: "⧉";
 }
 
 * {
@@ -32,6 +34,15 @@ h1,
 h2,
 h3 {
 	font-family: var(--header-font);
+}
+
+a[rel~=noreferrer]:after{
+  content: var(--icon-new-window);
+  display: inline-block;
+  position: relative;
+  margin-left: 0.1rem;
+  top: -0.2rem;
+  font-size: 0.75rem;
 }
 
 h1 > a {
