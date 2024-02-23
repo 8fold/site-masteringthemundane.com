@@ -103,7 +103,8 @@ nav > ul {
     list-style: none;
 }
 
-nav a {
+nav a,
+nav span {
     display: inline-block;
     padding: 1rem;
 }

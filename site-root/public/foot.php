@@ -13,11 +13,13 @@ $navigation = [
     <nav>
         <ul>
             <?php foreach ($navigation as $href => $linkText) {
-                $class = '';
                 if ($uri === $href) {
-                    $class = ' class="current" ';
+                    print('<li><span>' . $linkText . '</li>');
+
+                } else {
+                    print('<li><a '. $class . 'href="' . $href . '">' . $linkText . '</a></li>');
+
                 }
-                print('<li><a '. $class . 'href="' . $href . '">' . $linkText . '</a></li>');
             } ?>
         </ul>
     </nav>
