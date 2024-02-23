@@ -1,3 +1,8 @@
+# Handle errors
+ErrorDocument 404 /error-404.php
+ErrorDocument 405 /error-405.php
+ErrorDocument 500 /error-500.html
+
 <IfModule mod_rewrite.c>
     <IfModule mod_negotiation.c>
         Options -MultiViews -Indexes
@@ -19,7 +24,8 @@
     RewriteRule ^ %1 [L,R=301]
 
 	# Handle redirects
-	Redirect 301 "/booking/" "/coaching-and-mentoring/"
+	Redirect 301 /booking/ /coaching-and-mentoring/
+	Redirect 301 /booking /coaching-and-mentoring/
 
     # Send Requests To Front Controller...
     # RewriteCond %{REQUEST_FILENAME} !-d
