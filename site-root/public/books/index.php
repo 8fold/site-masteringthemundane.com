@@ -1,8 +1,16 @@
 <?php
-$pageTitle = "Time: Mastering the Mundane | Books | Mastering the Mundane";
+$relativeToRoot = '../';
 
-require_once('../../head.php');
-require_once('../../header.php');
+require_once($relativeToRoot . 'constants.php');
+
+$pageTitle = "Books | Mastering the Mundane";
+
+$description = 'Josh Bruce has spent his life trying to make peace with time, space, and money while also helping others do the same. Heʼs worked with individuals, The United States Federal Government Agencies, micro-businesses, Fortune 500 companies in the for-profit and not-for-profit categories.';
+
+$poster = $url . '/media/poster.png';
+
+require_once($relativeToRoot . 'head.php');
+require_once($relativeToRoot . 'header.php');
 ?>
 <article is="book-details">
     <section>
@@ -22,4 +30,4 @@ require_once('../../header.php');
         </ul>
     </section>
 </article>
-<?php require_once('../../foot.php'); ?>
+<?php require_once($relativeToRoot . 'foot.php'); ?>
