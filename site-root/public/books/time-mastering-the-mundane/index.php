@@ -28,6 +28,7 @@ require_once($relativeToRoot . 'header.php');
             <p>The questions and exercises help you create a personal productivity system while identifying values, principles, practices, and tools to act as guidelines and guardrails to use, improve, and customize your system.</p>
             <p>Available for:</p>
             <ul>
+                <li>Purchase on <a href="https://www.scribl.com/books/EEDEB8/Time" rel="noopener noreferrer" target="_blank">Scribl</a></li>
                 <li>Purchase, Community Edition (email required), and free sample on <a href="https://leanpub.com/master-the-mundane" rel="noopener noreferrer" target="_blank">Leanpub</a> (<abbr title="Digital Rights Management">DRM</abbr> free)</li>
                 <li>Crowdfunding on <a href="https://opencollective.com/mastering-the-mundane/projects/book-mastering-the-mundane" rel="noopener noreferrer" target="_blank">Open Collective</a></li>
             </ul>
