@@ -15,6 +15,7 @@ require_once($relativeToRoot . 'header.php');
 // stage = [lean-publishing, mass-distribution ebook, mass-distribution audiobook, mass-distribution print]
 // crowdfunding = link to project
 // purchase
+
 ?>
 <article is="book-details">
     <section id="time-mastering-the-mundane">
