@@ -15,7 +15,8 @@ require_once($relativeToRoot . 'header.php');
 <article is="coaching-and-mentoring">
     <section>
         <h2>Coaching and Mentoring</h2>
-        <p>We will work together to update and refine your current systems. Weʼll focus primarily on your systems for time, space, and money. However, we may explore any subject youʼd like as long as I feel comfortable in my ability to help you navigate it. One of the explicit goals is to help you become independent of me over time as opposed to making you dependent upon me and any guidance I may be able to provide.</p>
+        <p>You and I will work together to update and refine your current systems.</p>
+        <p>Weʼll focus primarily on your systems for time, space, and money. However, we may explore any subject youʼd like as long as I feel comfortable in my ability to help you navigate it. One of the explicit goals is to help you become independent of me over time as opposed to making you dependent upon me and any guidance I may be able to provide.</p>
         <p><b>Before we decide to work together</b>, schedule <a href="https://cal.com/mastering-the-mundane/introduction" rel="noopener noreferrer" target="_blank">a 30-minute introduction</a> (no cost).</p>
         <p>The introduction allows us to get to know one another and decide whether to embark on this journey together and how.</p>
         <p>If weʼve had our introduction and decided to work with one another, youʼll either schedule <a href="https://cal.com/mastering-the-mundane/ad-hoc-session" rel="noopener noreferrer" target="_blank">an ad-hoc session</a> or <a href="https://cal.com/mastering-the-mundane/member-session" rel="noopener noreferrer" target="_blank">a member session</a>.</p>
