@@ -33,6 +33,7 @@ require_once($relativeToRoot . 'header.php');
                 <li><a href="https://leanpub.com/master-the-mundane" rel="noopener noreferrer" target="_blank">Leanpub</a> (<abbr title="Digital Rights Management">DRM</abbr> free)</li>
                 <li><a href="https://books.apple.com/us/book/time/id6504804280" rel="noopener noreferrer" target="_blank">Apple Books</a></li>
                 <li><a href="https://www.amazon.com/Time-Mastering-Mundane-Josh-Bruce-ebook/dp/B0D7ZYHLN2" rel="noopener noreferrer" target="_blank">Amazon</a></li>
+                <li>&hellip;and more</li>
             </ul>
         </div>
     </section>
