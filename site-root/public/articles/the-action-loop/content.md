@@ -1,8 +1,5 @@
 # Action loop
 
-  "created": "20210623",
-  "updated": "20240201",
-
 <b>Updated:</b> February 2, 2024<br>
 <b>Original:</b> June 23, 2024
 
