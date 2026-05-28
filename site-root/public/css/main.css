@@ -1,43 +1,43 @@
 @charset "UTF-8";
 @font-face {
-	font-family: "hyper-reg";
-	font-weight: 400;
-	font-style: normal;
-	src: url(/fonts/Atkinson-Hyperlegible-Regular-102a.woff2);
-	font-display:block
+    font-family: "hyper-reg";
+    font-weight: 400;
+    font-style: normal;
+    src: url(/fonts/Atkinson-Hyperlegible-Regular-102a.woff2);
+    font-display:block
 }git
 
 @font-face {
-	font-family: "hyper-bold";
-	font-weight: 700;
-	font-style: normal;
-	src: url(/fonts/Atkinson-Hyperlegible-Bold-102a.woff2);
-	font-display:block
+    font-family: "hyper-bold";
+    font-weight: 700;
+    font-style: normal;
+    src: url(/fonts/Atkinson-Hyperlegible-Bold-102a.woff2);
+    font-display:block
 }
 
 :root {
-	--header-font: "hyper-bold", Verdana, Geneva, sans-serif;
-	--body-font: "hyper-reg", Verdana, Geneva, sans-serif;
+    --header-font: "hyper-bold", Verdana, Geneva, sans-serif;
+    --body-font: "hyper-reg", Verdana, Geneva, sans-serif;
 
-	--color-black: hsla(0, 0%, 0%, 1);
-	--color-white: hsla(10, 100%, 100%, 1);
-	--color-theme: hsla(10, 98%, 26%, 1);
+    --color-black: hsla(0, 0%, 0%, 1);
+    --color-white: hsla(10, 100%, 100%, 1);
+    --color-theme: hsla(10, 98%, 26%, 1);
 
-	--icon-new-window: "⧉";
+    --icon-new-window: "⧉";
 }
 
 * {
-	font-family: var(--body-font);
+    font-family: var(--body-font);
 }
 
 h1,
 h2,
 h3 {
-	font-family: var(--header-font);
+    font-family: var(--header-font);
 }
 
 li {
-	padding: 0.5rem 0rem;
+    padding: 0.5rem 0rem;
 }
 
 a[rel~=noreferrer]:after{
@@ -50,16 +50,16 @@ a[rel~=noreferrer]:after{
 }
 
 h1 > a {
-	display: block;
-	height: 50px;
-	width: auto;
-	background-image: url('/ui/mark.svg');
-	background-repeat: no-repeat;
-	background-position: center center;
+    display: block;
+    height: 50px;
+    width: auto;
+    background-image: url('/ui/mark.svg');
+    background-repeat: no-repeat;
+    background-position: center center;
 }
 
 dt {
-	font-weight: bold;
+    font-weight: bold;
 }
 
 article p, article ul {
@@ -67,42 +67,42 @@ article p, article ul {
 }
 
 [is="sr-only"] {
-	position: absolute;
-	  	left: -999em;
-		right: auto;
+    position: absolute;
+        left: -999em;
+        right: auto;
 }
 
 blockquote {
-	margin-top: 2rem;
-	margin-bottom: 4rem;
-	text-align: center;
-	font-style: italic;
-	font-size: 1.5rem;
+    margin-top: 2rem;
+    margin-bottom: 4rem;
+    text-align: center;
+    font-style: italic;
+    font-size: 1.5rem;
 }
 
 article[is="home"] > section {
-	margin-top: 4rem;
-	padding: 2rem;
-	padding-top: 75px;
-	background-repeat: no-repeat;
-	background-size: 100px auto;
-	background-position: top center;
+    margin-top: 4rem;
+    padding: 2rem;
+    padding-top: 75px;
+    background-repeat: no-repeat;
+    background-size: 100px auto;
+    background-position: top center;
 }
 
 article[is="home"] > section:first-of-type {
-	background-image: url('/ui/icon-time.svg');
+    background-image: url('/ui/icon-time.svg');
 }
 
 article[is="home"] > section:nth-of-type(2) {
-	background-image: url('/ui/icon-space.svg');
+    background-image: url('/ui/icon-space.svg');
 }
 
 article[is="home"] > section:last-of-type {
-	background-image: url('/ui/icon-money.svg');
+    background-image: url('/ui/icon-money.svg');
 }
 
 section > h2 {
-	text-align: center;
+    text-align: center;
 }
 
 section a,
@@ -111,8 +111,8 @@ nav a {
     text-decoration-color: var(--color-theme);
     text-decoration-thickness: 0.1rem;
     text-underline-offset: 0.1rem;
-	transition:
-		text-decoration-thickness 0.3s;
+    transition:
+        text-decoration-thickness 0.3s;
 }
 
 section a:hover,
@@ -122,21 +122,26 @@ nav a:hover {
 
 article[is="home"] > section a {
     display: block;
-	padding: 1rem 0.2rem;
-	border-radius: 5px;
+    padding: 1rem 0.2rem;
+    border-radius: 5px;
     background-color: var(--color-theme);
     color: var(--color-white);
     text-decoration: none;
     text-align: center;
     font-weight: bold;
-	transition:
-		background-color 0.3s,
-		color 0.3s;
+    transition:
+        background-color 0.3s,
+        color 0.3s;
 }
 
 article[is="home"] > section a:hover {
-	background-color: hsla(10, 74%, 90%, 1);
-	color: hsla(10, 0%, 0%, 1);
+    background-color: hsla(10, 74%, 90%, 1);
+    color: hsla(10, 0%, 0%, 1);
+}
+
+article[is="article"] {
+    margin: 0 auto;
+    max-width: 70ch;
 }
 
 figure > img {
@@ -152,56 +157,56 @@ figure > figcaption {
 }
 
 footer {
-	margin-top: 4rem;
+    margin-top: 4rem;
 }
 
 footer > p {
-	text-align: center;
+    text-align: center;
 }
 
 @media screen and (min-width: 700pt) {
-	body {
-		max-width: 800pt;
-		margin: 0 auto;
-	}
+    body {
+        max-width: 800pt;
+        margin: 0 auto;
+    }
 
-	article[is="home"] {
-		display: grid;
-		column-gap: 2rem;
-		min-height: 100vh;
-		grid-template-columns: auto auto auto;
-	}
+    article[is="home"] {
+        display: grid;
+        column-gap: 2rem;
+        min-height: 100vh;
+        grid-template-columns: auto auto auto;
+    }
 
-	article[is="home"] > section {
-		padding-top: 100px;
-	}
+    article[is="home"] > section {
+        padding-top: 100px;
+    }
 
     article[is="book-details"] {
         grid-template-columns: auto auto;
     }
 
-	nav {
-    	text-align: center;
-	}
+    nav {
+        text-align: center;
+    }
 
-	nav > ul {
-    	margin: 0 auto;
-    	padding: 0;
-    	display: flex;
-    	list-style: none;
-	}
+    nav > ul {
+        margin: 0 auto;
+        padding: 0;
+        display: flex;
+        list-style: none;
+    }
 
-	nav > ul > li:after {
-    	content: '|';
-	}
+    nav > ul > li:after {
+        content: '|';
+    }
 
-	nav > ul > li:last-of-type:after {
-		content: '';
-	}
+    nav > ul > li:last-of-type:after {
+        content: '';
+    }
 
-	nav a,
-	nav span {
-    	display: inline-block;
-    	padding: 1rem;
-	}
+    nav a,
+    nav span {
+        display: inline-block;
+        padding: 1rem;
+    }
 }
