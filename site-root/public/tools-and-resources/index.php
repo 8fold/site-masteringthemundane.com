@@ -16,6 +16,7 @@ require_once($relativeToRoot . 'header.php');
     <h1>Tools and Resources</h1>
     <ul>
         <li><a href="/tools-and-resources/the-5-ps/">The 5 Ps</a></li>
+        <li><a href="/tools-and-resources/motivators/">Motivators</a></li>
     </ul>
 </article>
 <?php require_once($relativeToRoot . 'foot.php'); ?>
