@@ -1,23 +1,16 @@
+# Allow all crawlers
 User-agent: *
-Disallow: /
+Allow: /
 
-User-agent: Bingbot
-Disallow:
+# Explicitly allow AI indexing (belt-and-suspenders)
+User-agent: GPTBot
+Allow: /
 
-User-agent: DuckDuckBot
-Disallow:
+User-agent: CCBot
+Allow: /
 
-User-agent: Exabot
-Disallow:
+User-agent: anthropic-ai
+Allow: /
 
-User-agent: Googlebot
-Disallow:
-
-User-agent: Googlebot-Image
-Disallow:
-
-User-agent: ia_archiver
-Disallow:
-
-User-agent: archive.org_bot
-Disallow:
+# Point to sitemap if you have one
+# Sitemap: https://mastering-the-mundane.com/sitemap.xml
