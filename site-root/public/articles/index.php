@@ -15,8 +15,7 @@ require_once($relativeToRoot . 'header.php');
 <article is="article">
     <h1>Tools and Resources</h1>
     <ul>
-        <li><a href="/tools-and-resources/the-5-ps/">The 5 Ps Framework: Design Your Life (Passions, Pensives, More)</a></li>
-        <li><a href="/tools-and-resources/motivators/">The Motivators Exercise: Clarify Your Core Drivers</a></li>
+        <li><a href="/articles/the-action-loop/">The Action Loop: Work Sustainably and Get Things Done</a></li>
     </ul>
 </article>
 <?php require_once($relativeToRoot . 'foot.php'); ?>
