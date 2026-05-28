@@ -7,11 +7,20 @@ Fair warning, this can be a difficult exercise.
 
 To front-load things, the 5 Ps are:
 
-- Passions: Things you do with no form of coercion or motivation; the thing itself is the reward.
-- Pensives: Things you will do but usually require a bit of outside influence.
-- Prohibitions: Things you won't do regardless of coercion or outside influence.
-- Peeves: Things others do that bother you.
-- Pedagogies: Things you want to learn or are willing or able to teach others.
+Passions:
+:    Things you do with no form of coercion or motivation; the thing itself is the reward.
+
+Pensives:
+:    Things you will do but usually require a bit of outside influence.
+
+Prohibitions:
+:    Things you won't do regardless of coercion or outside influence.
+
+Peeves:
+:    Things others do that bother you.
+
+Pedagogies:
+:    Things you want to learn or are willing or able to teach others.
 
 The goal is to list at least three things that fit into each of these categories for you.
 
