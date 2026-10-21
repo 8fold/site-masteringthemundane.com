@@ -21,6 +21,10 @@ Do not change the original `.com` host.
   to check landmarks, heading order and definition-list announcements.
 - Title, description and social metadata retain the prior values. No form,
   account, embed, external font or runtime Markdown request is introduced.
+- Dates stack by default; at 70ch and wider they share a row with Updated left
+  and Original right. Both retain visible labels and semantic `time` values.
+  Check a single Original date stays left-aligned at both widths, and longer
+  date labels wrap without overflow.
 - Follow the Motivators link from Articles and the unchanged resources index.
   Recheck Coaching, Articles, Action Loop and The 5 Ps: only Motivators changes
   presentation. Do not book or submit anything.

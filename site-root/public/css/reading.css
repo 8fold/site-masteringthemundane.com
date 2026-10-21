@@ -102,6 +102,26 @@ p {
   margin-block: 0 var(--space-md);
 }
 
+[is="publication-dates"] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xs);
+  margin-block-end: var(--space-md);
+}
+
+[is="publication-dates"] > p {
+  margin: 0;
+}
+
+@media (min-width: 70ch) {
+  [is="publication-dates"] {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--space-xs) var(--space-md);
+  }
+}
+
 main :is(ul, ol):not([is]):not([role]):not(:has(> li[is])):not(nav *) > li + li,
 main dl:not([is]):not([role]):not(nav *) > dd + dt {
   margin-block-start: var(--space-xs);
