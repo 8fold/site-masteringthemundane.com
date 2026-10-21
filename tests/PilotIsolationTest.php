@@ -19,7 +19,6 @@ final class PilotIsolationTest extends TestCase
             '/services/index.php',
             '/articles/the-action-loop/index.php',
             '/tools-and-resources/index.php',
-            '/tools-and-resources/the-5-ps/index.php'
             ] as $route
         ) {
             $html = $this->renderLegacyRoute($root . $route);

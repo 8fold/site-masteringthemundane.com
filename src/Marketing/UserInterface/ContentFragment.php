@@ -17,7 +17,12 @@ final class ContentFragment
             );
         }
         $path = dirname(__DIR__, 3) . '/public_content' . $route . 'content.html';
-        if ($route === '/tools-and-resources/motivators/') {
+        if (
+            in_array($route, [
+                '/tools-and-resources/motivators/',
+                '/tools-and-resources/the-5-ps/'
+            ], true)
+        ) {
             $path = dirname(__DIR__, 3) . '/site-root/public' . $route . 'content.html';
         }
         if (!is_file($path)) {

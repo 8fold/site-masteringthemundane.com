@@ -1,20 +1,9 @@
 <?php
-$relativeToRoot = '../../';
 
-require_once($relativeToRoot . 'constants.php');
+declare(strict_types=1);
 
-$pageTitle = "The 5 Ps Framework: Design Your Life (Passions, Pensives, More) | Tools and Resources | Mastering the Mundane";
+use MTM\Marketing\UserInterface\FivePsPage;
 
-$description = 'A life design framework to clarify your passions, prohibitions, and career path. Explore the 5 Ps exercise used in team culture and personal coaching.';
+require_once dirname(__DIR__, 4) . '/vendor/autoload.php';
 
-$poster = $url . '/media/poster.png';
-
-require_once($relativeToRoot . 'head.php');
-require_once($relativeToRoot . 'header.php');
-?>
-<article is="article">
-    <section>
-        <?php require_once('./content.html'); ?>
-    </section>
-</article>
-<?php require_once($relativeToRoot . 'foot.php'); ?>
+echo FivePsPage::render();

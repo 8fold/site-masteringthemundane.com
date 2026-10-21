@@ -23,13 +23,15 @@ final class ContentCompilerTest extends TestCase
             self::assertSame($compiled, ContentCompiler::compile($source));
             self::assertSame($compiled, ContentFragment::forRoute($route));
         }
-        $source = file_get_contents(
-            dirname(__DIR__) . '/site-root/public/tools-and-resources/motivators/content.md'
-        );
-        self::assertIsString($source);
-        $compiled = ContentCompiler::compile($source);
-        self::assertSame($compiled, ContentCompiler::compile($source));
-        self::assertSame($compiled, ContentFragment::forRoute('/tools-and-resources/motivators/'));
+        foreach (['/tools-and-resources/motivators/', '/tools-and-resources/the-5-ps/'] as $route) {
+            $source = file_get_contents(
+                dirname(__DIR__) . '/site-root/public' . $route . 'content.md'
+            );
+            self::assertIsString($source);
+            $compiled = ContentCompiler::compile($source);
+            self::assertSame($compiled, ContentCompiler::compile($source));
+            self::assertSame($compiled, ContentFragment::forRoute($route));
+        }
     }
 
     public function testTrustedInlineHtmlLinksAndAbbreviationsKeepTheirSemantics(): void
@@ -133,6 +135,9 @@ final class ContentCompilerTest extends TestCase
                 . '/public_content/coaching-and-mentoring/content.md -> content.html' . PHP_EOL
                 . 'compiled (mastering-the-mundane.com): '
                 . '/site-root/public/tools-and-resources/motivators/content.md -> content.html'
+                . PHP_EOL
+                . 'compiled (mastering-the-mundane.com): '
+                . '/site-root/public/tools-and-resources/the-5-ps/content.md -> content.html'
                 . PHP_EOL,
             $output
         );

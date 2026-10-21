@@ -1,7 +1,7 @@
-# The 5 Ps exercise by Josh Bruce
-
-<b>Updated:</b> May 11, 2026<br>
-<b>Original:</b> September 8, 2018
+<div is="publication-dates">
+<p><b>Updated:</b> <time datetime="2026-05-11">May 11, 2026</time></p>
+<p><b>Original:</b> <time datetime="2018-09-08">September 8, 2018</time></p>
+</div>
 
 Fair warning, this can be a difficult exercise.
 
@@ -14,7 +14,7 @@ Pensives:
 :    Things you will do but usually require a bit of outside influence.
 
 Prohibitions:
-:    Things you won't do regardless of coercion or outside influence.
+:    Things you won’t do regardless of coercion or outside influence.
 
 Peeves:
 :    Things others do that bother you.
@@ -28,15 +28,17 @@ Quick example for me:
 
 - Passions: Helping others make peace with time and space.
 - Pensives: Software development.
-- Prohibitions: Lying - specifically, speaking what I know to be counter to reality; I may be wrong about something, but it's because I'm coming from a place of ignorance.
-- Peeves: When people assume to know my "why" or speak on my behalf without my consent.
+- Prohibitions: Lying - specifically, speaking what I know to be counter to reality; I may be wrong about something, but it’s because I’m coming from a place of ignorance.
+- Peeves: When people assume to know my “why” or speak on my behalf without my consent.
 - Pedagogies: Learn to become a better storyteller and teach others how to design their lives.
 
 People often ask me whether to limit this to work, life, or both. I lean toward both by default because I follow the spirit of Henry Rollins, that there is no such thing as work time, spare time, free time, or downtime, only lifetime. Go!
 
 Having said that, I’ve run people through this exercise in settings where they didn’t feel comfortable sharing with, say, their coworkers. Regardless, when we talk about designing your life, there is no area that is off-limits.
 
-## For groups
+<section is="group-application" aria-labelledby="for-groups">
+
+<h2 id="for-groups">For groups</h2>
 
 As a group exercise, the 5 Ps can go a long way toward creating an intentional culture, or be an effective icebreaker; family or corporate.
 
@@ -46,3 +48,5 @@ As a group exercise, the 5 Ps can go a long way toward creating an intentional c
 These are the only two steps needed to use the exercise as an icebreaker. When using it to create an intentional team culture, I’ll capture themes or higher-order concepts from what the individuals come up with.
 
 I worked with a software development team once, wherein everyone was pensive about software development. So, that became a team-level pensive for the team, and an entire discussion about career choices for everyone in the room, which was funny. And, to be fair, a non-trivial number of us get jobs in something we’re pensive about to earn enough to fund our passions; software developers passionate about travel or playing music.
+
+</section>

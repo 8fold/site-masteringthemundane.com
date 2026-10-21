@@ -8,6 +8,7 @@
 	<file>site-root/public/coaching-and-mentoring/index.php</file>
 	<file>site-root/public/articles/index.php</file>
 	<file>site-root/public/tools-and-resources/motivators/index.php</file>
+	<file>site-root/public/tools-and-resources/the-5-ps/index.php</file>
 
 	<exclude-pattern>*/src/assets/*/**$</exclude-pattern>
 
