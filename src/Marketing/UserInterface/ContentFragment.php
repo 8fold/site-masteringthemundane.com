@@ -17,6 +17,9 @@ final class ContentFragment
             );
         }
         $path = dirname(__DIR__, 3) . '/public_content' . $route . 'content.html';
+        if ($route === '/tools-and-resources/motivators/') {
+            $path = dirname(__DIR__, 3) . '/site-root/public' . $route . 'content.html';
+        }
         if (!is_file($path)) {
             throw new RuntimeException(
                 'Missing fragment for ' . $route . '; run composer compile-content.'

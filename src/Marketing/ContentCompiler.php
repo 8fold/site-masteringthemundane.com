@@ -15,7 +15,7 @@ final class ContentCompiler
             'html_input' => 'allow',
             'allow_unsafe_links' => false,
             'max_nesting_level' => 100
-        ])->tables()->abbreviations()->externalLinks([
+        ])->tables()->descriptionLists()->abbreviations()->externalLinks([
             'internal_hosts' => ['/\Amastering-the-mundane\.com\z/i'],
             'open_in_new_window' => true,
             'noopener' => 'external',

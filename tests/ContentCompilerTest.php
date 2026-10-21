@@ -23,6 +23,13 @@ final class ContentCompilerTest extends TestCase
             self::assertSame($compiled, ContentCompiler::compile($source));
             self::assertSame($compiled, ContentFragment::forRoute($route));
         }
+        $source = file_get_contents(
+            dirname(__DIR__) . '/site-root/public/tools-and-resources/motivators/content.md'
+        );
+        self::assertIsString($source);
+        $compiled = ContentCompiler::compile($source);
+        self::assertSame($compiled, ContentCompiler::compile($source));
+        self::assertSame($compiled, ContentFragment::forRoute('/tools-and-resources/motivators/'));
     }
 
     public function testTrustedInlineHtmlLinksAndAbbreviationsKeepTheirSemantics(): void
@@ -123,7 +130,10 @@ final class ContentCompilerTest extends TestCase
             'compiled (mastering-the-mundane.com): '
                 . '/public_content/articles/published.json -> content.html' . PHP_EOL
                 . 'compiled (mastering-the-mundane.com): '
-                . '/public_content/coaching-and-mentoring/content.md -> content.html' . PHP_EOL,
+                . '/public_content/coaching-and-mentoring/content.md -> content.html' . PHP_EOL
+                . 'compiled (mastering-the-mundane.com): '
+                . '/site-root/public/tools-and-resources/motivators/content.md -> content.html'
+                . PHP_EOL,
             $output
         );
         self::assertStringNotContainsString($root, $output);
@@ -134,6 +144,14 @@ final class ContentCompilerTest extends TestCase
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('run composer compile-content');
         ContentFragment::forRoute('/not-published/');
+    }
+
+    public function testDescriptionListsPreserveTermsDefinitionsAndInlineSemantics(): void
+    {
+        self::assertSame(
+            "<dl>\n<dt>Term</dt>\n<dd>A <em>meaning</em>.</dd>\n</dl>\n",
+            ContentCompiler::compile("Term\n: A *meaning*.")
+        );
     }
 
     public function testContentRoutesCannotEscapeTheContentDirectory(): void

@@ -74,7 +74,8 @@ main > h2:first-child {
   margin-block-start: var(--space-md);
 }
 
-article:has(h3) {
+article:has(h3),
+section[is="group-application"] {
   margin-top: var(--space-md);
   padding: 1.25rem;
   border-radius: 8px;
@@ -84,8 +85,13 @@ article:has(h3) {
   width: 100%;
 }
 
-article:has(h3) h3 {
+article:has(h3) h3,
+section[is="group-application"] > h2 {
   margin-top: 0;
+}
+
+section[is="group-application"] > :last-child {
+  margin-block-end: 0;
 }
 
 b, strong {
@@ -96,7 +102,8 @@ p {
   margin-block: 0 var(--space-md);
 }
 
-main :is(ul, ol):not([is]):not([role]):not(:has(> li[is])):not(nav *) > li + li {
+main :is(ul, ol):not([is]):not([role]):not(:has(> li[is])):not(nav *) > li + li,
+main dl:not([is]):not([role]):not(nav *) > dd + dt {
   margin-block-start: var(--space-xs);
 }
 
