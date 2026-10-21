@@ -1,5 +1,7 @@
-<b>Updated:</b> May 11, 2026<br>
-<b>Original:</b> September 16, 2018
+<div is="publication-dates">
+<p><b>Updated:</b> <time datetime="2026-05-11">May 11, 2026</time></p>
+<p><b>Original:</b> <time datetime="2018-09-16">September 16, 2018</time></p>
+</div>
 
 The exercise was inspired by Dan Pink’s work in the book *Drive*, Gary Chapman with *The 5 Love Languages*, and some generation-based demographic research.
 

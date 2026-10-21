@@ -159,6 +159,24 @@ final class MotivatorsPageTest extends TestCase
         );
     }
 
+    public function testPublicationDatesKeepTheirMeaningAndReadingOrder(): void
+    {
+        $xpath = $this->page();
+        $dates = '//main/div[@is="publication-dates"]';
+        self::assertSame(1.0, $xpath->evaluate('count(' . $dates . ')'));
+        self::assertSame(2.0, $xpath->evaluate('count(' . $dates . '/p/time)'));
+        self::assertSame(
+            '2026-05-11',
+            $xpath->evaluate('string(' . $dates . '/p[1]/time/@datetime)')
+        );
+        self::assertSame(
+            '2018-09-16',
+            $xpath->evaluate('string(' . $dates . '/p[2]/time/@datetime)')
+        );
+        self::assertSame('Updated:', $xpath->evaluate('string(' . $dates . '/p[1]/b)'));
+        self::assertSame('Original:', $xpath->evaluate('string(' . $dates . '/p[2]/b)'));
+    }
+
     private function page(): DOMXPath
     {
         $previous = libxml_use_internal_errors(true);
