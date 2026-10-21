@@ -79,7 +79,7 @@ final class CoachingPage
                 'header',
                 self::navigation('Menu', 'primary-navigation', [
                     '/' => 'Home',
-                    '/coaching-and-mentoring/' => 'Coaching and Mentoring',
+                    '/coaching-and-mentoring/' => 'Coaching',
                     '/#time' => 'Time',
                     '/#people' => 'People',
                     '/#space' => 'Space',
