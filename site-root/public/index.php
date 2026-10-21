@@ -13,12 +13,16 @@ require_once($relativeToRoot . 'head.php');
 require_once($relativeToRoot . 'header.php');
 ?>
 <article is="home">
-	<p is="sr-only">Assisting you in making peace with: <a href="#time">time</a>, <a href="#space">space</a>, and <a href="#money">money</a>.</p>
+	<p is="sr-only">Assisting you in making peace with: <a href="#time">time</a>, <a href="#people">people</a>, <a href="#space">space</a>, and <a href="#money">money</a>.</p>
 	<section>
 		<h2 id="time">Time</h2>
 		<p>Create or upgrade your time management system.</p>
 		<p><a href="/booking/">Schedule a session</a></p>
 		<p><a href="/books/time-mastering-the-mundane/">The book</a></p>
+	</section>
+	<section>
+		<h2 id="people">People</h2>
+		<p>Content coming soon.</p>
 	</section>
 	<section>
 		<h2 id="space">Space</h2>
