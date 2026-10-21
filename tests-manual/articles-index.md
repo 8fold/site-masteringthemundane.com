@@ -9,8 +9,13 @@ must approve and verify a preview switch first. Do not change MAMP or the
   the browser title and short description identify the Articles index too.
   Open Graph and Twitter titles/descriptions must match their HTML counterparts.
   Other metadata and canonical policy remain unchanged.
-  Follow the Action Loop link to `/articles/the-action-loop/`, which must retain
-  its legacy appearance and content.
+  Check the published list identifies Action Loop as Article / Time and
+  Motivators and The 5 Ps as Exercise / People. Follow the links to
+  `/articles/the-action-loop/`, `/tools-and-resources/motivators/` and
+  `/tools-and-resources/the-5-ps/`; each retains its legacy appearance and
+  content. The resources index remains available. No drafts appear.
+  Each list item has a second "Last updated" line: February 2, 2024 for
+  Action Loop and May 11, 2026 for both exercises.
 - Check Menu and Read with keyboard and pointer: open using Enter/Space,
   dismiss using Escape or outside click, and verify focus return. Only Articles
   is current, in Read, with bold double-underline styling. Menu keeps Home,
@@ -29,9 +34,12 @@ must approve and verify a preview switch first. Do not change MAMP or the
   fonts, external embeds, account or database requests.
 - Run `composer production`, `composer compile-content` twice and
   `composer check-content`. Both generated fragments must be deterministic.
-  Compiler stdout lists Articles then Coaching with portable source paths and
+  Compiler stdout lists Articles' `published.json` then Coaching's `content.md`
+  with portable source paths and
   the fixed production hostname. Check stale and missing fragments fail rather
-  than rendering success or silently compiling during requests.
+  than   rendering success or silently compiling during requests. Automated isolated
+  fixtures exercise malformed/invalid metadata, unknown type/domain, explicit
+  published-only selection, HTML escaping and metadata-driven freshness.
 - Compare non-target routes with the baseline: Home, Books and book detail,
   services, the individual Action Loop article, resources and their details.
   Legacy styles, content, redirects and metadata must remain unchanged.

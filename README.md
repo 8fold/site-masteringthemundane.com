@@ -31,7 +31,8 @@ Individual articles, resources, Home and Books are not migrated.
 The Articles index corrects its inherited Time/Tools and Resources labels to
 Articles, with a short matching description. Open Graph and Twitter titles and
 descriptions follow those corrected values; other metadata and SEO policy are
-unchanged. Its published Action Loop text and destination are unchanged.
+unchanged. The index now discovers three explicitly selected published items
+from their metadata; their content, rendering and public destinations are unchanged.
 
 Use PHP 8.5+ and run `composer install` from the repository root. Commit
 `composer.lock` so local development and CI resolve the same application dependencies.
@@ -39,8 +40,9 @@ Apache's document root remains `site-root/public`; neither `src/` nor
 `public_content/` belongs in the webroot. No database, session, environment file,
 JavaScript build, or account system is required.
 
-Edit `public_content/coaching-and-mentoring/content.md` or
-`public_content/articles/content.md`, then run:
+Edit `public_content/coaching-and-mentoring/content.md` for Coaching prose.
+The Articles fragment is generated from the published collection described below,
+not hand-maintained Markdown. After changing either source, run:
 
 ```sh
 composer compile-content
@@ -50,7 +52,7 @@ composer run stan
 composer test
 ```
 
-Commit both Markdown and the generated sibling `content.html`. Compilation uses
+Commit the source changes and generated `content.html`. Compilation uses
 portable per-file output, for example
 `compiled (mastering-the-mundane.com): /public_content/coaching-and-mentoring/content.md -> content.html`.
 The label is the fixed public hostname, not the local preview host. Conversion uses
@@ -80,10 +82,50 @@ Negative compiler-rendered fixtures prove that unsafe raw anchors fail this
 assertion; the check does not sanitize them at runtime or migrate legacy pages.
 Tests protect these link/rendering contracts, not editorial wording, prices,
 paragraph counts or incidental wrappers.
-It never publishes
-`content-root/` drafts or recompiles older articles. `check-content` is read-only
+It never publishes `content-root/` drafts or recompiles older articles.
+The Articles compiler reports
+`compiled (mastering-the-mundane.com): /public_content/articles/published.json -> content.html`.
+`check-content` is read-only
 and fails for missing or stale artifacts; CI runs it too. Production requests read
 the compiled HTML without loading the development-only Markdown converter.
+
+#### Published content metadata
+
+`public_content/articles/published.json` is the explicit, ordered collection of
+existing public routes for discovery on Articles. There is no metadata glob and
+no automatic publication: adding a `meta.json`, including under `content-root/`,
+does not include an item. A selected route must already have `index.php`,
+`content.html`, and `meta.json` under `site-root/public`.
+
+Each selected item's `meta.json` supplies:
+
+- `listingTitle`: a non-empty display title, taken from the existing public link
+  or page title. This avoids using copied/inconsistent legacy `title` values.
+- `type`: exactly `article`, `exercise`, or `reference`.
+- `domain`: exactly `Time`, `People`, `Space`, or `Money`.
+- `tags`: a JSON list of non-empty topic strings; `[]` is valid. Tags are not
+  another type/domain taxonomy and are not displayed or used for filtering yet.
+- `updated`: a valid calendar date in `YYYYMMDD` format, rendered on a second
+  line as "Last updated" with a machine-readable HTML `time` element.
+
+The current collection is Action Loop (`article`, `Time`), Motivators
+(`exercise`, `People`) and The 5 Ps (`exercise`, `People`), all with empty tags.
+Action Loop's discussion of sustainable pace, Parkinson's Law and the model from
+*Triumph over Time* supports its Time classification. Articles intentionally
+provides unified discovery of both articles and exercises while the existing
+resources index and detail URLs remain available.
+
+Source content and unrelated legacy metadata fields are preserved. The three
+`updated` values were explicitly reconciled with the dates already displayed in
+published content: February 2, 2024 for Action Loop, and May 11, 2026 for both
+exercises. Dates are read from metadata, never inferred or automatically chosen
+by comparing sources. Legacy titles and creation dates still need separate
+editorial review.
+Malformed JSON, invalid required fields, unknown taxonomy values, duplicate or
+invalid routes and missing published files fail the build with the source path.
+All fragments are prepared before writing; `composer check-content` checks the
+generated index as well as Markdown fragments without modifying files.
+There is no runtime metadata parsing, new dependency, search or filtering.
 
 The shared shell is `src/Marketing/UserInterface/ReadingPage.php`;
 `CoachingPage` and `ArticlesPage` supply their existing metadata, heading and
