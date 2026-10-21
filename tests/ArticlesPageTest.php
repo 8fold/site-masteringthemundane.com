@@ -59,7 +59,37 @@ final class ArticlesPageTest extends TestCase
             '/articles/the-action-loop/',
             $xpath->evaluate('string(//main//a/@href)')
         );
-        self::assertSame(1.0, $xpath->evaluate('count(//main//a)'));
+        self::assertSame(3.0, $xpath->evaluate('count(//main//a)'));
+        foreach (
+            [
+            '/articles/the-action-loop/' => ['2024-02-02', 'February 2, 2024'],
+            '/tools-and-resources/motivators/' => ['2026-05-11', 'May 11, 2026'],
+            '/tools-and-resources/the-5-ps/' => ['2026-05-11', 'May 11, 2026']
+            ] as $href => [$date, $label]
+        ) {
+            $item = '//main//li[a[@href="' . $href . '"]]';
+            self::assertSame(1.0, $xpath->evaluate('count(' . $item . '/br)'));
+            self::assertSame($date, $xpath->evaluate('string(' . $item . '/time/@datetime)'));
+            self::assertSame($label, $xpath->evaluate('string(' . $item . '/time)'));
+            $text = $xpath->evaluate('string(' . $item . ')');
+            self::assertIsString($text);
+            self::assertStringContainsString('Last updated: ' . $label, $text);
+        }
+        foreach (
+            [
+            '/articles/the-action-loop/' => 'Article / Time',
+            '/tools-and-resources/motivators/' => 'Exercise / People',
+            '/tools-and-resources/the-5-ps/' => 'Exercise / People'
+            ] as $href => $taxonomy
+        ) {
+            self::assertSame(
+                1.0,
+                $xpath->evaluate('count(//main//li/a[@href="' . $href . '"])')
+            );
+            $item = $xpath->evaluate('string(//main//li[a[@href="' . $href . '"]])');
+            self::assertIsString($item);
+            self::assertStringContainsString($taxonomy, $item);
+        }
         $linkText = $xpath->evaluate('string(//main//a)');
         self::assertIsString($linkText);
         self::assertNotSame('', trim($linkText));

@@ -1,7 +1,11 @@
 {
   "title": "The 5 Ps",
   "created": "20210623",
-  "updated": "20240201",
+  "updated": "20260511",
   "priority": "0.8",
-  "order": 1
+  "order": 1,
+  "listingTitle": "The Motivators Exercise: Clarify Your Core Drivers",
+  "type": "exercise",
+  "domain": "People",
+  "tags": []
 }

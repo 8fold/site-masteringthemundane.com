@@ -14,7 +14,7 @@ final class ContentCompilerTest extends TestCase
 {
     public function testCompilationIsDeterministicAndCommittedFragmentIsFresh(): void
     {
-        foreach (['/articles/', '/coaching-and-mentoring/'] as $route) {
+        foreach (['/coaching-and-mentoring/'] as $route) {
             $source = file_get_contents(
                 dirname(__DIR__) . '/public_content' . $route . 'content.md'
             );
@@ -121,7 +121,7 @@ final class ContentCompilerTest extends TestCase
         self::assertSame('', $errors);
         self::assertSame(
             'compiled (mastering-the-mundane.com): '
-                . '/public_content/articles/content.md -> content.html' . PHP_EOL
+                . '/public_content/articles/published.json -> content.html' . PHP_EOL
                 . 'compiled (mastering-the-mundane.com): '
                 . '/public_content/coaching-and-mentoring/content.md -> content.html' . PHP_EOL,
             $output
