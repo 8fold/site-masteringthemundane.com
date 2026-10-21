@@ -22,12 +22,13 @@ You should see the same Mastering the Mundane website that you could find on the
 
 ## Contributing
 
-### Reading pages: Coaching and Articles
+### Reading pages: Coaching, Articles and Motivators
 
-`/coaching-and-mentoring/` and the `/articles/` index adopt the apps site's
+`/coaching-and-mentoring/`, the `/articles/` index and
+`/tools-and-resources/motivators/` adopt the apps site's
 visual and architectural foundation. All other routes still use their existing
 templates and stylesheet. Legacy redirects are unchanged.
-Individual articles, resources, Home and Books are not migrated.
+Other individual articles and resources, Home and Books are not migrated.
 The Articles index corrects its inherited Time/Tools and Resources labels to
 Articles, with a short matching description. Open Graph and Twitter titles and
 descriptions follow those corrected values; other metadata and SEO policy are
@@ -83,6 +84,22 @@ assertion; the check does not sanitize them at runtime or migrate legacy pages.
 Tests protect these link/rendering contracts, not editorial wording, prices,
 paragraph counts or incidental wrappers.
 It never publishes `content-root/` drafts or recompiles older articles.
+Motivators is the one explicitly selected legacy source added to the compiler:
+edit `site-root/public/tools-and-resources/motivators/content.md` and commit its
+generated sibling `content.html`. These stay at their existing paths to avoid
+duplicating the source or changing the published metadata collection's file
+contract. `ContentFragment` explicitly maps only that route to its existing
+artifact; other legacy directories are not scanned or rendered by the new shell.
+The original content heading now lives in `MotivatorsPage`'s shared header, so
+the page has one h1. Prose, dates, order and exercise instructions are unchanged.
+Four straight apostrophes in Markdown were aligned with the curly apostrophes
+already displayed in its legacy HTML, preserving the published text exactly.
+The individual walkthrough stays unboxed. "For the group" is a named section
+using the shared card treatment to distinguish the collective application;
+its heading remains h2. The closing "One other thing" remains outside that
+container because its guidance applies to either context.
+The existing Markdown library's `descriptionLists()` extension preserves its
+two semantic definition lists; no new dependency or runtime converter is used.
 The Articles compiler reports
 `compiled (mastering-the-mundane.com): /public_content/articles/published.json -> content.html`.
 `check-content` is read-only
@@ -128,7 +145,7 @@ generated index as well as Markdown fragments without modifying files.
 There is no runtime metadata parsing, new dependency, search or filtering.
 
 The shared shell is `src/Marketing/UserInterface/ReadingPage.php`;
-`CoachingPage` and `ArticlesPage` supply their existing metadata, heading and
+`CoachingPage`, `ArticlesPage` and `MotivatorsPage` supply their existing metadata, heading and
 content route. Each entry point only loads Composer and renders its page.
 `site-root/public/css/reading.css` adapts
 the apps legal page's executable CSS: 16px base typography, exact `70ch` main
@@ -159,7 +176,8 @@ root when switching worktrees rather than assuming retargeting the link suffices
 Keep the original `.com` vhost unchanged.
 
 Browser and external-boundary checks are documented in
-`tests-manual/coaching-pilot.md` and `tests-manual/articles-index.md`.
+`tests-manual/coaching-pilot.md`, `tests-manual/articles-index.md` and
+`tests-manual/motivators.md`.
 Automated tests assert rendering, actions,
 metadata, compiler determinism and freshness, asset hash behavior and legacy
 route isolation rather than taking editorial snapshots.

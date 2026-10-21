@@ -17,7 +17,9 @@ if ($argc > 2 || ($argc === 2 && $argv[1] !== '--check')) {
 }
 
 $check = $argc === 2;
-$sources = [];
+$sources = [
+    __DIR__ . '/../site-root/public/tools-and-resources/motivators/content.md'
+];
 $entries = new RecursiveIteratorIterator(
     new RecursiveDirectoryIterator(__DIR__ . '/../public_content', FilesystemIterator::SKIP_DOTS)
 );
@@ -27,10 +29,6 @@ foreach ($entries as $entry) {
     }
 }
 sort($sources, SORT_STRING);
-
-if ($sources === []) {
-    throw new RuntimeException('No pilot Markdown sources found.');
-}
 
 $artifacts = [
     __DIR__ . '/../public_content/articles/content.html' => [
