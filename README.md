@@ -22,11 +22,16 @@ You should see the same Mastering the Mundane website that you could find on the
 
 ## Contributing
 
-### Coaching page pilot
+### Reading pages: Coaching and Articles
 
-`/coaching-and-mentoring/` is the first isolated adoption of the apps site's
+`/coaching-and-mentoring/` and the `/articles/` index adopt the apps site's
 visual and architectural foundation. All other routes still use their existing
 templates and stylesheet. Legacy redirects are unchanged.
+Individual articles, resources, Home and Books are not migrated.
+The Articles index corrects its inherited Time/Tools and Resources labels to
+Articles, with a short matching description. Open Graph and Twitter titles and
+descriptions follow those corrected values; other metadata and SEO policy are
+unchanged. Its published Action Loop text and destination are unchanged.
 
 Use PHP 8.5+ and run `composer install` from the repository root. Commit
 `composer.lock` so local development and CI resolve the same application dependencies.
@@ -34,7 +39,8 @@ Apache's document root remains `site-root/public`; neither `src/` nor
 `public_content/` belongs in the webroot. No database, session, environment file,
 JavaScript build, or account system is required.
 
-Edit `public_content/coaching-and-mentoring/content.md`, then run:
+Edit `public_content/coaching-and-mentoring/content.md` or
+`public_content/articles/content.md`, then run:
 
 ```sh
 composer compile-content
@@ -79,8 +85,10 @@ It never publishes
 and fails for missing or stale artifacts; CI runs it too. Production requests read
 the compiled HTML without loading the development-only Markdown converter.
 
-The marketing shell is `src/Marketing/UserInterface/CoachingPage.php`; its route
-only loads Composer and renders it. `site-root/public/css/coaching.css` adapts
+The shared shell is `src/Marketing/UserInterface/ReadingPage.php`;
+`CoachingPage` and `ArticlesPage` supply their existing metadata, heading and
+content route. Each entry point only loads Composer and renders its page.
+`site-root/public/css/reading.css` adapts
 the apps legal page's executable CSS: 16px base typography, exact `70ch` main
 width and responsive padding, heading defaults, footer,
 focus and link styling. Main renders the compiled fragment directly,
@@ -97,7 +105,7 @@ Coaching, and Home's Time/People/Space/Money
 anchors; Read links to Books and Articles. Home includes a placeholder People
 section so `/#people` resolves. Rewriting Home copy is deferred until the other
 pages have been converted; see [#10](https://github.com/8fold/site-masteringthemundane.com/issues/10).
-Coaching has `aria-current="page"`
+The current route has `aria-current="page"`
 and the established bold/double-underline visual current-page indication.
 The footer contains copyright only; the original tagline is omitted on the pilot.
 
@@ -109,7 +117,8 @@ root when switching worktrees rather than assuming retargeting the link suffices
 Keep the original `.com` vhost unchanged.
 
 Browser and external-boundary checks are documented in
-`tests-manual/coaching-pilot.md`. Automated tests assert rendering, actions,
+`tests-manual/coaching-pilot.md` and `tests-manual/articles-index.md`.
+Automated tests assert rendering, actions,
 metadata, compiler determinism and freshness, asset hash behavior and legacy
 route isolation rather than taking editorial snapshots.
 

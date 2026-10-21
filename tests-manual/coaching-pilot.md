@@ -50,7 +50,7 @@ and normal hostname resolution. Do not repoint the original site.
   behavior for this pilot. Currently `/booking/` removes the slash first (301),
   then `/booking` redirects to `/coaching-and-mentoring/` (301).
 - Compare non-pilot pages before/after: `/`, `/books/`,
-  `/books/time-mastering-the-mundane/`, `/services/`, `/articles/`,
+  `/books/time-mastering-the-mundane/`, `/services/`,
   `/articles/the-action-loop/`, `/tools-and-resources/`,
   `/tools-and-resources/motivators/`, `/tools-and-resources/the-5-ps/`.
   Their rendered HTML, stylesheets and appearance must remain unchanged.
@@ -58,6 +58,10 @@ and normal hostname resolution. Do not repoint the original site.
   identical. Changing the pilot CSS must change its `?v=` hash, and the stylesheet
   response must contain the intended CSS. Do not change metadata/canonicals,
   publish drafts or remove redirects as an incidental part of this pilot.
+
+The Articles index now shares the reading shell and `reading.css`; it is no
+longer a non-pilot comparison route. See `articles-index.md`. Historical
+`coaching.css` URLs below record the initial pilot only.
 
 https://com.mastering-the-mundane.copilot:8890/css/coaching.css?v=88c0f768290a72ae1067f15c1d135e12817f4dc62a00f30693b8a29aa3d50480
 https://com.mastering-the-mundane.copilot:8890/css/coaching.css?v=878788938ad55a365cbf20c789975ec273f4a08b88c24348041a277448114814

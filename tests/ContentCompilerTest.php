@@ -14,13 +14,15 @@ final class ContentCompilerTest extends TestCase
 {
     public function testCompilationIsDeterministicAndCommittedFragmentIsFresh(): void
     {
-        $source = file_get_contents(
-            dirname(__DIR__) . '/public_content/coaching-and-mentoring/content.md'
-        );
-        self::assertIsString($source);
-        $compiled = ContentCompiler::compile($source);
-        self::assertSame($compiled, ContentCompiler::compile($source));
-        self::assertSame($compiled, ContentFragment::forRoute('/coaching-and-mentoring/'));
+        foreach (['/articles/', '/coaching-and-mentoring/'] as $route) {
+            $source = file_get_contents(
+                dirname(__DIR__) . '/public_content' . $route . 'content.md'
+            );
+            self::assertIsString($source);
+            $compiled = ContentCompiler::compile($source);
+            self::assertSame($compiled, ContentCompiler::compile($source));
+            self::assertSame($compiled, ContentFragment::forRoute($route));
+        }
     }
 
     public function testTrustedInlineHtmlLinksAndAbbreviationsKeepTheirSemantics(): void
@@ -119,6 +121,8 @@ final class ContentCompilerTest extends TestCase
         self::assertSame('', $errors);
         self::assertSame(
             'compiled (mastering-the-mundane.com): '
+                . '/public_content/articles/content.md -> content.html' . PHP_EOL
+                . 'compiled (mastering-the-mundane.com): '
                 . '/public_content/coaching-and-mentoring/content.md -> content.html' . PHP_EOL,
             $output
         );

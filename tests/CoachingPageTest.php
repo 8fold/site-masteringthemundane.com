@@ -119,7 +119,7 @@ final class CoachingPageTest extends TestCase
         );
         self::assertSame(1, $this->countMatches($xpath, '//link[@rel="stylesheet"]'));
         self::assertMatchesRegularExpression(
-            '~\A/css/coaching\.css\?v=[a-f0-9]{64}\z~',
+            '~\A/css/reading\.css\?v=[a-f0-9]{64}\z~',
             $this->text($xpath, 'string(//link[@rel="stylesheet"]/@href)')
         );
         self::assertSame(0, $this->countMatches($xpath, '//header//img'));

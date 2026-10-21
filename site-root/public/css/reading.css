@@ -1,4 +1,4 @@
-/* Reading-page subset of apps base.css, without account or form controls. */
+/* Shared reading-page subset of apps base.css, without account or form controls. */
 :root {
   color-scheme: light dark;
   --color-ink: light-dark(#1A1D21, #EDEBE6);

@@ -17,7 +17,6 @@ final class PilotIsolationTest extends TestCase
             '/books/index.php',
             '/books/time-mastering-the-mundane/index.php',
             '/services/index.php',
-            '/articles/index.php',
             '/articles/the-action-loop/index.php',
             '/tools-and-resources/index.php',
             '/tools-and-resources/motivators/index.php',
@@ -28,6 +27,7 @@ final class PilotIsolationTest extends TestCase
             self::assertStringStartsWith('<!doctype html>', $html, $route);
             self::assertStringContainsString('/css/main.css?v=1.1', $html, $route);
             self::assertStringNotContainsString('coaching.css', $html, $route);
+            self::assertStringNotContainsString('reading.css', $html, $route);
             self::assertStringNotContainsString('is="marketing-header"', $html, $route);
         }
     }
@@ -35,7 +35,7 @@ final class PilotIsolationTest extends TestCase
     public function testPilotStylesRemainLocalAndIncludeFocusAndSkipLinkStates(): void
     {
         $root = dirname(__DIR__) . '/site-root/public';
-        $css = file_get_contents($root . '/css/coaching.css');
+        $css = file_get_contents($root . '/css/reading.css');
         self::assertIsString($css);
         self::assertStringNotContainsString('@import', $css);
         self::assertStringNotContainsString('@font-face', $css);
