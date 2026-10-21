@@ -258,6 +258,7 @@ nav a {
 nav a[aria-current="page"] {
   font-weight: var(--font-weight-bold);
   text-decoration-style: double;
+  text-decoration-thickness: 2px;
 }
 
 @supports not selector(:popover-open) {
