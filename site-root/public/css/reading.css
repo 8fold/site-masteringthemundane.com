@@ -261,6 +261,10 @@ nav a[aria-current="page"] {
   text-decoration-thickness: 2px;
 }
 
+nav a[aria-current="page"]:hover {
+  text-decoration-thickness: 1px;
+}
+
 @supports not selector(:popover-open) {
   [is="marketing-header"] {
     flex-wrap: wrap;
