@@ -8,7 +8,7 @@ Do not change the original `.com` host.
 - The original content title is the sole h1 in the shared header. Existing dates,
   prose, ordered instructions, two definition lists, abbreviation and h2 sections
   remain readable, with no duplicated title. The individual walkthrough remains
-  unboxed; only "For the group" has a named section container, with its h2.
+  unboxed; only "For groups" has a named section container, with its h2.
   "One other thing" remains a closing h2 outside the group container.
 - Menu and Read use native popovers with JavaScript disabled. Check pointer,
   Enter/Space, Escape, outside dismissal, focus return and skip-to-main. No link

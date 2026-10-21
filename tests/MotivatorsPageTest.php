@@ -83,6 +83,10 @@ final class MotivatorsPageTest extends TestCase
             1.0,
             $xpath->evaluate('count(' . $group . '/h2[@id="for-the-group"])')
         );
+        self::assertSame(
+            'For groups',
+            $xpath->evaluate('string(' . $group . '/h2)')
+        );
         self::assertGreaterThan(0.0, $xpath->evaluate('count(' . $group . '/p)'));
         self::assertSame(0.0, $xpath->evaluate('count(' . $group . '//dl)'));
         self::assertSame(

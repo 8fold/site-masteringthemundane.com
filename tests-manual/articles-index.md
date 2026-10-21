@@ -13,7 +13,7 @@ must approve and verify a preview switch first. Do not change MAMP or the
   Motivators and The 5 Ps as Exercise / People. Follow the links to
   `/articles/the-action-loop/`, `/tools-and-resources/motivators/` and
   `/tools-and-resources/the-5-ps/`; each retains its content. Motivators now uses
-  the shared reading presentation; Action Loop and The 5 Ps remain legacy.
+  the shared reading presentation, as does The 5 Ps; Action Loop remains legacy.
   The resources index remains available. No drafts appear.
   Each list item has a second "Last updated" line: February 2, 2024 for
   Action Loop and May 11, 2026 for both exercises.
@@ -34,15 +34,15 @@ must approve and verify a preview switch first. Do not change MAMP or the
 - Check page-load requests: local CSS/favicons only, no JavaScript, downloaded
   fonts, external embeds, account or database requests.
 - Run `composer production`, `composer compile-content` twice and
-  `composer check-content`. All three generated fragments must be deterministic.
+  `composer check-content`. All four generated fragments must be deterministic.
   Compiler stdout lists Articles' `published.json` then Coaching's `content.md`
-  then Motivators' explicitly selected `content.md`, with portable source paths and
+  then the explicitly selected Motivators and The 5 Ps `content.md` files, with portable source paths and
   the fixed production hostname. Check stale and missing fragments fail rather
   than rendering success or silently compiling during requests. Automated isolated
   fixtures exercise malformed/invalid metadata, unknown type/domain, explicit
   published-only selection, HTML escaping and metadata-driven freshness.
 - Compare non-target routes with the baseline: Home, Books and book detail,
-  services, the individual Action Loop article, resources and The 5 Ps.
+  services, the individual Action Loop article and the resources index.
   Legacy styles, content, redirects and metadata must remain unchanged.
 
 Browser, screen-reader, forced-colors and trusted HTTPS results must be reported

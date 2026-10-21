@@ -33,6 +33,11 @@ final class ArticlesIndexTest extends TestCase
             'site-root/public/tools-and-resources/motivators/content.md',
             "## Exercise\n\nTerm\n: Definition"
         );
+        mkdir($this->root . '/site-root/public/tools-and-resources/the-5-ps', 0700, true);
+        $this->write(
+            'site-root/public/tools-and-resources/the-5-ps/content.md',
+            "## Another exercise\n\nTerm\n: Definition"
+        );
     }
 
     protected function tearDown(): void
@@ -185,7 +190,7 @@ final class ArticlesIndexTest extends TestCase
             $generated,
             file_get_contents($this->root . '/public_content/articles/content.html')
         );
-        self::assertSame([0, "Verified 3 content fragment(s).\n", ''], $this->command('--check'));
+        self::assertSame([0, "Verified 4 content fragment(s).\n", ''], $this->command('--check'));
         $this->write(
             'site-root/public/item/meta.json',
             str_replace('20240229', '20240301', $this->metadata())

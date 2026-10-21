@@ -75,7 +75,7 @@ From this exercise, I can understand some fundamental values: purpose and autono
 
 <section is="group-application" aria-labelledby="for-the-group">
 
-<h2 id="for-the-group">For the group</h2>
+<h2 id="for-the-group">For groups</h2>
 
 I’ve started using this exercise with teams, and it’s been very insightful. As a coach, I use the results to help me communicate with my partners in the group.
 
