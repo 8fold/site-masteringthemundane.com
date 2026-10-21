@@ -1,21 +1,9 @@
 <?php
-$relativeToRoot = '../';
 
-require_once($relativeToRoot . 'constants.php');
+declare(strict_types=1);
 
-$pageTitle = "Time | Mastering the Mundane";
+use MTM\Marketing\UserInterface\ArticlesPage;
 
-$description = 'Josh Bruce is a self-proclaimed productivity super-freak and understands what itʼs like to feel like time is actively working against you. Over the years he has worked with individuals and organizations in making work suck less and increase joy in how folks spend their time.';
+require_once dirname(__DIR__, 3) . '/vendor/autoload.php';
 
-$poster = $url . '/media/poster.png';
-
-require_once($relativeToRoot . 'head.php');
-require_once($relativeToRoot . 'header.php');
-?>
-<article is="article">
-    <h1>Tools and Resources</h1>
-    <ul>
-        <li><a href="/articles/the-action-loop/">The Action Loop: Work Sustainably and Get Things Done</a></li>
-    </ul>
-</article>
-<?php require_once($relativeToRoot . 'foot.php'); ?>
+echo ArticlesPage::render();
