@@ -1,0 +1,65 @@
+<?php
+
+declare(strict_types=1);
+
+use MTM\Marketing\ContentCompiler;
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
+if (!isset($argc, $argv)) {
+    throw new RuntimeException('Run the content compiler from the command line.');
+}
+
+if ($argc > 2 || ($argc === 2 && $argv[1] !== '--check')) {
+    fwrite(STDERR, "Usage: php cli/compile-content.php [--check]\n");
+    exit(1);
+}
+
+$check = $argc === 2;
+$sources = [];
+$entries = new RecursiveIteratorIterator(
+    new RecursiveDirectoryIterator(__DIR__ . '/../public_content', FilesystemIterator::SKIP_DOTS)
+);
+foreach ($entries as $entry) {
+    if ($entry instanceof SplFileInfo && $entry->getExtension() === 'md') {
+        $sources[] = $entry->getPathname();
+    }
+}
+sort($sources, SORT_STRING);
+
+if ($sources === []) {
+    throw new RuntimeException('No pilot Markdown sources found.');
+}
+
+$stale = false;
+foreach ($sources as $source) {
+    $markdown = file_get_contents($source);
+    if ($markdown === false) {
+        throw new RuntimeException('Could not read Markdown: ' . $source);
+    }
+    $html = ContentCompiler::compile($markdown);
+    $target = substr($source, 0, -3) . '.html';
+    if ($check) {
+        if (!is_file($target) || file_get_contents($target) !== $html) {
+            fwrite(
+                STDERR,
+                'Stale or missing fragment: ' . $target . "; run composer compile-content.\n"
+            );
+            $stale = true;
+        }
+    } else {
+        if (file_put_contents($target, $html) !== strlen($html)) {
+            throw new RuntimeException('Could not write fragment: ' . $target);
+        }
+        $relativeSource = substr($source, strlen(__DIR__ . '/..'));
+        echo 'compiled (mastering-the-mundane.com): ' . $relativeSource
+            . ' -> ' . basename($target) . PHP_EOL;
+    }
+}
+
+if ($stale) {
+    exit(1);
+}
+if ($check) {
+    echo 'Verified ' . count($sources) . " content fragment(s).\n";
+}

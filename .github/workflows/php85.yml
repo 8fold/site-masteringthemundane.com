@@ -17,6 +17,7 @@ jobs:
         uses: shivammathur/setup-php@2.37.0
         with:
           php-version: '8.5'
+          extensions: uri
 
       - name: Validate composer.json and composer.lock
         run: composer validate
@@ -26,6 +27,9 @@ jobs:
 
       - name: Run style check
         run: composer run style
+
+      - name: Verify committed content is current
+        run: composer check-content
 
       - name: Run static analyzer
         run: composer run stan
