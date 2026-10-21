@@ -28,9 +28,9 @@ and normal hostname resolution. Do not repoint the original site.
 - Menu destinations are Home `/`, Coaching `/coaching-and-mentoring/`,
   Time `/#time`, People `/#people`, Space
   `/#space`, and Money `/#money`. Read destinations are Books `/books/` and
-  Articles `/articles/`. People intentionally has no Home target yet: the user
-  deferred adding that section to a separate Home issue. Do not count its absent
-  target as a completed feature or add Home content as part of this pilot.
+  Articles `/articles/`. People now targets a placeholder Home section. Confirm
+  `/#people` reaches its heading; final Home copy is deferred until the other
+  pages have been converted.
 - Confirm the introduction booking anchor retains its exact destination,
   `_blank`, `noopener noreferrer`, and the new-window marker.
   Check all `_blank` markers are larger (1em), superscript, and match the link

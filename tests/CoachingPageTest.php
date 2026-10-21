@@ -56,14 +56,13 @@ final class CoachingPageTest extends TestCase
         );
     }
 
-    public function testPeopleHomeTargetIsExplicitlyDeferredRatherThanPublishedByThePilot(): void
+    public function testHomeDomainTargetsMatchTheMenuDestinations(): void
     {
         $home = file_get_contents(dirname(__DIR__) . '/site-root/public/index.php');
         self::assertIsString($home);
-        foreach (['time', 'space', 'money'] as $id) {
+        foreach (['time', 'people', 'space', 'money'] as $id) {
             self::assertStringContainsString('id="' . $id . '"', $home);
         }
-        self::assertStringNotContainsString('id="people"', $home);
         self::assertSame(
             '/#people',
             $this->page()->evaluate('string(//nav//a[.="People"]/@href)')
