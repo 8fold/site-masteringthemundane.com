@@ -23,9 +23,9 @@ and normal hostname resolution. Do not repoint the original site.
   labeled Menu/Read navigation, heading hierarchy and footer with a screen reader.
   Check native popover buttons with Enter/Space and dismissal with Escape and
   outside click; focus should return to the invoking button after Escape.
-  Coaching and Mentoring must have `aria-current="page"` and the bold,
+  Coaching must have `aria-current="page"` and the bold,
   double-underline visual indicator. No other menu link is current.
-- Menu destinations are Home `/`, Coaching and Mentoring `/coaching-and-mentoring/`,
+- Menu destinations are Home `/`, Coaching `/coaching-and-mentoring/`,
   Time `/#time`, People `/#people`, Space
   `/#space`, and Money `/#money`. Read destinations are Books `/books/` and
   Articles `/articles/`. People intentionally has no Home target yet: the user

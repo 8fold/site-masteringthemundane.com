@@ -25,7 +25,7 @@ final class CoachingPageTest extends TestCase
             $this->texts($xpath, '//nav[@aria-label="Menu"]//a/@href')
         );
         self::assertSame(
-            ['Home', 'Coaching and Mentoring', 'Time', 'People', 'Space', 'Money'],
+            ['Home', 'Coaching', 'Time', 'People', 'Space', 'Money'],
             $this->texts($xpath, '//nav[@aria-label="Menu"]//a')
         );
         self::assertSame(

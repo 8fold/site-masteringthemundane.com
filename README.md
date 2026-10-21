@@ -93,10 +93,10 @@ metadata values and external booking behavior are retained, not a new SEO policy
 
 The pilot header adapts apps' native, JavaScript-free popover pattern: Menu,
 centered text-only "Coaching and Mentoring" heading, and Read. Menu links to Home,
-Coaching and Mentoring, and Home's Time/People/Space/Money
+Coaching, and Home's Time/People/Space/Money
 anchors; Read links to Books and Articles. `/#people` is deliberately pending a
 separate Home update in [#10](https://github.com/8fold/site-masteringthemundane.com/issues/10);
-this pilot does not add that section. Coaching and Mentoring has `aria-current="page"`
+this pilot does not add that section. Coaching has `aria-current="page"`
 and the established bold/double-underline visual current-page indication.
 The footer contains copyright only; the original tagline is omitted on the pilot.
 
