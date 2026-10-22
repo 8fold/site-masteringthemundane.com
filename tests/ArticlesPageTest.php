@@ -77,7 +77,7 @@ final class ArticlesPageTest extends TestCase
         }
         foreach (
             [
-            '/articles/the-action-loop/' => 'Article / Time',
+            '/articles/the-action-loop/' => 'Model / Time',
             '/tools-and-resources/motivators/' => 'Exercise / People',
             '/tools-and-resources/the-5-ps/' => 'Exercise / People'
             ] as $href => $taxonomy

@@ -52,10 +52,10 @@ final class ArticlesIndex
             }
             if (
                 !isset($meta->type) ||
-                !in_array($meta->type, ['article', 'exercise', 'reference'], true)
+                !in_array($meta->type, ['model', 'exercise', 'guide', 'reference', 'essay'], true)
             ) {
                 throw new RuntimeException(
-                    $path . ': type must be article, exercise or reference.'
+                    $path . ': type must be model, exercise, guide, reference or essay.'
                 );
             }
             if (
