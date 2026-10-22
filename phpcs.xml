@@ -5,13 +5,13 @@
 	<file>src</file>
 	<file>cli</file>
 	<file>tests</file>
-	<file>site-root/public/coaching-and-mentoring/index.php</file>
-	<file>site-root/public/resources/index.php</file>
-	<file>site-root/public/services/index.php</file>
-	<file>site-root/public/index.php</file>
-	<file>site-root/public/resources/the-action-loop/index.php</file>
-	<file>site-root/public/resources/motivators/index.php</file>
-	<file>site-root/public/resources/the-5-ps/index.php</file>
+	<file>public/coaching-and-mentoring/index.php</file>
+	<file>public/resources/index.php</file>
+	<file>public/services/index.php</file>
+	<file>public/index.php</file>
+	<file>public/resources/the-action-loop/index.php</file>
+	<file>public/resources/motivators/index.php</file>
+	<file>public/resources/the-5-ps/index.php</file>
 
 	<exclude-pattern>*/src/assets/*/**$</exclude-pattern>
 

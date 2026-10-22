@@ -10,7 +10,7 @@ final class PilotIsolationTest extends TestCase
 {
     public function testTimeBookDetailUsesTheSharedReadingShell(): void
     {
-        $root = dirname(__DIR__) . '/site-root/public';
+        $root = dirname(__DIR__) . '/public';
         foreach (
             [
             '/books/time-mastering-the-mundane/index.php',
@@ -27,7 +27,7 @@ final class PilotIsolationTest extends TestCase
 
     public function testPilotStylesRemainLocalAndIncludeFocusAndSkipLinkStates(): void
     {
-        $root = dirname(__DIR__) . '/site-root/public';
+        $root = dirname(__DIR__) . '/public';
         $css = file_get_contents($root . '/assets/css/reading.css');
         self::assertIsString($css);
         self::assertStringNotContainsString('@import', $css);
@@ -108,7 +108,7 @@ final class PilotIsolationTest extends TestCase
 
     public function testAssetCachePolicyMatchesAppsForStylesScriptsAndFonts(): void
     {
-        $config = file_get_contents(dirname(__DIR__) . '/site-root/public/.htaccess');
+        $config = file_get_contents(dirname(__DIR__) . '/public/.htaccess');
         self::assertIsString($config);
         self::assertStringContainsString('m#\.(css|js|woff2)$#', $config);
         self::assertStringContainsString('v=[0-9a-f]+(&|$)', $config);
@@ -121,7 +121,7 @@ final class PilotIsolationTest extends TestCase
 
     public function testRootProseListsShareParagraphSpacingWithoutChangingInternalGaps(): void
     {
-        $css = file_get_contents(dirname(__DIR__) . '/site-root/public/assets/css/reading.css');
+        $css = file_get_contents(dirname(__DIR__) . '/public/assets/css/reading.css');
         self::assertIsString($css);
         $normalizedCss = preg_replace('/\s+/', ' ', $css);
         self::assertIsString($normalizedCss);
@@ -143,7 +143,7 @@ final class PilotIsolationTest extends TestCase
 
     public function testReadingLinkUnderlinesEmphasizeHoverAndCurrentPageStates(): void
     {
-        $css = file_get_contents(dirname(__DIR__) . '/site-root/public/assets/css/reading.css');
+        $css = file_get_contents(dirname(__DIR__) . '/public/assets/css/reading.css');
         self::assertIsString($css);
         $normalizedCss = preg_replace('/\s+/', ' ', $css);
         self::assertIsString($normalizedCss);
@@ -189,7 +189,7 @@ final class PilotIsolationTest extends TestCase
     public function testReadingPagesDoNotPreloadFonts(): void
     {
         $html = $this->renderLegacyRoute(
-            dirname(__DIR__) . '/site-root/public/coaching-and-mentoring/index.php'
+            dirname(__DIR__) . '/public/coaching-and-mentoring/index.php'
         );
         self::assertStringNotContainsString('rel="preload"', $html);
     }
@@ -201,7 +201,7 @@ final class PilotIsolationTest extends TestCase
                 PHP_BINARY,
                 '-r',
                 '$_SERVER["REQUEST_URI"] = $argv[1]; require $argv[2];',
-                str_replace(dirname(__DIR__) . '/site-root/public', '', dirname($file)) . '/',
+                str_replace(dirname(__DIR__) . '/public', '', dirname($file)) . '/',
                 $file
             ],
             [1 => ['pipe', 'w'], 2 => ['pipe', 'w']],

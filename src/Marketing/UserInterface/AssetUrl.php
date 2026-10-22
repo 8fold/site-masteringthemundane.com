@@ -14,7 +14,7 @@ final class AssetUrl
         if (preg_match('~\A/(?:[a-zA-Z0-9_-]+/)*[a-zA-Z0-9_.-]+\z~', $path) !== 1) {
             throw new InvalidArgumentException('Expected a local absolute asset path.');
         }
-        $file = dirname(__DIR__, 3) . '/site-root/public' . $path;
+        $file = dirname(__DIR__, 3) . '/public' . $path;
         if (!is_file($file)) {
             throw new RuntimeException('Missing public asset: ' . $path);
         }

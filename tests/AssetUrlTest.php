@@ -14,7 +14,7 @@ final class AssetUrlTest extends TestCase
     public function testVersionIsTheContentHashAndChangesWhenTheFileChanges(): void
     {
         $path = '/assets/css/.asset-test-' . bin2hex(random_bytes(8)) . '.css';
-        $file = dirname(__DIR__) . '/site-root/public' . $path;
+        $file = dirname(__DIR__) . '/public' . $path;
         try {
             self::assertSame(3, file_put_contents($file, 'one'));
             $first = AssetUrl::versioned($path);

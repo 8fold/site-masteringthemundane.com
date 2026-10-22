@@ -14,7 +14,7 @@ if ($argc > 2 || ($argc === 2 && $argv[1] !== '--check')) {
     exit(1);
 }
 $check = $argc === 2;
-$sources = glob(dirname(__DIR__) . '/site-root/public/assets/css/*.css');
+$sources = glob(dirname(__DIR__) . '/public/assets/css/*.css');
 if ($sources === false) {
     throw new RuntimeException('Cannot enumerate stylesheets.');
 }

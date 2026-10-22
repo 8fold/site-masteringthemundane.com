@@ -20,14 +20,14 @@ final class ResourcesIndexTest extends TestCase
         $this->root = sys_get_temp_dir() . '/mtm-index-' . bin2hex(random_bytes(8));
         $directories = [
             'public_content/resources', 'public_content/coaching', 'public_content/item',
-            'site-root/public/item'
+            'public/item'
         ];
         foreach ($directories as $dir) {
             mkdir($this->root . '/' . $dir, 0700, true);
         }
         $this->write('public_content/resources/published.json', '["/item/"]');
         $this->write('public_content/coaching/content.md', '## Coaching');
-        $this->write('site-root/public/item/index.php', '<?php');
+        $this->write('public/item/index.php', '<?php');
         $this->write('public_content/item/content.html', '<h1>Existing content</h1>');
         $this->write('public_content/item/meta.json', $this->metadata());
         mkdir($this->root . '/public_content/resources/the-action-loop', 0700, true);
@@ -125,8 +125,8 @@ final class ResourcesIndexTest extends TestCase
             '/newest/' => ['20270101', 'Z newest title']
         ];
         foreach ($entries as $route => [$date, $title]) {
-            mkdir($this->root . '/site-root/public' . $route, 0700, true);
-            $this->write('site-root/public' . $route . 'index.php', '<?php');
+            mkdir($this->root . '/public' . $route, 0700, true);
+            $this->write('public' . $route . 'index.php', '<?php');
             $dir = 'public_content' . $route;
             mkdir($this->root . '/' . $dir, 0700, true);
             $this->write($dir . 'content.html', '<p>Published</p>');
@@ -237,7 +237,7 @@ final class ResourcesIndexTest extends TestCase
 
     public function testMissingPublishedRouteFailsExplicitly(): void
     {
-        unlink($this->root . '/site-root/public/item/index.php');
+        unlink($this->root . '/public/item/index.php');
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('/item/meta.json: missing published entry point');
         ResourcesIndex::compile($this->root);
@@ -246,7 +246,7 @@ final class ResourcesIndexTest extends TestCase
     public function testPublicFragmentCannotReplaceMissingPrivateArtifact(): void
     {
         unlink($this->root . '/public_content/item/content.html');
-        $this->write('site-root/public/item/content.html', '<p>Stale public copy</p>');
+        $this->write('public/item/content.html', '<p>Stale public copy</p>');
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage(
             '/public_content/item/meta.json: missing published entry point or content.html.'

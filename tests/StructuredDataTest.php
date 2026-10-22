@@ -118,7 +118,7 @@ final class StructuredDataTest extends TestCase
                 ContentFragment::directory($route, dirname(__DIR__)) . 'structured-data.json'
             );
             self::assertFileDoesNotExist(
-                dirname(__DIR__) . '/site-root/public' . $route . 'structured-data.json'
+                dirname(__DIR__) . '/public' . $route . 'structured-data.json'
             );
         }
     }

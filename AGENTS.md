@@ -5,6 +5,10 @@ This guidance adapts the apps repository's `AGENTS.md`; repository-specific
 commands, paths and enforcement belong in the context document, not in assumed
 shared infrastructure.
 
+These documents are maintained guidance, not a completed integration milestone.
+Update rules and repository context alongside subsequent scoped changes when
+their commands, paths, safeguards or enforcement change.
+
 ## Project and architecture
 
 - Mastering the Mundane's coaching and publishing website uses PHP 8.5+,

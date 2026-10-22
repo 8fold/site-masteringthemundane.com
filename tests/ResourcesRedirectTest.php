@@ -50,7 +50,7 @@ final class ResourcesRedirectTest extends TestCase
 
     private function redirect(string $path): ?string
     {
-        $config = file_get_contents(dirname(__DIR__) . '/site-root/public/.htaccess');
+        $config = file_get_contents(dirname(__DIR__) . '/public/.htaccess');
         self::assertIsString($config);
         $beforeSlashHandling = explode('# Redirect Trailing Slashes', $config)[0];
         preg_match_all(

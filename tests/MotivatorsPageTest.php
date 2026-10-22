@@ -14,7 +14,7 @@ final class MotivatorsPageTest extends TestCase
 {
     public function testPhysicalRouteUsesCompiledContentWithoutRuntimeMarkdown(): void
     {
-        $file = dirname(__DIR__) . '/site-root/public/resources/motivators/index.php';
+        $file = dirname(__DIR__) . '/public/resources/motivators/index.php';
         $process = proc_open(
             [
                 PHP_BINARY,

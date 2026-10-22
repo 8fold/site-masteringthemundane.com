@@ -14,7 +14,7 @@ final class ResourcesPageTest extends TestCase
 {
     public function testPhysicalRouteRendersWithoutLoadingTheMarkdownConverter(): void
     {
-        $file = dirname(__DIR__) . '/site-root/public/resources/index.php';
+        $file = dirname(__DIR__) . '/public/resources/index.php';
         $process = proc_open(
             [
                 PHP_BINARY,

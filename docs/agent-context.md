@@ -14,12 +14,12 @@ portable facts.
 ## Layout and runtime
 
 - PHP 8.5+, `ext-dom` at runtime; `ext-uri` is a development requirement.
-- Apache DocumentRoot: this checkout's `site-root/public/`, not apps' `public/`.
+- Apache DocumentRoot: this checkout's `public/`, matching apps' layout.
 - PSR-4 application namespace: `MTM\`, rooted at `src/`.
 - Reading presentation: `src/Marketing/UserInterface/ReadingPage.php`.
 - Private authored Markdown/metadata and generated HTML/JSON: `public_content/`.
   `PageMetadata::ROUTES` defines the converted routes.
-- Public authored/minified CSS: `site-root/public/assets/css/`.
+- Public authored/minified CSS: `public/assets/css/`.
   Fonts/licenses, UI SVGs and site images use `/assets/fonts/`, `/assets/ui/`
   and `/assets/media/`. Legacy asset URLs redirect; do not remove compatibility
   incidentally.
@@ -36,6 +36,8 @@ portable facts.
 `composer.json` is the source of truth for entry points.
 `composer production` runs optimized autoload generation, both freshness checks,
 PHPCS, PHPStan and PHPUnit. CI is `.github/workflows/php85.yml`.
+Deployment uses `.github/workflows/deploy.yml` and `cli/deploy.sh`; follow
+[deployment and cutover](deployment.md) before enabling it.
 
 The current local environment uses MAMP PHP 8.5.2:
 
@@ -72,6 +74,9 @@ The current saved local preview is
 It is trusted MAMP HTTPS, not a loopback development server.
 Verify its returned markup and versioned stylesheet against the current
 checkout before relying on browser results.
+After the webroot migration, the existing MAMP DocumentRoot may still target
+the removed `site-root/public/`. Request a user-managed change to this checkout's
+`public/` or use isolated HTTP checks; do not silently repair the shared host.
 
 Do not retarget MAMP, edit shared/root-owned vhost configuration, move `current`
 symlinks or access another checkout to force the preview to match. If it is
@@ -85,7 +90,8 @@ build commands require no secret environment setup.
 ## Agent infrastructure review and recommended sequence
 
 This adoption establishes a truthful entry point, not full apps infrastructure
-parity. Next steps, in priority order:
+parity or a finished document integration. Keep it current in subsequent scoped
+PRs. Next steps, in priority order:
 
 1. Agree the reusable-policy versus repository-context boundary across both
    properties. Apps' current root file still embeds stack/startup assumptions;

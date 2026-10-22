@@ -40,7 +40,7 @@ final class CoachingPageTest extends TestCase
                     . '/div[@is="nav-panel"][@id="primary-navigation"][@popover="auto"]'
             )
         );
-        $css = file_get_contents(dirname(__DIR__) . '/site-root/public/assets/css/reading.css');
+        $css = file_get_contents(dirname(__DIR__) . '/public/assets/css/reading.css');
         self::assertIsString($css);
         self::assertStringNotContainsString('flex: 0 0 5em', $css);
         self::assertStringNotContainsString('marketing-header', $css);

@@ -190,7 +190,7 @@ final class ContentCompilerTest extends TestCase
                     dirname(__DIR__) . '/public_content/resources/' . $slug . '/' . $file
                 );
                 self::assertFileDoesNotExist(
-                    dirname(__DIR__) . '/site-root/public/resources/' . $slug . '/' . $file
+                    dirname(__DIR__) . '/public/resources/' . $slug . '/' . $file
                 );
             }
         }

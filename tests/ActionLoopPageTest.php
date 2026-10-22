@@ -13,7 +13,7 @@ final class ActionLoopPageTest extends TestCase
 {
     public function testPhysicalRouteUsesCompiledContentWithoutRuntimeMarkdown(): void
     {
-        $file = dirname(__DIR__) . '/site-root/public/resources/the-action-loop/index.php';
+        $file = dirname(__DIR__) . '/public/resources/the-action-loop/index.php';
         $process = proc_open(
             [
                 PHP_BINARY, '-r',

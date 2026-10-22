@@ -13,7 +13,7 @@ final class FivePsPageTest extends TestCase
 {
     public function testPhysicalRouteRendersWithoutRuntimeMarkdown(): void
     {
-        $file = dirname(__DIR__) . '/site-root/public/resources/the-5-ps/index.php';
+        $file = dirname(__DIR__) . '/public/resources/the-5-ps/index.php';
         $process = proc_open(
             [
                 PHP_BINARY,

@@ -15,7 +15,7 @@ final class AssetLayoutTest extends TestCase
 {
     public function testGeneratedStylesheetsAreFreshAndKeepLocalFontUrls(): void
     {
-        $root = dirname(__DIR__) . '/site-root/public';
+        $root = dirname(__DIR__) . '/public';
         foreach (['main', 'reading'] as $name) {
             $source = $root . '/assets/css/' . $name . '.css';
             $target = $root . '/assets/css/' . $name . '.min.css';
@@ -33,7 +33,7 @@ final class AssetLayoutTest extends TestCase
 
     public function testSharedAndLegacyHeadsUseCanonicalAssetsAndPreserveFavicons(): void
     {
-        $root = dirname(__DIR__) . '/site-root/public';
+        $root = dirname(__DIR__) . '/public';
         $pageTitle = $description = $keywords = $domain = $url = '';
         $poster = '/assets/media/poster.png';
         ob_start();
@@ -72,7 +72,7 @@ final class AssetLayoutTest extends TestCase
 
     public function testLegacyAssetCompatibilityIncludesFontsButNotFavicons(): void
     {
-        $config = file_get_contents(dirname(__DIR__) . '/site-root/public/.htaccess');
+        $config = file_get_contents(dirname(__DIR__) . '/public/.htaccess');
         self::assertIsString($config);
         self::assertStringContainsString(
             'RewriteRule ^(css|ui|media|fonts)/(.*)$ /assets/$1/$2 [R=301,L]',
@@ -84,7 +84,7 @@ final class AssetLayoutTest extends TestCase
     public function testAssetCheckRejectsMissingArtifactWithoutWritingIt(): void
     {
         $name = 'freshness-' . bin2hex(random_bytes(8));
-        $directory = dirname(__DIR__) . '/site-root/public/assets/css/';
+        $directory = dirname(__DIR__) . '/public/assets/css/';
         $source = $directory . $name . '.css';
         $target = $directory . $name . '.min.css';
         try {

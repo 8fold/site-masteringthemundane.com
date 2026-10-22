@@ -13,7 +13,7 @@ final class ServicesPageTest extends TestCase
 {
     public function testPhysicalRouteUsesCompiledContentWithoutRuntimeMarkdown(): void
     {
-        $file = dirname(__DIR__) . '/site-root/public/services/index.php';
+        $file = dirname(__DIR__) . '/public/services/index.php';
         $process = proc_open(
             [
                 PHP_BINARY, '-r',
