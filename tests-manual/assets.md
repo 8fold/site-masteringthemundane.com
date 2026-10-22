@@ -9,6 +9,9 @@ Use the saved MAMP HTTPS preview without changing its DocumentRoot.
 - `/css/reading.css`, `/css/main.css?v=1.1`, `/ui/mark.svg` and
   `/media/poster.png` redirect once to the equivalent `/assets/` URL. Query
   strings survive. The redirected response serves the expected file.
+- Fonts and their license use `/assets/fonts/`. Former `/fonts/` URLs redirect
+  with their SHA-256 query versions intact and serve identical bytes, supporting
+  late font requests by already-open documents that still use the old CSS.
 - Social image declarations use `/assets/media/poster.png`. The legacy Time
   source uses `/assets/media/time-cover.png`; no cover returns to the detail page.
 - Existing `/favicons/` links, manifest icon URLs and browser configuration icon

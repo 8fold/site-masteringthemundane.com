@@ -3,7 +3,7 @@
     font-family: "hyper-reg";
     font-weight: 400;
     font-style: normal;
-    src: url(/fonts/Atkinson-Hyperlegible-Regular-102a.woff2);
+    src: url(/assets/fonts/Atkinson-Hyperlegible-Regular-102a.woff2);
     font-display:block
 }git
 
@@ -11,7 +11,7 @@
     font-family: "hyper-bold";
     font-weight: 700;
     font-style: normal;
-    src: url(/fonts/Atkinson-Hyperlegible-Bold-102a.woff2);
+    src: url(/assets/fonts/Atkinson-Hyperlegible-Bold-102a.woff2);
     font-display:block
 }
 

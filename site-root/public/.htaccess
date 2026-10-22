@@ -20,7 +20,7 @@ ErrorDocument 500 /error-500.html
     RewriteEngine On
 
     # Preserve published asset URLs, including query strings on cached CSS.
-    RewriteRule ^(css|ui|media)/(.*)$ /assets/$1/$2 [R=301,L]
+    RewriteRule ^(css|ui|media|fonts)/(.*)$ /assets/$1/$2 [R=301,L]
 
     # Published resources have one canonical location; redirect before slash handling.
     RewriteRule ^(?:articles|tools-and-resources)(?:/index\.php)?/?$ /resources/ [R=301,L]

@@ -323,7 +323,8 @@ Apache with `mod_headers` caches content-versioned CSS, JS and WOFF2 URLs for on
 immutable; unversioned requests revalidate. Fonts retain their SHA-256 versions.
 This policy does not imply an
 observed browser cache hit, and the PHP development server does not apply `.htaccess`.
-The accompanying SIL Open Font License is in `site-root/public/fonts/AtkinsonHyperlegibleNext-OFL.txt`.
+The accompanying SIL Open Font License is in
+`site-root/public/assets/fonts/AtkinsonHyperlegibleNext-OFL.txt`.
 The unmodified WOFF2 subsets come from the Google Fonts CSS API v7; its stylesheet is
 `https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:ital,wght@0,200..800;1,200..800&display=swap`.
 The included license and family metadata are from
@@ -356,12 +357,18 @@ Run `composer check-assets` to verify freshness without writing; CI and
 does not require the development minifier.
 
 UI SVGs live under `/assets/ui/`; this site's poster and book cover use
-`/assets/media/`. Fonts and their licenses remain under `/fonts/` with unchanged
-bytes and font-selection rules. Apache redirects the former `/css/`, `/ui/` and
+`/assets/media/`. Fonts and their licenses live under `/assets/fonts/` with unchanged
+bytes, SHA-256 versions and font-selection rules. Apache redirects the former
+`/fonts/`, `/css/`, `/ui/` and
 `/media/` URLs to their corresponding `/assets/` locations with query strings
 preserved, so existing inbound links, shared image URLs and cached stylesheets
 continue to resolve. Old unminified stylesheet URLs redirect to the corresponding
 authored CSS, not a removed file.
+
+Cache-busting gives fresh HTML the updated stylesheet URL, but does not replace
+CSS in already-open documents. Those documents can request additional font
+styles or glyph ranges later. Redirects keep these lazy font requests working
+without retaining duplicate binaries.
 
 The branded `/favicons/` files, manifest, browser configuration and declarations
 remain intact. Apps currently has no favicon files or declarations to copy;

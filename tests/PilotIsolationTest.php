@@ -62,7 +62,7 @@ final class PilotIsolationTest extends TestCase
                 $source .= 'local("AtkinsonHyperlegible-'
                     . $localOriginalFaces[$descriptor] . '"), ';
             }
-            self::assertStringContainsString($source . 'url("/fonts/', $face);
+            self::assertStringContainsString($source . 'url("/assets/fonts/', $face);
             self::assertStringContainsString(
                 'font-family: "Atkinson Hyperlegible Next Hosted";',
                 $face
@@ -90,7 +90,7 @@ final class PilotIsolationTest extends TestCase
         self::assertSame(12, substr_count($css, 'font-display: swap'));
         self::assertStringNotContainsString('AtkinsonHyperlegible-v12-', $css);
         self::assertStringNotContainsString('https://', $css);
-        $fontFiles = glob($root . '/fonts/AtkinsonHyperlegibleNext-v7-*.woff2');
+        $fontFiles = glob($root . '/assets/fonts/AtkinsonHyperlegibleNext-v7-*.woff2');
         self::assertIsArray($fontFiles);
         self::assertCount(4, $fontFiles);
         foreach ($fontFiles as $fontFile) {
@@ -98,10 +98,10 @@ final class PilotIsolationTest extends TestCase
             self::assertIsString($hash);
             self::assertSame(
                 3,
-                substr_count($css, '/fonts/' . basename($fontFile) . '?v=' . $hash)
+                substr_count($css, '/assets/fonts/' . basename($fontFile) . '?v=' . $hash)
             );
         }
-        self::assertFileExists($root . '/fonts/AtkinsonHyperlegibleNext-OFL.txt');
+        self::assertFileExists($root . '/assets/fonts/AtkinsonHyperlegibleNext-OFL.txt');
         self::assertStringContainsString(':focus-visible', $css);
         self::assertStringContainsString('[is="skip-link"]:focus', $css);
     }

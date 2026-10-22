@@ -26,7 +26,7 @@ final class AssetLayoutTest extends TestCase
             foreach ($matches[1] as $url) {
                 $path = explode('?', $url)[0];
                 self::assertFileExists($root . $path);
-                self::assertDoesNotMatchRegularExpression('~^/(css|media|ui)/~', $path);
+                self::assertDoesNotMatchRegularExpression('~^/(css|media|ui|fonts)/~', $path);
             }
         }
     }
@@ -70,15 +70,14 @@ final class AssetLayoutTest extends TestCase
         }
     }
 
-    public function testLegacyAssetCompatibilityIsExplicitAndFontsStayInPlace(): void
+    public function testLegacyAssetCompatibilityIncludesFontsButNotFavicons(): void
     {
         $config = file_get_contents(dirname(__DIR__) . '/site-root/public/.htaccess');
         self::assertIsString($config);
         self::assertStringContainsString(
-            'RewriteRule ^(css|ui|media)/(.*)$ /assets/$1/$2 [R=301,L]',
+            'RewriteRule ^(css|ui|media|fonts)/(.*)$ /assets/$1/$2 [R=301,L]',
             $config
         );
-        self::assertStringNotContainsString('^fonts/', $config);
         self::assertStringNotContainsString('^favicons/', $config);
     }
 
