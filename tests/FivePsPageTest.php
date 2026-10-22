@@ -13,7 +13,7 @@ final class FivePsPageTest extends TestCase
 {
     public function testPhysicalRouteRendersWithoutRuntimeMarkdown(): void
     {
-        $file = dirname(__DIR__) . '/site-root/public/tools-and-resources/the-5-ps/index.php';
+        $file = dirname(__DIR__) . '/site-root/public/resources/the-5-ps/index.php';
         $process = proc_open(
             [
                 PHP_BINARY,
@@ -79,7 +79,7 @@ final class FivePsPageTest extends TestCase
         self::assertSame(0.0, $xpath->evaluate('count(//nav//a[@aria-current])'));
         self::assertSame(
             1.0,
-            $xpath->evaluate('count(//nav[@aria-label="Read"]//a[@href="/articles/"])')
+            $xpath->evaluate('count(//nav[@aria-label="Read"]//a[@href="/resources/"])')
         );
         foreach (['primary-navigation', 'read-navigation'] as $id) {
             self::assertSame(
@@ -98,7 +98,7 @@ final class FivePsPageTest extends TestCase
         self::assertSame(0.0, $xpath->evaluate('count(//form|//iframe|//script[@src])'));
         RenderedAnchorAssertions::assertHttpHostPolicy(
             $xpath,
-            'https://mastering-the-mundane.com/tools-and-resources/the-5-ps/'
+            'https://mastering-the-mundane.com/resources/the-5-ps/'
         );
     }
 

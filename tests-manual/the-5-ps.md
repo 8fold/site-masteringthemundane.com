@@ -2,7 +2,7 @@
 
 Verify that the saved HTTPS vhost DocumentRoot and actual response serve this
 worktree before reviewing
-`https://com.mastering-the-mundane.copilot:8890/tools-and-resources/the-5-ps/`.
+`https://com.mastering-the-mundane.copilot:8890/resources/the-5-ps/`.
 Do not alter the original `.com` host or assume the current symlink selects MAMP's
 saved concrete root.
 
@@ -22,12 +22,12 @@ saved concrete root.
 - Check light/dark, forced-colors and screen-reader heading/definition-list
   announcements. Test skip-to-main, native Menu/Read with pointer and keyboard,
   Escape/outside dismissal and focus return. No navigation link should falsely
-  claim to be this detail page; Read still leads to Articles.
-- Follow the existing link from Articles and the resources index. Recheck
-  Motivators, Coaching and Articles; Home, Books and Action Loop remain unchanged.
+  claim to be this detail page; Read still leads to Resources.
+- Follow the link from Resources and through its old URL's redirect. Recheck
+  Motivators, Coaching and Resources; Home, Books and Action Loop remain unchanged.
   No external booking/submission is needed.
 - Run `composer compile-content` twice, `composer check-content` and
-  `composer production`; four fragments are checked. The compiler explicitly
+  `composer production`; five fragments are checked. The compiler explicitly
   selects this source without scanning other legacy content or publishing drafts.
   Requests render committed HTML without the development Markdown converter.
 

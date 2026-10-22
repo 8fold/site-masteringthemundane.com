@@ -34,7 +34,7 @@ and normal hostname resolution. Do not repoint the original site.
 - Menu destinations are Home `/`, Coaching `/coaching-and-mentoring/`,
   Time `/#time`, People `/#people`, Space
   `/#space`, and Money `/#money`. Read destinations are Books `/books/` and
-  Articles `/articles/`. People now targets a placeholder Home section. Confirm
+  Resources `/resources/`. People now targets a placeholder Home section. Confirm
   `/#people` reaches its heading; final Home copy is deferred until the other
   pages have been converted.
 - Confirm the introduction booking anchor retains its exact destination,
@@ -58,16 +58,16 @@ and normal hostname resolution. Do not repoint the original site.
   then `/booking` redirects to `/coaching-and-mentoring/` (301).
 - Compare non-pilot pages before/after: `/`, `/books/`,
   `/books/time-mastering-the-mundane/`, `/services/`,
-  `/articles/the-action-loop/`, `/tools-and-resources/`,
-  `/tools-and-resources/motivators/`, `/tools-and-resources/the-5-ps/`.
+  `/resources/the-action-loop/`, `/tools-and-resources/`,
+  `/resources/motivators/`, `/resources/the-5-ps/`.
   Their rendered HTML, stylesheets and appearance must remain unchanged.
 - Run the documented Composer checks. Recompile twice; committed HTML must stay
   identical. Changing the pilot CSS must change its `?v=` hash, and the stylesheet
   response must contain the intended CSS. Do not change metadata/canonicals,
   publish drafts or remove redirects as an incidental part of this pilot.
 
-The Articles index now shares the reading shell and `reading.css`; it is no
-longer a non-pilot comparison route. See `articles-index.md`. Historical
+The Resources index now shares the reading shell and `reading.css`; it is no
+longer a non-pilot comparison route. See `resources-index.md`. Historical
 `coaching.css` URLs below record the initial pilot only.
 
 https://com.mastering-the-mundane.copilot:8890/css/coaching.css?v=88c0f768290a72ae1067f15c1d135e12817f4dc62a00f30693b8a29aa3d50480

@@ -29,7 +29,7 @@ final class CoachingPageTest extends TestCase
             $this->texts($xpath, '//nav[@aria-label="Menu"]//a')
         );
         self::assertSame(
-            ['/books/', '/articles/'],
+            ['/books/', '/resources/'],
             $this->texts($xpath, '//nav[@aria-label="Read"]//a/@href')
         );
         self::assertSame(1, $this->countMatches($xpath, '//nav//a[@aria-current]'));

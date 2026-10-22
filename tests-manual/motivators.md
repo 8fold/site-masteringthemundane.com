@@ -1,7 +1,7 @@
 # Motivators reading-page review
 
 Verify the saved MAMP HTTPS DocumentRoot and the actual response before reviewing
-`https://com.mastering-the-mundane.copilot:8890/tools-and-resources/motivators/`.
+`https://com.mastering-the-mundane.copilot:8890/resources/motivators/`.
 Do not assume the `current` symlink selects the saved concrete vhost root.
 Do not change the original `.com` host.
 
@@ -12,7 +12,7 @@ Do not change the original `.com` host.
   "One other thing" remains a closing h2 outside the group container.
 - Menu and Read use native popovers with JavaScript disabled. Check pointer,
   Enter/Space, Escape, outside dismissal, focus return and skip-to-main. No link
-  falsely claims to be the current page; Articles still leads to the index.
+  falsely claims to be the current page; Resources still leads to the index.
 - Check 320px, tablet, desktop, 200% zoom, light/dark and forced-colors; ensure
   terms and definitions remain associated, long prose wraps, and focus is visible.
   Root prose lists and definition lists have a 1.5rem block gap matching
@@ -26,12 +26,11 @@ Do not change the original `.com` host.
   and Original right. Both retain visible labels and semantic `time` values.
   Check a single Original date stays left-aligned at both widths, and longer
   date labels wrap without overflow.
-- Follow the Motivators link from Articles and the unchanged resources index.
-  Recheck Coaching, Articles, Action Loop and The 5 Ps: only Motivators changes
-  presentation. Do not book or submit anything.
+- Follow the Motivators link from Resources and through its old URL's redirect.
+  Recheck Coaching, Resources, Action Loop and The 5 Ps. Do not book or submit anything.
 - Run `composer compile-content` twice, `composer check-content` and
   `composer production`. The third portable compiler line names
-  `/site-root/public/tools-and-resources/motivators/content.md -> content.html`.
+  `/site-root/public/resources/motivators/content.md -> content.html`.
   Keep both source and compiled artifact; requests load the artifact only.
 
 Report browser, physical keyboard/assistive technology and trusted HTTPS checks

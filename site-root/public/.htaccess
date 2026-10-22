@@ -19,6 +19,11 @@ ErrorDocument 500 /error-500.html
 
     RewriteEngine On
 
+    # Published resources have one canonical location; redirect before slash handling.
+    RewriteRule ^(?:articles|tools-and-resources)(?:/index\.php)?/?$ /resources/ [R=301,L]
+    RewriteRule ^articles/the-action-loop(?:/index\.php)?/?$ /resources/the-action-loop/ [R=301,L]
+    RewriteRule ^tools-and-resources/(motivators|the-5-ps)(?:/index\.php)?/?$ /resources/$1/ [R=301,L]
+
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]

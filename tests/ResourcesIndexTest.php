@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace MTM\Tests;
 
-use MTM\Marketing\ArticlesIndex;
+use MTM\Marketing\ResourcesIndex;
 use MTM\Marketing\UserInterface\ContentFragment;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
 
-final class ArticlesIndexTest extends TestCase
+final class ResourcesIndexTest extends TestCase
 {
     private string $root;
 
@@ -18,29 +18,29 @@ final class ArticlesIndexTest extends TestCase
     {
         $this->root = sys_get_temp_dir() . '/mtm-index-' . bin2hex(random_bytes(8));
         $directories = [
-            'public_content/articles', 'public_content/coaching', 'site-root/public/item'
+            'public_content/resources', 'public_content/coaching', 'site-root/public/item'
         ];
         foreach ($directories as $dir) {
             mkdir($this->root . '/' . $dir, 0700, true);
         }
-        $this->write('public_content/articles/published.json', '["/item/"]');
+        $this->write('public_content/resources/published.json', '["/item/"]');
         $this->write('public_content/coaching/content.md', '## Coaching');
         $this->write('site-root/public/item/index.php', '<?php');
         $this->write('site-root/public/item/content.html', '<h1>Existing content</h1>');
         $this->write('site-root/public/item/meta.json', $this->metadata());
-        mkdir($this->root . '/site-root/public/articles/the-action-loop', 0700, true);
+        mkdir($this->root . '/site-root/public/resources/the-action-loop', 0700, true);
         $this->write(
-            'site-root/public/articles/the-action-loop/content.md',
+            'site-root/public/resources/the-action-loop/content.md',
             "## Preparing\n\nExample."
         );
-        mkdir($this->root . '/site-root/public/tools-and-resources/motivators', 0700, true);
+        mkdir($this->root . '/site-root/public/resources/motivators', 0700, true);
         $this->write(
-            'site-root/public/tools-and-resources/motivators/content.md',
+            'site-root/public/resources/motivators/content.md',
             "## Exercise\n\nTerm\n: Definition"
         );
-        mkdir($this->root . '/site-root/public/tools-and-resources/the-5-ps', 0700, true);
+        mkdir($this->root . '/site-root/public/resources/the-5-ps', 0700, true);
         $this->write(
-            'site-root/public/tools-and-resources/the-5-ps/content.md',
+            'site-root/public/resources/the-5-ps/content.md',
             "## Another exercise\n\nTerm\n: Definition"
         );
     }
@@ -64,9 +64,9 @@ final class ArticlesIndexTest extends TestCase
 
     public function testCommittedIndexIsFreshAndDeterministic(): void
     {
-        $html = ArticlesIndex::compile(dirname(__DIR__));
-        self::assertSame($html, ArticlesIndex::compile(dirname(__DIR__)));
-        self::assertSame($html, ContentFragment::forRoute('/articles/'));
+        $html = ResourcesIndex::compile(dirname(__DIR__));
+        self::assertSame($html, ResourcesIndex::compile(dirname(__DIR__)));
+        self::assertSame($html, ContentFragment::forRoute('/resources/'));
         self::assertStringContainsString(
             ' - Model / Time',
             $html
@@ -90,7 +90,7 @@ final class ArticlesIndexTest extends TestCase
         );
         self::assertStringContainsString(
             ' - ' . ucfirst($type) . ' / Money',
-            ArticlesIndex::compile($this->root)
+            ResourcesIndex::compile($this->root)
         );
     }
 
@@ -98,10 +98,10 @@ final class ArticlesIndexTest extends TestCase
     {
         mkdir($this->root . '/content-root', 0700);
         $this->write('content-root/meta.json', 'not json');
-        $this->write('public_content/articles/meta.json', 'not json');
+        $this->write('public_content/resources/meta.json', 'not json');
         mkdir($this->root . '/site-root/public/unlisted', 0700);
         $this->write('site-root/public/unlisted/meta.json', 'not json');
-        $html = ArticlesIndex::compile($this->root);
+        $html = ResourcesIndex::compile($this->root);
         self::assertSame(
             "<ul>\n<li><a href=\"/item/\">A &amp; &lt;B&gt; &quot;title&quot;</a>"
                 . ' - Reference / Money<br>Last updated: <time datetime="2024-02-29">'
@@ -111,6 +111,47 @@ final class ArticlesIndexTest extends TestCase
         self::assertStringNotContainsString('Wrong legacy title', $html);
         self::assertStringNotContainsString('20210623', $html);
         self::assertStringNotContainsString('unlisted', $html);
+    }
+
+    public function testUpdatedDateTitleAndRouteDetermineOrderNotManifestPosition(): void
+    {
+        $entries = [
+            '/older/' => ['20251231', 'A first title'],
+            '/z-title/' => ['20260511', 'Z last title'],
+            '/b-tie/' => ['20260511', 'alpha'],
+            '/a-tie/' => ['20260511', 'Alpha'],
+            '/newest/' => ['20270101', 'Z newest title']
+        ];
+        foreach ($entries as $route => [$date, $title]) {
+            $dir = 'site-root/public' . $route;
+            mkdir($this->root . '/' . $dir, 0700, true);
+            $this->write($dir . 'index.php', '<?php');
+            $this->write($dir . 'content.html', '<p>Published</p>');
+            $meta = json_decode($this->metadata(), true, 512, JSON_THROW_ON_ERROR);
+            self::assertIsArray($meta);
+            $this->write(
+                $dir . 'meta.json',
+                json_encode(
+                    array_replace($meta, ['updated' => $date, 'listingTitle' => $title]),
+                    JSON_THROW_ON_ERROR
+                )
+            );
+        }
+        $expected = ['/newest/', '/a-tie/', '/b-tie/', '/z-title/', '/older/'];
+        $previous = null;
+        foreach ([array_keys($entries), array_reverse(array_keys($entries))] as $routes) {
+            $this->write(
+                'public_content/resources/published.json',
+                json_encode($routes, JSON_THROW_ON_ERROR)
+            );
+            $html = ResourcesIndex::compile($this->root);
+            preg_match_all('/<a href="([^"]+)"/', $html, $matches);
+            self::assertSame($expected, $matches[1]);
+            if ($previous !== null) {
+                self::assertSame($previous, $html);
+            }
+            $previous = $html;
+        }
     }
 
     /** @return iterable<string, array{string, string}> */
@@ -159,7 +200,7 @@ final class ArticlesIndexTest extends TestCase
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage($this->root . '/site-root/public/item/meta.json:');
         try {
-            ArticlesIndex::compile($this->root);
+            ResourcesIndex::compile($this->root);
         } catch (RuntimeException $exception) {
             self::assertStringContainsString($message, $exception->getMessage());
             throw $exception;
@@ -177,10 +218,10 @@ final class ArticlesIndexTest extends TestCase
     #[DataProvider('invalidCollections')]
     public function testInvalidCollectionsReportManifestPath(string $json): void
     {
-        $this->write('public_content/articles/published.json', $json);
+        $this->write('public_content/resources/published.json', $json);
         $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage($this->root . '/public_content/articles/published.json:');
-        ArticlesIndex::compile($this->root);
+        $this->expectExceptionMessage($this->root . '/public_content/resources/published.json:');
+        ResourcesIndex::compile($this->root);
     }
 
     public function testMissingPublishedFilesFailExplicitly(): void
@@ -188,7 +229,7 @@ final class ArticlesIndexTest extends TestCase
         unlink($this->root . '/site-root/public/item/meta.json');
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('/item/meta.json: missing JSON file');
-        ArticlesIndex::compile($this->root);
+        ResourcesIndex::compile($this->root);
     }
 
     public function testMissingPublishedRouteFailsExplicitly(): void
@@ -196,7 +237,7 @@ final class ArticlesIndexTest extends TestCase
         unlink($this->root . '/site-root/public/item/index.php');
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('/item/meta.json: missing published entry point');
-        ArticlesIndex::compile($this->root);
+        ResourcesIndex::compile($this->root);
     }
 
     public function testCliChecksMissingStaleAndMetadataChangedArtifactsWithoutWriting(): void
@@ -214,13 +255,13 @@ final class ArticlesIndexTest extends TestCase
         [$code, , $errors] = $this->command('--check');
         self::assertSame(1, $code);
         self::assertStringContainsString('Stale or missing fragment:', $errors);
-        self::assertFileDoesNotExist($this->root . '/public_content/articles/content.html');
+        self::assertFileDoesNotExist($this->root . '/public_content/resources/content.html');
         self::assertSame(0, $this->command()[0]);
-        $generated = file_get_contents($this->root . '/public_content/articles/content.html');
+        $generated = file_get_contents($this->root . '/public_content/resources/content.html');
         self::assertSame(0, $this->command()[0]);
         self::assertSame(
             $generated,
-            file_get_contents($this->root . '/public_content/articles/content.html')
+            file_get_contents($this->root . '/public_content/resources/content.html')
         );
         self::assertSame([0, "Verified 5 content fragment(s).\n", ''], $this->command('--check'));
         $this->write(
@@ -230,7 +271,7 @@ final class ArticlesIndexTest extends TestCase
         self::assertSame(1, $this->command('--check')[0]);
         self::assertSame(
             $generated,
-            file_get_contents($this->root . '/public_content/articles/content.html')
+            file_get_contents($this->root . '/public_content/resources/content.html')
         );
         $this->write(
             'site-root/public/item/meta.json',
@@ -239,11 +280,11 @@ final class ArticlesIndexTest extends TestCase
         self::assertSame(1, $this->command('--check')[0]);
         self::assertSame(
             $generated,
-            file_get_contents($this->root . '/public_content/articles/content.html')
+            file_get_contents($this->root . '/public_content/resources/content.html')
         );
-        $this->write('public_content/articles/content.html', 'stale');
+        $this->write('public_content/resources/content.html', 'stale');
         self::assertSame(1, $this->command('--check')[0]);
-        $target = $this->root . '/public_content/articles/content.html';
+        $target = $this->root . '/public_content/resources/content.html';
         self::assertSame('stale', file_get_contents($target));
         $this->write('site-root/public/item/meta.json', '{');
         [$code, $output, $errors] = $this->command();
@@ -251,11 +292,11 @@ final class ArticlesIndexTest extends TestCase
         self::assertStringContainsString('/item/meta.json:', $output . $errors);
         self::assertSame('stale', file_get_contents($target));
         $this->write('site-root/public/item/meta.json', $this->metadata());
-        $this->write('public_content/articles/content.md', '[Unlisted](/unlisted/)');
+        $this->write('public_content/resources/content.md', '[Unlisted](/unlisted/)');
         [$code, $output, $errors] = $this->command();
         self::assertNotSame(0, $code);
         self::assertStringContainsString(
-            '/articles/content.md: conflicts with the metadata-generated index.',
+            '/resources/content.md: conflicts with the metadata-generated index.',
             $output . $errors
         );
         self::assertSame('stale', file_get_contents($target));

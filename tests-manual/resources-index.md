@@ -1,24 +1,27 @@
-# Articles index continuity review
+# Resources index continuity review
 
 Serve this feature worktree's `site-root/public` with PHP 8.5+.
 Do not assume the existing Copilot HTTPS vhost serves this checkout: its owner
 must approve and verify a preview switch first. Do not change MAMP or the
 `current` symlink as part of this slice.
 
-- Open `/articles/` with JavaScript disabled. The sole h1 identifies Articles;
-  the browser title and short description identify the Articles index too.
+- Open `/resources/` with JavaScript disabled. The sole h1 identifies Resources;
+  the browser title and short description identify the Resources index too.
   Open Graph and Twitter titles/descriptions must match their HTML counterparts.
   Other metadata and canonical policy remain unchanged.
-  Check the published list identifies Action Loop as Article / Time and
+  Check the published list identifies Action Loop as Model / Time and
   Motivators and The 5 Ps as Exercise / People. Follow the links to
-  `/articles/the-action-loop/`, `/tools-and-resources/motivators/` and
-  `/tools-and-resources/the-5-ps/`; each retains its content. Motivators now uses
-  the shared reading presentation, as does The 5 Ps; Action Loop remains legacy.
-  The resources index remains available. No drafts appear.
+  `/resources/the-action-loop/`, `/resources/motivators/` and
+  `/resources/the-5-ps/`; each retains its content. Motivators now uses
+  the shared reading presentation, as do The 5 Ps and Action Loop.
+  No drafts appear.
   Each list item has a second "Last updated" line: February 2, 2024 for
   Action Loop and May 11, 2026 for both exercises.
+  Items appear most recently updated first: The 5 Ps, Motivators, then Action Loop.
+  Equal dates use case-insensitive title order, then route. Manifest order must
+  not control presentation or change which resources are published.
 - Check Menu and Read with keyboard and pointer: open using Enter/Space,
-  dismiss using Escape or outside click, and verify focus return. Only Articles
+  dismiss using Escape or outside click, and verify focus return. Only Resources
   is current, in Read, with bold double-underline styling. Menu keeps Home,
   Coaching and the four existing Home domain anchors.
 - At 320px, tablet, desktop and 200% zoom, check no horizontal overflow,
@@ -37,15 +40,21 @@ must approve and verify a preview switch first. Do not change MAMP or the
   WOFF2 font subsets; no JavaScript, third-party font or embed, account or
   database requests.
 - Run `composer production`, `composer compile-content` twice and
-  `composer check-content`. All four generated fragments must be deterministic.
-  Compiler stdout lists Articles' `published.json` then Coaching's `content.md`
-  then the explicitly selected Motivators and The 5 Ps `content.md` files, with portable source paths and
+  `composer check-content`. All five generated fragments must be deterministic.
+  Compiler stdout lists Coaching's `content.md` then Resources' `published.json`
+  then the explicitly selected detail `content.md` files, with portable source paths and
   the fixed production hostname. Check stale and missing fragments fail rather
   than rendering success or silently compiling during requests. Automated isolated
   fixtures exercise malformed/invalid metadata, unknown type/domain, explicit
   published-only selection, HTML escaping and metadata-driven freshness.
+- Check old `/articles/`, `/tools-and-resources/` and all three old detail URLs:
+  slashless, trailing slash and `index.php` variants must return a single 301
+  to the matching `/resources/` destination. Repeat with `?source=review`;
+  confirm the query survives and the final response is 200. No canonical resource
+  URL should redirect to itself or back to a legacy URL. Unknown legacy paths
+  should not redirect to unrelated content.
 - Compare non-target routes with the baseline: Home, Books and book detail,
-  services, the individual Action Loop article and the resources index.
+  services and Coaching.
   Legacy styles, content, redirects and metadata must remain unchanged.
 
 Browser, screen-reader, forced-colors and trusted HTTPS results must be reported

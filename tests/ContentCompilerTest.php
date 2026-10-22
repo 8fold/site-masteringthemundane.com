@@ -24,9 +24,9 @@ final class ContentCompilerTest extends TestCase
             self::assertSame($compiled, ContentFragment::forRoute($route));
         }
         $legacyRoutes = [
-            '/articles/the-action-loop/',
-            '/tools-and-resources/motivators/',
-            '/tools-and-resources/the-5-ps/'
+            '/resources/the-action-loop/',
+            '/resources/motivators/',
+            '/resources/the-5-ps/'
         ];
         foreach ($legacyRoutes as $route) {
             $source = file_get_contents(
@@ -135,16 +135,17 @@ final class ContentCompilerTest extends TestCase
         self::assertSame('', $errors);
         self::assertSame(
             'compiled (mastering-the-mundane.com): '
-                . '/public_content/articles/published.json -> content.html' . PHP_EOL
-                . 'compiled (mastering-the-mundane.com): '
                 . '/public_content/coaching-and-mentoring/content.md -> content.html' . PHP_EOL
                 . 'compiled (mastering-the-mundane.com): '
-                . '/site-root/public/articles/the-action-loop/content.md -> content.html' . PHP_EOL
+                . '/public_content/resources/published.json -> content.html' . PHP_EOL
                 . 'compiled (mastering-the-mundane.com): '
-                . '/site-root/public/tools-and-resources/motivators/content.md -> content.html'
+                . '/site-root/public/resources/motivators/content.md -> content.html'
                 . PHP_EOL
                 . 'compiled (mastering-the-mundane.com): '
-                . '/site-root/public/tools-and-resources/the-5-ps/content.md -> content.html'
+                . '/site-root/public/resources/the-5-ps/content.md -> content.html'
+                . PHP_EOL
+                . 'compiled (mastering-the-mundane.com): '
+                . '/site-root/public/resources/the-action-loop/content.md -> content.html'
                 . PHP_EOL,
             $output
         );

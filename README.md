@@ -22,18 +22,24 @@ You should see the same Mastering the Mundane website that you could find on the
 
 ## Contributing
 
-### Reading pages: Coaching, Articles and exercises
+### Reading pages: Coaching, Resources and exercises
 
-`/coaching-and-mentoring/`, the `/articles/` index, `/articles/the-action-loop/`,
-`/tools-and-resources/motivators/` and `/tools-and-resources/the-5-ps/` adopt the apps site's
+`/coaching-and-mentoring/`, the `/resources/` index, `/resources/the-action-loop/`,
+`/resources/motivators/` and `/resources/the-5-ps/` adopt the apps site's
 visual and architectural foundation. All other routes still use their existing
-templates and stylesheet. Legacy redirects are unchanged.
-Other resources, Home and Books are not migrated.
-The Articles index corrects its inherited Time/Tools and Resources labels to
-Articles, with a short matching description. Open Graph and Twitter titles and
-descriptions follow those corrected values; other metadata and SEO policy are
-unchanged. The index now discovers three explicitly selected published items
-from their metadata; their content and public destinations are unchanged.
+templates and stylesheet. Home and Books are not migrated.
+The Resources index discovers three explicitly selected published items from
+their metadata. Its heading, Read navigation and descriptive metadata identify
+Resources. Content and unrelated metadata remain unchanged.
+
+Published resources now live together under `site-root/public/resources/`.
+The index collection and generated fragment live under `public_content/resources/`.
+Explicit permanent redirects in `.htaccess` send `/articles/` and
+`/tools-and-resources/` to `/resources/`, the old Action Loop URL to
+`/resources/the-action-loop/`, and both old exercise URLs to their corresponding
+`/resources/` destinations. Slashless and `index.php` variants redirect directly
+too; query strings are retained. Redirects run before generic slash handling.
+The old indexes are not separate copies of the collection.
 
 Use PHP 8.5+ and run `composer install` from the repository root. Commit
 `composer.lock` so local development and CI resolve the same application dependencies.
@@ -42,7 +48,7 @@ Apache's document root remains `site-root/public`; neither `src/` nor
 JavaScript build, or account system is required.
 
 Edit `public_content/coaching-and-mentoring/content.md` for Coaching prose.
-The Articles fragment is generated from the published collection described below,
+The Resources fragment is generated from the published collection described below,
 not hand-maintained Markdown. After changing either source, run:
 
 ```sh
@@ -84,12 +90,12 @@ assertion; the check does not sanitize them at runtime or migrate legacy pages.
 Tests protect these link/rendering contracts, not editorial wording, prices,
 paragraph counts or incidental wrappers.
 It never publishes `content-root/` drafts or scans other legacy content.
-Motivators and The 5 Ps are explicitly selected legacy sources in the compiler:
-edit `site-root/public/tools-and-resources/{motivators,the-5-ps}/content.md`
-and commit each generated sibling `content.html`. These stay at their existing paths to avoid
-duplicating the source or changing the published metadata collection's file
-contract. `ContentFragment` explicitly maps only those routes to their existing
-artifact; other legacy directories are not scanned or rendered by the new shell.
+Motivators and The 5 Ps are explicitly selected sources in the compiler:
+edit `site-root/public/resources/{motivators,the-5-ps}/content.md`
+and commit each generated sibling `content.html`. Source, metadata and generated
+artifact move together without duplication. `ContentFragment` explicitly maps
+only the published detail routes to those artifacts; other legacy directories
+are not scanned or rendered by the new shell.
 The original content heading now lives in `MotivatorsPage`'s shared header, so
 the page has one h1. Prose, dates, order and exercise instructions are unchanged.
 Four straight apostrophes in Markdown were aligned with the curly apostrophes
@@ -107,9 +113,9 @@ already displayed in the legacy HTML.
 Both exercises reuse the mobile-first publication dates: stacked by default,
 Updated left and Original right from 70ch, with an Original-only date left-aligned.
 Action Loop is also explicitly selected at
-`site-root/public/articles/the-action-loop/content.md`, with its generated sibling
+`site-root/public/resources/the-action-loop/content.md`, with its generated sibling
 `content.html` and an explicit `ContentFragment` mapping. `ActionLoopPage` supplies
-its sole h1; existing h2 sections, lists, links, metadata and URL are preserved.
+its sole h1; existing h2 sections, lists, links and editorial metadata are preserved.
 Markdown apostrophes match those already displayed in its published HTML.
 It reuses the same publication-date layout without correcting the existing
 chronology discrepancy: Original June 23, 2024 is later than Updated February 2,
@@ -117,19 +123,25 @@ chronology discrepancy: Original June 23, 2024 is later than Updated February 2,
 Its `model`/`Time` classification is independent of its prose presentation.
 The existing Markdown library's `descriptionLists()` extension preserves their
 semantic definition lists; no new dependency or runtime converter is used.
-The Articles compiler reports
-`compiled (mastering-the-mundane.com): /public_content/articles/published.json -> content.html`.
+The Resources compiler reports
+`compiled (mastering-the-mundane.com): /public_content/resources/published.json -> content.html`.
 `check-content` is read-only
 and fails for missing or stale artifacts; CI runs it too. Production requests read
 the compiled HTML without loading the development-only Markdown converter.
 
 #### Published content metadata
 
-`public_content/articles/published.json` is the explicit, ordered collection of
-existing public routes for discovery on Articles. There is no metadata glob and
+`public_content/resources/published.json` is the explicit collection of
+existing public routes for discovery on Resources. There is no metadata glob and
 no automatic publication: adding a `meta.json`, including under `content-root/`,
 does not include an item. A selected route must already have `index.php`,
 `content.html`, and `meta.json` under `site-root/public`.
+
+The list is generated in descending `updated` date order, regardless of manifest
+order. Equal dates sort alphabetically by `listingTitle` (case-insensitive),
+then by route for deterministic ties. Sorting never expands the published
+selection. The editorial update date reflects meaningful resource changes;
+rebuilds, URL moves and shared CSS changes do not automatically update it.
 
 Each selected item's `meta.json` supplies:
 
@@ -152,9 +164,9 @@ or domain; an empty list remains valid.
 The current collection is Action Loop (`model`, `Time`), Motivators
 (`exercise`, `People`) and The 5 Ps (`exercise`, `People`), all with empty tags.
 Action Loop's discussion of sustainable pace, Parkinson's Law and the model from
-*Triumph over Time* supports its Time classification. Articles intentionally
-provides unified discovery of models and exercises while the existing
-resources index and detail URLs remain available.
+*Triumph over Time* supports its Time classification. Resources intentionally
+provides unified discovery of models and exercises; old index and detail URLs
+redirect to the consolidated collection.
 
 Source content and unrelated legacy metadata fields are preserved. The three
 `updated` values were explicitly reconciled with the dates already displayed in
@@ -169,7 +181,7 @@ generated index as well as Markdown fragments without modifying files.
 There is no runtime metadata parsing, new dependency, search or filtering.
 
 The shared shell is `src/Marketing/UserInterface/ReadingPage.php`;
-`CoachingPage`, `ArticlesPage`, `MotivatorsPage` and `FivePsPage` supply their metadata, heading and
+`CoachingPage`, `ResourcesPage`, `MotivatorsPage` and `FivePsPage` supply their metadata, heading and
 content route. Each entry point only loads Composer and renders its page.
 `site-root/public/css/reading.css` adapts
 the apps legal page's executable CSS: 16px base typography, exact `70ch` main
@@ -223,7 +235,7 @@ an untouched local-first stack selected the hosted face.
 | Reading page | Original hosted: requests / font bytes | Next hosted: requests / font bytes |
 | --- | ---: | ---: |
 | Coaching | 2 / 34,732 | 1 / 33,996 |
-| Articles | 1 / 17,208 | 1 / 33,996 |
+| Resources | 1 / 17,208 | 1 / 33,996 |
 | Action Loop | 3 / 53,024 | 2 / 71,640 |
 | Motivators | 3 / 53,024 | 2 / 71,640 |
 | The 5 Ps | 2 / 34,732 | 1 / 33,996 |
@@ -265,7 +277,7 @@ nor measures temporal font-swap movement.
 The pilot header adapts apps' native, JavaScript-free popover pattern: Menu,
 centered text-only "Coaching and Mentoring" heading, and Read. Menu links to Home,
 Coaching, and Home's Time/People/Space/Money
-anchors; Read links to Books and Articles. Home includes a placeholder People
+anchors; Read links to Books and Resources. Home includes a placeholder People
 section so `/#people` resolves. Rewriting Home copy is deferred until the other
 pages have been converted; see [#10](https://github.com/8fold/site-masteringthemundane.com/issues/10).
 The current route has `aria-current="page"`
@@ -280,7 +292,7 @@ root when switching worktrees rather than assuming retargeting the link suffices
 Keep the original `.com` vhost unchanged.
 
 Browser and external-boundary checks are documented in
-`tests-manual/coaching-pilot.md`, `tests-manual/articles-index.md` and
+`tests-manual/coaching-pilot.md`, `tests-manual/resources-index.md` and
 `tests-manual/motivators.md` and `tests-manual/the-5-ps.md`.
 Automated tests assert rendering, actions,
 metadata, compiler determinism and freshness, asset hash behavior and legacy

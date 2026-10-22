@@ -9,7 +9,7 @@ final class MotivatorsPage
     public static function render(): string
     {
         return ReadingPage::render(
-            '/tools-and-resources/motivators/',
+            '/resources/motivators/',
             'The Motivators exercise by Josh Bruce',
             'The Motivators Exercise: Clarify Your Core Drivers | Tools and Resources'
                 . ' | Mastering the Mundane',

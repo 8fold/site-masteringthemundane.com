@@ -14,7 +14,7 @@ final class MotivatorsPageTest extends TestCase
 {
     public function testPhysicalRouteUsesCompiledContentWithoutRuntimeMarkdown(): void
     {
-        $file = dirname(__DIR__) . '/site-root/public/tools-and-resources/motivators/index.php';
+        $file = dirname(__DIR__) . '/site-root/public/resources/motivators/index.php';
         $process = proc_open(
             [
                 PHP_BINARY,
@@ -37,7 +37,7 @@ final class MotivatorsPageTest extends TestCase
         self::assertSame('', $errors);
         self::assertSame(MotivatorsPage::render(), $html);
         self::assertStringContainsString(
-            ContentFragment::forRoute('/tools-and-resources/motivators/'),
+            ContentFragment::forRoute('/resources/motivators/'),
             MotivatorsPage::render()
         );
     }
@@ -108,11 +108,11 @@ final class MotivatorsPageTest extends TestCase
                 $xpath->evaluate('count(//div[@id="' . $id . '"][@popover="auto"])')
             );
         }
-        // A detail page is not the Articles index; do not mark that link as the current page.
+        // A detail page is not the Resources index; do not mark that link as the current page.
         self::assertSame(0.0, $xpath->evaluate('count(//nav//a[@aria-current])'));
         self::assertSame(
             1.0,
-            $xpath->evaluate('count(//nav[@aria-label="Read"]//a[@href="/articles/"])')
+            $xpath->evaluate('count(//nav[@aria-label="Read"]//a[@href="/resources/"])')
         );
         self::assertSame(
             '© 2023–' . date('Y') . ' Mastering the Mundane',
@@ -121,7 +121,7 @@ final class MotivatorsPageTest extends TestCase
         self::assertSame(0.0, $xpath->evaluate('count(//form|//iframe|//script[@src])'));
         RenderedAnchorAssertions::assertHttpHostPolicy(
             $xpath,
-            'https://mastering-the-mundane.com/tools-and-resources/motivators/'
+            'https://mastering-the-mundane.com/resources/motivators/'
         );
     }
 
