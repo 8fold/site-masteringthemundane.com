@@ -1,0 +1,119 @@
+# AI coding assistant rules
+
+Read [Agent Context](docs/agent-context.md) alongside this file before working.
+This guidance adapts the apps repository's `AGENTS.md`; repository-specific
+commands, paths and enforcement belong in the context document, not in assumed
+shared infrastructure.
+
+## Project and architecture
+
+- Mastering the Mundane's coaching and publishing website uses PHP 8.5+,
+  Apache physical-directory routing and server-rendered HTML.
+- Preserve accessibility, progressive enhancement and operation without
+  application JavaScript. Target WCAG 2.2 AA.
+- Preserve published URLs and content unless the requested change authorizes
+  a change. Keep authored content, generated artifacts and runtime presentation
+  separate.
+- Do not import apps' authentication, subscriptions, database or billing
+  architecture merely because presentation and operating conventions are shared.
+
+## Validation policy
+
+- Tests: `composer test`.
+- One test class: `./vendor/bin/phpunit --filter=TestClassName`.
+- PHPStan level 9: `composer stan`.
+- PSR-12 with repository exceptions: `composer style`.
+- Generate committed minified CSS: `composer minify`.
+- Generate committed HTML and structured data: `composer compile-content`.
+- Read-only freshness checks: `composer check-assets` and `composer check-content`.
+- Full validation: `composer production` (alias `composer prod`).
+
+Use the exact entry points in [Agent Context](docs/agent-context.md).
+Do not invent setup or test commands. Regenerate affected artifacts before
+validation; deploy them as-is rather than compiling at request time.
+
+Manual protocols in `tests-manual/` are part of the test bed. Keep directly
+related instructions current and distinguish human observations from automated
+checks and source-only fixtures.
+
+Tests should protect outcomes, required facts/actions, escaping, security,
+accessibility and negative cases. Do not pin editable prose, incidental wrappers
+or attribute ordering without a specific contract. Classify a UI/copy failure
+before changing assertions; never remove coverage or replace expectations merely
+to obtain a green build. Test counts are not targets.
+
+## PHP conventions
+
+- New PHP implementation files use `declare(strict_types=1);`.
+- Use `self::methodName()` for methods defined within the same class or trait;
+  reserve `$this->` for properties. Do not mass-refactor legacy exceptions as
+  part of unrelated work.
+- Production classes are final and do not extend other classes, except built-in
+  exceptions. PHPUnit test classes necessarily extend `TestCase`.
+- Immutable data objects, when needed, use final readonly classes with typed
+  promoted properties. Do not add apps' Record/ValueObject markers or entity
+  gateways without an actual domain requirement.
+- Import classes through top-level `use` statements. In non-namespaced entry
+  points, global classes are already in scope; do not add no-op imports.
+- Surface missing or invalid content/assets explicitly. Do not add
+  success-shaped fallbacks that conceal deployment or input errors.
+
+See `.github/coding-standards-and-styles.md` and the actual PHPCS/PHPStan
+configuration. New guidance does not imply that custom apps enforcement rules
+exist here or authorize a repository-wide cleanup.
+
+## Knowledge navigation
+
+If a maintained `graphify-out/graph.json` is available, query it first for broad
+architecture or dependency questions. Verify relevant source before editing;
+graphs can be stale. Otherwise use focused file/symbol searches.
+
+This repository currently has no tracked graph or graph maintenance commands.
+Do not invent them, require a full extraction at startup, or commit generated
+graph churn as part of unrelated work.
+
+## Session startup
+
+1. Read this file and `docs/agent-context.md`; inspect Git status and preserve
+   unrelated work.
+2. Confirm the selected worktree and runtime. Never operate in another session's
+   checkout or change the main checkout.
+3. Use installed dependencies. Install from the lock file only when needed;
+   do not run `composer update` as routine startup.
+4. Before browser review, verify the preview serves the current checkout.
+   Follow the preview constraints in Agent Context. Do not change shared MAMP
+   configuration or symlinks to repair a preview silently.
+5. Run validation appropriate to the requested change. Documentation-only
+   changes do not require the PHP suite unless documented commands or behavior
+   need verification.
+
+There is no database or secret environment-copy gate for this site's current
+implementation. Do not copy apps' startup environment or database commands.
+
+## Interaction and worktree lifecycle
+
+1. Treat reported friction as primary evidence. Reproduce or inspect the
+   reported state before explaining expected behavior.
+2. Give alternatives and honest recommendations rather than reflexive agreement.
+3. Completion claims require tool evidence from the same turn. Report
+   `git --no-pager status --short`, run `git --no-pager diff --name-only`, and
+   give the exact changed paths, including new files and renames. If no files
+   changed, say "Not implemented yet" rather than claiming implementation.
+   Report concrete blockers instead of making future-tense promises.
+4. Worktrees can disappear when archived. Persist approved work appropriately;
+   do not assume a preview remains valid after a session is archived.
+5. When requesting a user file edit, name its absolute path and checkout.
+   Never ask the user to guess among identically named files.
+6. Opening and merging PRs are human-gated. Ask before opening; merge only on
+   explicit instruction. At most one PR per session is open at a time, not one
+   per repository. Once open, do not commit unrelated ticket work until that
+   PR is merged and the branch is synced.
+7. Inspect and follow the repository PR template. Keep changes scoped and
+   distinguish local verification from deployed behavior.
+
+## Sensitive files
+
+Do not read, search or output `.env*`, credentials or secret configuration.
+Do not bypass exclusions with Git history, scripts or other shell tools.
+Follow `.copilotignore` if present. Never copy secrets from apps or another
+checkout as an assumed prerequisite.
