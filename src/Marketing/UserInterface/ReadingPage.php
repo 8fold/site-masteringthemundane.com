@@ -84,11 +84,11 @@ final class ReadingPage
                     '/books/' => 'Books'
                 ]),
                 Element::create('h1', $heading),
-                Element::create('a', 'Apps')->props(
+                NewTabLink::decorate((string) Element::create('a', 'Apps')->props(
                     'href https://apps.mastering-the-mundane.com',
                     'target _blank',
                     'rel noopener noreferrer'
-                )
+                ))
             )->props('is marketing-header'),
             Element::create(
                 'main',

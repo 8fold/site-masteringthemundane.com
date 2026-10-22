@@ -266,13 +266,28 @@ a:focus-visible {
   border-radius: var(--space-4xs);
 }
 
-a[target="_blank"]::after {
-  content: "\00a0\29c9";
-  content: "\00a0\29c9" / " (opens in a new tab)";
-  font-size: 1em;
-  line-height: 0;
-  vertical-align: super;
+.new-tab-tail {
+  white-space: nowrap;
+}
+
+.new-tab-icon {
+  display: inline-block;
+  width: 0.85em;
+  height: 0.85em;
+  margin-inline-start: 0.25em;
+  vertical-align: -0.05em;
   color: var(--color-accent);
+}
+
+.new-tab-announcement {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
 @media (forced-colors: active) {
@@ -280,7 +295,7 @@ a[target="_blank"]::after {
     text-decoration-color: LinkText;
   }
 
-  a[target="_blank"]::after {
+  .new-tab-icon {
     color: LinkText;
   }
 }

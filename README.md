@@ -126,7 +126,13 @@ and fragments remain same-tab. This fixed build-time policy also works on local
 preview without runtime parsing. The compiler explicitly enables CommonMark's
 external-link extension; this behavior is not enabled by default. Reviewed raw
 HTML anchors bypass that AST extension and must carry appropriate attributes
-themselves. Pilot CSS marks `_blank` links with a visible new-window symbol.
+themselves. The compiler decorates `_blank` anchors with an inline, decorative
+square-and-arrow SVG and visually hidden "opens in a new tab" text. The shared
+Apps header link uses the same helper. Link text remains underlined; the icon
+and its margin are not underlined. A no-wrap span keeps the final word and icon
+together. No new-tab behavior or destination policy changes.
+PHP's DOM extension is required for this HTML5-aware decoration; no JavaScript,
+icon package or additional network request is used.
 The complete rendered pilot document is DOM-checked by destination hostname,
 including raw HTML and shell anchors, rather than selecting only links already
 marked `_blank`. HTTP(S) external links must include both `noopener` and

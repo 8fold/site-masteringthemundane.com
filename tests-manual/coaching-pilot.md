@@ -40,13 +40,14 @@ and normal hostname resolution. Do not repoint the original site.
   `https://apps.mastering-the-mundane.com` in a separate tab.
 - Confirm the introduction booking anchor retains its exact destination,
   `_blank`, `noopener noreferrer`, and the new-window marker.
-  Check all `_blank` markers are larger (1em), superscript, and match the link
-  underline accent color in light/dark mode, including hover/focus. In forced
+  Check all `_blank` markers are text-level square-and-arrow icons and match the
+  underline accent color in light/dark mode, including hover/focus. Text stays
+  underlined at rest; neither the icon nor its preceding gap is underlined. In forced
   colors, the underline and marker use system `LinkText`, without overriding
   the user's palette. Check enlarged text, wrapping
-  and clipping at narrow widths. The CSS alternative text "opens in a new tab"
-  is best effort; verify with browser/screen-reader combinations rather than
-  assuming CSS generated-content support. Same-tab links must not show a marker.
+  and clipping at narrow widths. The final word and icon must stay together.
+  Verify the visually hidden "opens in a new tab" text is announced once with
+  browser/screen-reader combinations. Same-tab links must not show a marker.
   Confirm video conferencing is explained as a link sent by Cal.com when booking
   is confirmed, with no Gather reference or link.
   No booking, account creation, payment or form submission is part of this check.

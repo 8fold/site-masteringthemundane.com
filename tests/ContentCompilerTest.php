@@ -95,7 +95,7 @@ final class ContentCompilerTest extends TestCase
     public function testLinkEscapingAndUnsafeSchemesRemainSafe(): void
     {
         $html = ContentCompiler::compile('[A & B](https://example.com/?a=1&b=2)');
-        self::assertStringContainsString('A &amp; B</a>', $html);
+        self::assertStringContainsString('A &amp; <span class="new-tab-tail">B', $html);
         self::assertStringContainsString('href="https://example.com/?a=1&amp;b=2"', $html);
         foreach (['javascript:alert(1)', 'data:text/html,test', 'vbscript:msgbox'] as $url) {
             self::assertStringNotContainsString(

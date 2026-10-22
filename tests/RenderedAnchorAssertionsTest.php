@@ -124,7 +124,13 @@ final class RenderedAnchorAssertionsTest extends TestCase
     private function renderedFixture(string $markdown): DOMXPath
     {
         $document = new DOMDocument();
-        self::assertTrue($document->loadHTML(ContentCompiler::compile($markdown)));
+        $previous = libxml_use_internal_errors(true);
+        try {
+            self::assertTrue($document->loadHTML(ContentCompiler::compile($markdown)));
+        } finally {
+            libxml_clear_errors();
+            libxml_use_internal_errors($previous);
+        }
         return new DOMXPath($document);
     }
 }
