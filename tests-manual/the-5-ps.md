@@ -20,9 +20,9 @@ saved concrete root.
   reading column. Dates stack by default and align Updated left / Original
   right from 70ch.
 - Check light/dark, forced-colors and screen-reader heading/definition-list
-  announcements. Test skip-to-main, native Menu/Read with pointer and keyboard,
+  announcements. Test skip-to-main and native Menu with pointer and keyboard,
   Escape/outside dismissal and focus return. No navigation link should falsely
-  claim to be this detail page; Read still leads to Resources.
+  claim to be this detail page; Resources remains available in Menu.
 - Follow the link from Resources and through its old URL's redirect. Recheck
   Motivators, Coaching and Resources; Home, Books and Action Loop remain unchanged.
   No external booking/submission is needed.

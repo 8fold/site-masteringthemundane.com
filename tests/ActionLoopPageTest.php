@@ -46,8 +46,7 @@ final class ActionLoopPageTest extends TestCase
             '//header[@is="marketing-header"]/h1[not(*)]',
             '//main[@id="main"][@tabindex="-1"]',
             '//footer',
-            '//nav[@aria-label="Menu"]',
-            '//nav[@aria-label="Read"]'
+            '//nav[@aria-label="Menu"]'
             ] as $query
         ) {
             self::assertSame(1.0, $xpath->evaluate('count(' . $query . ')'));
@@ -60,7 +59,18 @@ final class ActionLoopPageTest extends TestCase
         self::assertSame(0.0, $xpath->evaluate('count(//nav//a[@aria-current])'));
         self::assertSame(
             1.0,
-            $xpath->evaluate('count(//nav[@aria-label="Read"]//a[@href="/resources/"])')
+            $xpath->evaluate('count(//nav[@aria-label="Menu"]//a[@href="/resources/"])')
+        );
+        self::assertSame(
+            1.0,
+            $xpath->evaluate('count(//nav[@aria-label="Menu"]//a[@href="/books/"])')
+        );
+        self::assertSame(
+            1.0,
+            $xpath->evaluate(
+                'count(//header/a[@href="https://apps.mastering-the-mundane.com"]'
+                    . '[@target="_blank"][@rel="noopener noreferrer"])'
+            )
         );
         $dates = '//main/div[@is="publication-dates"]';
         self::assertSame(2.0, $xpath->evaluate('count(' . $dates . '/p/time)'));

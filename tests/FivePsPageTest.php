@@ -47,8 +47,7 @@ final class FivePsPageTest extends TestCase
             '//header[@is="marketing-header"]/h1[not(*)]',
             '//main[@id="main"][@tabindex="-1"]',
             '//footer',
-            '//nav[@aria-label="Menu"]',
-            '//nav[@aria-label="Read"]'
+            '//nav[@aria-label="Menu"]'
             ] as $query
         ) {
             self::assertSame(1.0, $xpath->evaluate('count(' . $query . ')'));
@@ -79,18 +78,26 @@ final class FivePsPageTest extends TestCase
         self::assertSame(0.0, $xpath->evaluate('count(//nav//a[@aria-current])'));
         self::assertSame(
             1.0,
-            $xpath->evaluate('count(//nav[@aria-label="Read"]//a[@href="/resources/"])')
+            $xpath->evaluate('count(//nav[@aria-label="Menu"]//a[@href="/resources/"])')
         );
-        foreach (['primary-navigation', 'read-navigation'] as $id) {
-            self::assertSame(
-                1.0,
-                $xpath->evaluate('count(//button[@type="button"][@popovertarget="' . $id . '"])')
-            );
-            self::assertSame(
-                1.0,
-                $xpath->evaluate('count(//div[@id="' . $id . '"][@popover="auto"])')
-            );
-        }
+        self::assertSame(0.0, $xpath->evaluate('count(//nav[@aria-label="Read"])'));
+        self::assertSame(
+            1.0,
+            $xpath->evaluate(
+                'count(//header/a[@href="https://apps.mastering-the-mundane.com"]'
+                    . '[@target="_blank"][@rel="noopener noreferrer"])'
+            )
+        );
+        self::assertSame(
+            1.0,
+            $xpath->evaluate(
+                'count(//button[@type="button"][@popovertarget="primary-navigation"])'
+            )
+        );
+        self::assertSame(
+            1.0,
+            $xpath->evaluate('count(//div[@id="primary-navigation"][@popover="auto"])')
+        );
         self::assertSame(
             '© 2023–' . date('Y') . ' Mastering the Mundane',
             $xpath->evaluate('string(//footer)')

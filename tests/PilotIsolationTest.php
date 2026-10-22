@@ -174,8 +174,16 @@ final class PilotIsolationTest extends TestCase
         );
         self::assertStringContainsString('text-decoration-color: LinkText;', $css);
         self::assertStringContainsString(
-            'text-decoration: underline 3px var(--color-accent);',
-            $css
+            'nav button { min-height: 44px; padding-block: var(--space-sm); '
+                . 'padding-inline: var(--space-2xs); border: 0; background: transparent; '
+                . 'font: inherit; color: var(--color-ink); '
+                . 'text-decoration: underline 2px var(--color-accent); '
+                . 'text-underline-offset: var(--space-4xs); cursor: pointer; }',
+            $normalizedCss
+        );
+        self::assertStringContainsString(
+            'nav button:hover { text-decoration-thickness: 3px; }',
+            $normalizedCss
         );
     }
 

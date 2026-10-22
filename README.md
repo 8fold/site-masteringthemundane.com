@@ -294,15 +294,16 @@ slightly between installed static and hosted variable Next, both version 2.001.
 That bounded comparison neither establishes the cause of the user's observation
 nor measures temporal font-swap movement.
 
-The pilot header adapts apps' native, JavaScript-free popover pattern: Menu,
-centered text-only "Coaching and Mentoring" heading, and Read. Menu links to Home,
-Coaching, and Home's Time/People/Space/Money
-anchors; Read links to Books and Resources. Home includes a People
-section so `/#people` resolves. Rewriting Home copy is deferred until the other
-pages have been converted; see [#10](https://github.com/8fold/site-masteringthemundane.com/issues/10).
+The pilot header adapts apps' native, JavaScript-free popover pattern: a Menu,
+centered text-only heading, and a direct "Apps" link to the apps site.
+Menu links to Home, Coaching, Services, Books and Resources; domain shortcuts
+are not in navigation. Home includes Time/People/Space/Money sections. Rewriting
+Home copy is deferred until the other pages have been converted; see
+[#10](https://github.com/8fold/site-masteringthemundane.com/issues/10).
 The current route has `aria-current="page"`
 and the established bold/double-underline visual current-page indication:
-regular links use a 2px underline that increases to 3px on hover, while current
+regular links and the text-only Menu and Read buttons use a 2px underline that
+increases to 3px on hover, while current
 navigation links use a double 1px underline that increases to 2px on hover.
 The footer contains copyright only; the original tagline is omitted on the pilot.
 
