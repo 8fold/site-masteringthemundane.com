@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use MTM\Marketing\ContentCompiler;
-use MTM\Marketing\ArticlesIndex;
+use MTM\Marketing\ResourcesIndex;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -18,9 +18,9 @@ if ($argc > 2 || ($argc === 2 && $argv[1] !== '--check')) {
 
 $check = $argc === 2;
 $sources = [
-    __DIR__ . '/../site-root/public/articles/the-action-loop/content.md',
-    __DIR__ . '/../site-root/public/tools-and-resources/motivators/content.md',
-    __DIR__ . '/../site-root/public/tools-and-resources/the-5-ps/content.md'
+    __DIR__ . '/../site-root/public/resources/the-action-loop/content.md',
+    __DIR__ . '/../site-root/public/resources/motivators/content.md',
+    __DIR__ . '/../site-root/public/resources/the-5-ps/content.md'
 ];
 $entries = new RecursiveIteratorIterator(
     new RecursiveDirectoryIterator(__DIR__ . '/../public_content', FilesystemIterator::SKIP_DOTS)
@@ -33,9 +33,9 @@ foreach ($entries as $entry) {
 sort($sources, SORT_STRING);
 
 $artifacts = [
-    __DIR__ . '/../public_content/articles/content.html' => [
-        'html' => ArticlesIndex::compile(__DIR__ . '/..'),
-        'source' => __DIR__ . '/../public_content/articles/published.json'
+    __DIR__ . '/../public_content/resources/content.html' => [
+        'html' => ResourcesIndex::compile(__DIR__ . '/..'),
+        'source' => __DIR__ . '/../public_content/resources/published.json'
     ]
 ];
 foreach ($sources as $source) {

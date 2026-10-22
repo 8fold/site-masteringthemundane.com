@@ -9,7 +9,7 @@ final class FivePsPage
     public static function render(): string
     {
         return ReadingPage::render(
-            '/tools-and-resources/the-5-ps/',
+            '/resources/the-5-ps/',
             'The 5 Ps exercise by Josh Bruce',
             'The 5 Ps Framework: Design Your Life (Passions, Pensives, More)'
                 . ' | Tools and Resources | Mastering the Mundane',

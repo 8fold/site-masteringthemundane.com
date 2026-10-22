@@ -87,7 +87,7 @@ final class ReadingPage
                 Element::create('h1', $heading),
                 self::navigation('Read', 'read-navigation', $route, [
                     '/books/' => 'Books',
-                    '/articles/' => 'Articles'
+                    '/resources/' => 'Resources'
                 ])
             )->props('is marketing-header'),
             Element::create(

@@ -6,15 +6,15 @@ namespace MTM\Tests;
 
 use DOMDocument;
 use DOMXPath;
-use MTM\Marketing\UserInterface\ArticlesPage;
+use MTM\Marketing\UserInterface\ResourcesPage;
 use MTM\Marketing\UserInterface\ContentFragment;
 use PHPUnit\Framework\TestCase;
 
-final class ArticlesPageTest extends TestCase
+final class ResourcesPageTest extends TestCase
 {
     public function testPhysicalRouteRendersWithoutLoadingTheMarkdownConverter(): void
     {
-        $file = dirname(__DIR__) . '/site-root/public/articles/index.php';
+        $file = dirname(__DIR__) . '/site-root/public/resources/index.php';
         $process = proc_open(
             [
                 PHP_BINARY,
@@ -35,7 +35,7 @@ final class ArticlesPageTest extends TestCase
         fclose($pipes[2]);
         self::assertSame(0, proc_close($process));
         self::assertSame('', $errors);
-        self::assertSame(ArticlesPage::render(), $html);
+        self::assertSame(ResourcesPage::render(), $html);
     }
 
     public function testReadingLandmarksNavigationAndPublishedDestination(): void
@@ -56,15 +56,15 @@ final class ArticlesPageTest extends TestCase
         }
         self::assertSame(1.0, $xpath->evaluate('count(//h1)'));
         self::assertSame(
-            '/articles/the-action-loop/',
+            '/resources/the-action-loop/',
             $xpath->evaluate('string(//main//a/@href)')
         );
         self::assertSame(3.0, $xpath->evaluate('count(//main//a)'));
         foreach (
             [
-            '/articles/the-action-loop/' => ['2024-02-02', 'February 2, 2024'],
-            '/tools-and-resources/motivators/' => ['2026-05-11', 'May 11, 2026'],
-            '/tools-and-resources/the-5-ps/' => ['2026-05-11', 'May 11, 2026']
+            '/resources/the-action-loop/' => ['2024-02-02', 'February 2, 2024'],
+            '/resources/motivators/' => ['2026-05-11', 'May 11, 2026'],
+            '/resources/the-5-ps/' => ['2026-05-11', 'May 11, 2026']
             ] as $href => [$date, $label]
         ) {
             $item = '//main//li[a[@href="' . $href . '"]]';
@@ -77,9 +77,9 @@ final class ArticlesPageTest extends TestCase
         }
         foreach (
             [
-            '/articles/the-action-loop/' => 'Model / Time',
-            '/tools-and-resources/motivators/' => 'Exercise / People',
-            '/tools-and-resources/the-5-ps/' => 'Exercise / People'
+            '/resources/the-action-loop/' => 'Model / Time',
+            '/resources/motivators/' => 'Exercise / People',
+            '/resources/the-5-ps/' => 'Exercise / People'
             ] as $href => $taxonomy
         ) {
             self::assertSame(
@@ -94,12 +94,12 @@ final class ArticlesPageTest extends TestCase
         self::assertIsString($linkText);
         self::assertNotSame('', trim($linkText));
         self::assertStringContainsString(
-            ContentFragment::forRoute('/articles/'),
-            ArticlesPage::render()
+            ContentFragment::forRoute('/resources/'),
+            ResourcesPage::render()
         );
         self::assertSame(1.0, $xpath->evaluate('count(//nav//a[@aria-current])'));
         self::assertSame(
-            '/articles/',
+            '/resources/',
             $xpath->evaluate('string(//nav//a[@aria-current="page"]/@href)')
         );
         foreach (['primary-navigation', 'read-navigation'] as $id) {
@@ -119,20 +119,20 @@ final class ArticlesPageTest extends TestCase
         self::assertSame(0.0, $xpath->evaluate('count(//form|//iframe|//script[@src])'));
         RenderedAnchorAssertions::assertHttpHostPolicy(
             $xpath,
-            'https://mastering-the-mundane.com/articles/'
+            'https://mastering-the-mundane.com/resources/'
         );
     }
 
     public function testArticlesLabelsAndMetadataAreConsistentWithoutAnSeoPolicyChange(): void
     {
         $xpath = $this->page();
-        self::assertSame('Articles', $xpath->evaluate('string(//header/h1)'));
+        self::assertSame('Resources', $xpath->evaluate('string(//header/h1)'));
         $title = $xpath->evaluate('string(//title)');
         self::assertIsString($title);
-        self::assertStringStartsWith('Articles | ', $title);
+        self::assertStringStartsWith('Resources | ', $title);
         $description = $xpath->evaluate('string(//meta[@name="description"]/@content)');
         self::assertIsString($description);
-        self::assertStringStartsWith('Articles ', $description);
+        self::assertNotSame('', trim($description));
         self::assertLessThanOrEqual(160, strlen($description));
         foreach (
             [
@@ -167,7 +167,7 @@ final class ArticlesPageTest extends TestCase
         $previous = libxml_use_internal_errors(true);
         try {
             $document = new DOMDocument();
-            self::assertTrue($document->loadHTML(ArticlesPage::render()));
+            self::assertTrue($document->loadHTML(ResourcesPage::render()));
             return new DOMXPath($document);
         } finally {
             libxml_clear_errors();

@@ -9,11 +9,11 @@ use JsonException;
 use RuntimeException;
 use stdClass;
 
-final class ArticlesIndex
+final class ResourcesIndex
 {
     public static function compile(string $root): string
     {
-        $manifest = $root . '/public_content/articles/published.json';
+        $manifest = $root . '/public_content/resources/published.json';
         $routes = self::readJson($manifest);
         if (!is_array($routes) || !array_is_list($routes) || $routes === []) {
             throw new RuntimeException(

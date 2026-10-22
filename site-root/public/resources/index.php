@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use MTM\Marketing\UserInterface\ArticlesPage;
+use MTM\Marketing\UserInterface\ResourcesPage;
 
 require_once dirname(__DIR__, 3) . '/vendor/autoload.php';
 
-echo ArticlesPage::render();
+echo ResourcesPage::render();

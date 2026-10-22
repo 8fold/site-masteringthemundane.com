@@ -13,7 +13,7 @@ final class ActionLoopPageTest extends TestCase
 {
     public function testPhysicalRouteUsesCompiledContentWithoutRuntimeMarkdown(): void
     {
-        $file = dirname(__DIR__) . '/site-root/public/articles/the-action-loop/index.php';
+        $file = dirname(__DIR__) . '/site-root/public/resources/the-action-loop/index.php';
         $process = proc_open(
             [
                 PHP_BINARY, '-r',
@@ -60,7 +60,7 @@ final class ActionLoopPageTest extends TestCase
         self::assertSame(0.0, $xpath->evaluate('count(//nav//a[@aria-current])'));
         self::assertSame(
             1.0,
-            $xpath->evaluate('count(//nav[@aria-label="Read"]//a[@href="/articles/"])')
+            $xpath->evaluate('count(//nav[@aria-label="Read"]//a[@href="/resources/"])')
         );
         $dates = '//main/div[@is="publication-dates"]';
         self::assertSame(2.0, $xpath->evaluate('count(' . $dates . '/p/time)'));
@@ -77,7 +77,7 @@ final class ActionLoopPageTest extends TestCase
         self::assertSame(0.0, $xpath->evaluate('count(//form|//iframe|//script[@src])'));
         RenderedAnchorAssertions::assertHttpHostPolicy(
             $xpath,
-            'https://mastering-the-mundane.com/articles/the-action-loop/'
+            'https://mastering-the-mundane.com/resources/the-action-loop/'
         );
         self::assertSame(
             1.0,
@@ -94,7 +94,7 @@ final class ActionLoopPageTest extends TestCase
     public function testExistingMetadataAndSharedStylesheet(): void
     {
         $xpath = $this->page();
-        $title = 'The Action Loop: Work Sustainably and Get Things Done | Articles and Thoughts'
+        $title = 'The Action Loop: Work Sustainably and Get Things Done | Resources'
             . ' | Mastering the Mundane';
         $description = 'Master the 5-phase action loop to sustain energy, prevent burnout, '
             . 'and maintain peak productivity. Learn the framework for intentional, '
