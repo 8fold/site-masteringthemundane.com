@@ -43,9 +43,10 @@ and normal hostname resolution. Do not repoint the original site.
   Confirm video conferencing is explained as a link sent by Cal.com when booking
   is confirmed, with no Gather reference or link.
   No booking, account creation, payment or form submission is part of this check.
-- Check network requests on page load: only local HTML/CSS/favicon resources,
-  no Cal.com/Gather requests, JS, webfonts or third-party embeds. Metadata URLs
-  are unchanged descriptive values, not resources to fetch.
+- Check network requests on page load: only local HTML/CSS/favicon resources and
+  any matching self-hosted WOFF2 font subsets when neither local Atkinson family
+  is available. No third-party font, Cal.com/Gather, JS or embed requests should
+  occur. Metadata URLs are unchanged descriptive values, not resources to fetch.
 - Fetch `/booking` and `/booking/` without following redirects; preserve existing
   behavior for this pilot. Currently `/booking/` removes the slash first (301),
   then `/booking` redirects to `/coaching-and-mentoring/` (301).
@@ -86,8 +87,9 @@ navigation revisions; they are not a claim that subsequent revisions were review
 
 The earlier browser resource inspection separately observed only local
 CSS/logo/manifest requests, without JavaScript, webfonts or external-service
-loads. That automated observation does not change the human network result to
-Pass. Screen-reader, forced-colors and full browser-zoom results were not reported.
+loads. That observation predates the self-hosted font fallback and does not
+establish the current request set. Screen-reader, forced-colors and full
+browser-zoom results were not reported.
 
 ## Requested revisions
 
