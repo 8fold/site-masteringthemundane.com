@@ -22,7 +22,7 @@ must approve and verify a preview switch first. Do not change MAMP or the
   not control presentation or change which resources are published.
 - Check Menu with keyboard and pointer: open using Enter/Space, dismiss using
   Escape or outside click, and verify focus return. Menu lists Home, Coaching,
-  Services, Books and Resources, with no Home domain shortcuts. Only Resources
+  Services, Resources and Books, with no Home domain shortcuts. Only Resources
   is current, with bold double 1px underline styling that increases to 2px on
   hover. Other links, the Menu button and the header's "Apps" link use 2px at
   rest and 3px on hover; "Apps" opens the apps site in a new tab.

@@ -23,12 +23,12 @@ final class CoachingPageTest extends TestCase
         self::assertSame(
             [
                 '/', '/coaching-and-mentoring/', '/services/',
-                '/books/', '/resources/'
+                '/resources/', '/books/'
             ],
             $this->texts($xpath, '//nav[@aria-label="Menu"]//a/@href')
         );
         self::assertSame(
-            ['Home', 'Coaching', 'Services', 'Books', 'Resources'],
+            ['Home', 'Coaching', 'Services', 'Resources', 'Books'],
             $this->texts($xpath, '//nav[@aria-label="Menu"]//a')
         );
         self::assertSame(0, $this->countMatches($xpath, '//nav[@aria-label="Read"]'));

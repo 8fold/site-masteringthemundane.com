@@ -296,7 +296,7 @@ nor measures temporal font-swap movement.
 
 The pilot header adapts apps' native, JavaScript-free popover pattern: a Menu,
 centered text-only heading, and a direct "Apps" link to the apps site.
-Menu links to Home, Coaching, Services, Books and Resources; domain shortcuts
+Menu links to Home, Coaching, Services, Resources and Books; domain shortcuts
 are not in navigation. Home includes Time/People/Space/Money sections. Rewriting
 Home copy is deferred until the other pages have been converted; see
 [#10](https://github.com/8fold/site-masteringthemundane.com/issues/10).

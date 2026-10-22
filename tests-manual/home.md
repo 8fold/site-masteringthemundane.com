@@ -8,7 +8,7 @@ Review `/` on the verified worktree preview.
 - Each domain has clear, calm copy and links to Coaching and Services. Check
   that the wording represents the actual offerings, particularly People:
   its Services link explains availability rather than promising a new service.
-- Home alone is current in Menu. Books and Resources are also available in
+- Home alone is current in Menu. Resources and Books are also available in
   Menu, and "Apps" links to the apps site. Test native popover
   keyboard operation, dismissal, focus return and skip-to-main. The text-only
   Menu button underline uses 2px at rest and 3px on hover.

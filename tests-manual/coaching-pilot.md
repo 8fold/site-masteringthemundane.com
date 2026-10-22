@@ -35,7 +35,7 @@ and normal hostname resolution. Do not repoint the original site.
   and the Menu button use a 2px underline at rest and 3px on hover. No other
   menu link is current.
 - Menu destinations are Home `/`, Coaching `/coaching-and-mentoring/`,
-  Services `/services/`, Books `/books/` and Resources `/resources/`; it has no
+  Services `/services/`, Resources `/resources/` and Books `/books/`; it has no
   Home domain shortcuts. The header's "Apps" link opens
   `https://apps.mastering-the-mundane.com` in a separate tab.
 - Confirm the introduction booking anchor retains its exact destination,
