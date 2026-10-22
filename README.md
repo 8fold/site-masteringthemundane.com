@@ -22,6 +22,10 @@ You should see the same Mastering the Mundane website that you could find on the
 
 ## Contributing
 
+AI coding assistants must read [AGENTS.md](AGENTS.md) and the repository-specific
+[agent context](docs/agent-context.md). These distinguish shared operating rules
+from this site's actual commands and infrastructure.
+
 ### Reading pages: Coaching, Resources and exercises
 
 Home uses the same shared shell, with four labelled h2 sections retaining the
