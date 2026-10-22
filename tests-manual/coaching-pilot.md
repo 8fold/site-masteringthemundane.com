@@ -38,6 +38,9 @@ and normal hostname resolution. Do not repoint the original site.
   Services `/services/`, Resources `/resources/` and Books `/books/`; it has no
   Home domain shortcuts. The header's "Apps" link opens
   `https://apps.mastering-the-mundane.com` in a separate tab.
+- Check the header's `nav-header`, Menu's `nav-primary` and popover's `nav-panel`
+  selectors. Header controls are content-sized, not fixed 5em side columns.
+  The current menu item remains bold and double-underlined.
 - Confirm the introduction booking anchor retains its exact destination,
   `_blank`, `noopener noreferrer`, and the new-window marker.
   Check all `_blank` markers are text-level square-and-arrow icons and match the

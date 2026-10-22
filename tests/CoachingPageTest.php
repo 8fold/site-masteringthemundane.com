@@ -32,6 +32,25 @@ final class CoachingPageTest extends TestCase
             $this->texts($xpath, '//nav[@aria-label="Menu"]//a')
         );
         self::assertSame(0, $this->countMatches($xpath, '//nav[@aria-label="Read"]'));
+        self::assertSame(
+            1,
+            $this->countMatches(
+                $xpath,
+                '//header[@is="nav-header"]/nav[@is="nav-primary"]'
+                    . '/div[@is="nav-panel"][@id="primary-navigation"][@popover="auto"]'
+            )
+        );
+        $css = file_get_contents(dirname(__DIR__) . '/site-root/public/css/reading.css');
+        self::assertIsString($css);
+        self::assertStringNotContainsString('flex: 0 0 5em', $css);
+        self::assertStringNotContainsString('marketing-header', $css);
+        self::assertStringNotContainsString('menu-picker', $css);
+        self::assertStringNotContainsString('navigation-panel', $css);
+        self::assertStringContainsString(
+            'nav a[aria-current="page"] {' . "\n"
+                . '  font-weight: var(--font-weight-bold);',
+            $css
+        );
         $readingHistoryLink = '//header/a[@href="https://apps.mastering-the-mundane.com"]';
         self::assertSame(
             'Apps (opens in a new tab)',

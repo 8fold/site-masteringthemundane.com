@@ -43,7 +43,7 @@ final class ActionLoopPageTest extends TestCase
             [
             '//html[@lang="en-US"]',
             '//a[@href="#main"][@is="skip-link"]',
-            '//header[@is="marketing-header"]/h1[not(*)]',
+            '//header[@is="nav-header"]/h1[not(*)]',
             '//main[@id="main"][@tabindex="-1"]',
             '//footer',
             '//nav[@aria-label="Menu"]'

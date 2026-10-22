@@ -21,7 +21,7 @@ final class PilotIsolationTest extends TestCase
             self::assertStringContainsString('/css/main.css?v=1.1', $html, $route);
             self::assertStringNotContainsString('coaching.css', $html, $route);
             self::assertStringNotContainsString('reading.css', $html, $route);
-            self::assertStringNotContainsString('is="marketing-header"', $html, $route);
+            self::assertStringNotContainsString('is="nav-header"', $html, $route);
         }
     }
 

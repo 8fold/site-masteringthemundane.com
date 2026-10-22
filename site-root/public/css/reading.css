@@ -315,7 +315,7 @@ a:focus-visible {
   left: var(--space-sm);
 }
 
-[is="marketing-header"] {
+[is="nav-header"] {
   background: var(--color-surface);
   display: flex;
   align-items: stretch;
@@ -328,7 +328,7 @@ a:focus-visible {
   border-block-end: 1px solid var(--color-border);
 }
 
-[is="marketing-header"] h1 {
+[is="nav-header"] h1 {
   flex: 1;
   min-width: 0;
   margin: 0;
@@ -340,15 +340,12 @@ a:focus-visible {
   white-space: nowrap;
 }
 
-[is="marketing-header"] > nav {
+[is="nav-header"] > nav {
   display: flex;
-  flex: 0 0 5em;
-  justify-content: center;
 }
 
-[is="marketing-header"] > a {
+[is="nav-header"] > a {
   display: flex;
-  flex: 0 0 5em;
   align-items: center;
   justify-content: center;
   padding-inline: var(--space-2xs);
@@ -372,7 +369,7 @@ nav button:hover {
   text-decoration-thickness: 3px;
 }
 
-[is="navigation-panel"] {
+[is="nav-panel"] {
   position: fixed;
   inset: 4rem auto auto max(8px, env(safe-area-inset-left, 0px));
   margin: 0;
@@ -387,17 +384,17 @@ nav button:hover {
   border-radius: var(--space-3xs);
 }
 
-[is="menu-picker"] button {
-  anchor-name: --menu;
+[popovertarget="primary-navigation"] {
+  anchor-name: --primary-navigation;
 }
 
 @supports (top: anchor(bottom)) {
-  [is="navigation-panel"] {
+  [is="nav-panel"] {
     top: anchor(bottom);
   }
 
-  [is="menu-picker"] [is="navigation-panel"] {
-    position-anchor: --menu;
+  #primary-navigation {
+    position-anchor: --primary-navigation;
     left: anchor(left);
   }
 }
@@ -424,11 +421,11 @@ nav a[aria-current="page"]:hover {
 }
 
 @supports not selector(:popover-open) {
-  [is="marketing-header"] {
+  [is="nav-header"] {
     flex-wrap: wrap;
   }
 
-  [is="marketing-header"] > nav {
+  [is="nav-header"] > nav {
     flex-direction: column;
   }
 
@@ -436,7 +433,7 @@ nav a[aria-current="page"]:hover {
     display: none;
   }
 
-  [is="navigation-panel"] {
+  [is="nav-panel"] {
     position: static;
     width: auto;
     max-height: none;
