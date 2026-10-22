@@ -10,7 +10,8 @@ and normal hostname resolution. Do not repoint the original site.
   no horizontal scrolling, and 200% zoom. Check Menu, centered text-only
   "Coaching and Mentoring" heading and
   Read placement, and each open native popover. Check OS light/dark appearance and
-  forced colors. Fonts are local-first with system fallbacks, not downloads.
+  forced colors. Fonts are local-first with same-origin Next downloads when
+  the matching installed face is unavailable, then system fallbacks.
 - Prose lists in main should have half the paragraph gap between items:
   `--space-xs` (0.75rem), with no extra trailing item gap. Check simple, nested
   and paragraph-containing items at narrow widths and enlarged text, including
@@ -107,3 +108,40 @@ main starts with introductory paragraphs, followed by unboxed content
 subsections. There is no duplicate page heading or content-container
 wrapper. Footer spacing and column alignment follow apps, with copyright only;
 the tagline is removed. No account context or acceptance form is imported.
+
+## Next font fallback review
+
+Review the untouched local-first stack in standalone Safari, Chrome and Firefox
+with a fresh cache before using any font API or diagnostic hosted-only control.
+Record the rendered zero glyph and observed font requests, not just computed CSS,
+`document.fonts.check()` or a successful explicit `document.fonts.load()`.
+An embedded WebKit specimen can claim local availability while painting system
+glyphs and never fetching the hosted fallback; do not extrapolate that to
+standalone Safari or mark the automatic fallback accepted from a forced load.
+
+The delivery family uses exact static local Next faces for each declared weight,
+then original Atkinson for 400/700 where available, then Next version 2.001
+variable WOFF2 URLs. Twelve normal/italic declarations cover 400/500/700 and
+Latin/Latin-ext, sharing four files. No direct local family name precedes them.
+Use the same complete production declarations in the local-first specimen;
+hosted-only removes local sources, and local-only retains only installed Next
+sources. Check regular 400, medium 500, bold 700 and all three real italics;
+500 should differ from 400. Confirm the
+crossed zero, readable fallback during a bounded delayed/throttled cold load and
+on intentional font failure, narrow layout, wrapping and no horizontal overflow.
+Report layout shifts, cache conditions and fixture throttling separately from
+actual production performance. No preload or cross-origin asset sharing is added.
+
+The user's earlier regular-only specimen review found Safari local-first and
+hosted-only visually identical, with local-only unavailable. No Safari network
+measurement was reported. Chrome hosted-only spacing looked different, but its
+magnitude and cause were not measured. At identical viewport/content, compare
+settled element tops, heights, line heights and line counts; distinguish
+cumulative flow offsets from temporal movement during a font swap.
+
+The final production-equivalent full-style comparison was accepted by the user:
+Safari local-first and hosted-only visually matched, while local-only remained
+unavailable as expected. Chrome's spacing difference appeared only in the larger
+specimen paragraphs, not the introductory paragraphs, and was accepted. The
+user said, "I think we can call this a success." This records visual acceptance,
+not a Safari network measurement or a quantified explanation of Chrome's spacing.
