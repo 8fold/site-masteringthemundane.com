@@ -15,8 +15,8 @@ seven canonical routes render normally with the approved titles and descriptions
   artifacts. Metadata or generator changes require regeneration; build checks
   detect stale JSON without writing. Runtime reads saved JSON without graph
   regeneration and rejects missing/invalid artifacts with a path and command.
-- Legacy Books and the three public resource `article.html` documents retain
-  their old markup. This slice does not endorse it or change their delivery.
+- Legacy Books retains its old `head.php` markup. The orphaned resource
+  `article.html` JSON-LD-only files have been removed without redirects.
 
 Automated tests cover script escaping (including `</script>`), exact embedding,
 scope, metadata consistency, deterministic output, freshness and invalid inputs.

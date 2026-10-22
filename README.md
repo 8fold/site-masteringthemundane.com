@@ -257,12 +257,9 @@ AI-search ranking improvement is promised.
 
 Legacy boundaries remain deliberately separate: `site-root/public/head.php`
 still emits its old `CoachingService` literal for legacy pages such as Books.
-The retained `/resources/the-action-loop/article.html`,
-`/resources/motivators/article.html` and `/resources/the-5-ps/article.html`
-remain public old documents with manually authored Article markup and dates.
-They are not inputs to the compiler or canonical converted pages. Cleanup or
-redirects for those documents, and reconciliation of their disputed historical
-dates, require a separate decision.
+The orphaned resource `article.html` JSON-LD-only files were removed; they were
+not inputs to the compiler or canonical converted pages. No compatibility
+redirects were added. Their historical Article dates were not transferred.
 
 The shared shell is `src/Marketing/UserInterface/ReadingPage.php`;
 each page adapter (`HomePage`, `CoachingPage`, `ServicesPage`, `ResourcesPage`,
