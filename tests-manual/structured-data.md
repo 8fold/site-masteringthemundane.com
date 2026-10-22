@@ -1,7 +1,7 @@
 # Converted-page structured data
 
 Use the saved MAMP HTTPS preview without changing its DocumentRoot. Confirm the
-eight canonical routes render normally with the approved titles and descriptions.
+nine canonical routes render normally with the approved titles and descriptions.
 
 - Each page has exactly one `application/ld+json` script whose text exactly
   matches its private `public_content/<route>/structured-data.json`.
@@ -11,12 +11,12 @@ eight canonical routes render normally with the approved titles and descriptions
   dates, ratings or service claims. All graphs identify the same site/provider.
 - Direct `/structured-data.json` and route-relative `structured-data.json` HTTP
   requests return 404. The JSON artifacts are not public downloads.
-- `composer compile-content` followed by `composer check-content` verifies 16
+- `composer compile-content` followed by `composer check-content` verifies 18
   artifacts. Metadata or generator changes require regeneration; build checks
   detect stale JSON without writing. Runtime reads saved JSON without graph
   regeneration and rejects missing/invalid artifacts with a path and command.
-- The legacy Time book detail retains its old `head.php` markup; the Books
-  catalog uses the generated WebPage graph. The orphaned resource
+- The Time book detail and Books catalog use generated WebPage graphs, with no
+  Book/Offer assertions. `/time/` remains legacy. The orphaned resource
   `article.html` JSON-LD-only files have been removed without redirects.
 
 Automated tests cover script escaping (including `</script>`), exact embedding,

@@ -150,6 +150,9 @@ final class ContentCompilerTest extends TestCase
             'compiled (mastering-the-mundane.com): '
                 . '/public_content/books/content.md -> content.html' . PHP_EOL
                 . 'compiled (mastering-the-mundane.com): '
+                . '/public_content/books/time-mastering-the-mundane/content.md -> content.html'
+                . PHP_EOL
+                . 'compiled (mastering-the-mundane.com): '
                 . '/public_content/coaching-and-mentoring/content.md -> content.html' . PHP_EOL
                 . 'compiled (mastering-the-mundane.com): '
                 . '/public_content/content.md -> content.html' . PHP_EOL

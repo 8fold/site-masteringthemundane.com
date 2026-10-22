@@ -17,6 +17,7 @@ use MTM\Marketing\UserInterface\PageMetadata;
 use MTM\Marketing\UserInterface\ReadingPage;
 use MTM\Marketing\UserInterface\ResourcesPage;
 use MTM\Marketing\UserInterface\ServicesPage;
+use MTM\Marketing\UserInterface\TimeBookPage;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
@@ -34,6 +35,7 @@ final class PageMetadataTest extends TestCase
         yield 'motivators' => ['/resources/motivators/', MotivatorsPage::render(...)];
         yield 'the 5 ps' => ['/resources/the-5-ps/', FivePsPage::render(...)];
         yield 'books' => ['/books/', BooksPage::render(...)];
+        yield 'time book' => ['/books/time-mastering-the-mundane/', TimeBookPage::render(...)];
     }
 
     /** @param callable(): string $render */

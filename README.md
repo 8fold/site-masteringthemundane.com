@@ -34,7 +34,7 @@ No synthetic `/home/` route is used.
 
 Every shared-shell page reads its own `title` and `description` from the
 `meta.json` beside its `content.html`: `public_content/<route>/meta.json` for
-all eight converted pages. `PageMetadata::ROUTES` lists these routes.
+all nine converted pages. `PageMetadata::ROUTES` lists these routes.
 Following the apps site's `PageTitle` convention, there is no separate heading:
 the header h1 is the page's own `title`, and the browser and social title is
 `PageTitle` of that title followed by each ancestor route's title, joined with
@@ -51,9 +51,10 @@ planned software or inventing domain-specific services. This is a content
 rewrite, not a preservation-only migration.
 
 `/coaching-and-mentoring/`, `/services/`, the `/resources/` index, `/resources/the-action-loop/`,
-`/resources/motivators/`, `/resources/the-5-ps/` and `/books/` adopt the apps site's
+`/resources/motivators/`, `/resources/the-5-ps/`, `/books/` and
+`/books/time-mastering-the-mundane/` adopt the apps site's
 visual and architectural foundation. All other routes still use their existing
-templates and stylesheet. The existing Time book-detail page is not migrated.
+templates and stylesheet.
 The Resources index discovers three explicitly selected published items from
 their metadata. Its heading, Read navigation and descriptive metadata identify
 Resources. Content and unrelated metadata remain unchanged.
@@ -106,7 +107,11 @@ card treatment for sections beginning with h3.
 This is a user-approved content rewrite/re-engineering, not a preservation-only
 refactor: images, the old crowdfunding/hopper list and distribution plans are
 removed from the catalog. The Time detail page at
-`/books/time-mastering-the-mundane/` and its retailer links remain unchanged.
+`/books/time-mastering-the-mundane/` keeps its retailer links and prose.
+The cover image and its caption are removed at the author's request.
+Its private Markdown and metadata now use the same compiler and reading shell
+as the catalog. The former split title is represented once as the header h1;
+the browser title remains "Time: Mastering the Mundane | Books | Mastering the Mundane".
 Direct website sales is a separate business/operations discussion; the catalog
 does not add checkout, delivery, inventory or new distribution arrangements.
 
@@ -256,7 +261,7 @@ are validated at request time. There is no new dependency, search or filtering.
 
 `composer compile-content` also generates a committed private sibling
 `structured-data.json` for each route in `PageMetadata::ROUTES`.
-`composer check-content` verifies all 16 HTML/JSON artifacts without writing.
+`composer check-content` verifies all 18 HTML/JSON artifacts without writing.
 All artifacts are prepared and validated before any are written. Metadata
 changes require regeneration; deploy the generated JSON alongside the HTML.
 
@@ -280,8 +285,9 @@ copy, browser/social metadata and discovery behavior are unchanged. No SEO or
 AI-search ranking improvement is promised.
 
 Legacy boundaries remain deliberately separate: `site-root/public/head.php`
-still emits its old `CoachingService` literal for legacy pages such as the Time
-book detail. The Books catalog uses the generated WebPage graph.
+still emits its old `CoachingService` literal for legacy pages such as `/time/`.
+Both the Books catalog and Time book detail use generated WebPage graphs;
+the detail migration adds no Book/Offer schema or direct-sales claims.
 The orphaned resource `article.html` JSON-LD-only files were removed; they were
 not inputs to the compiler or canonical converted pages. No compatibility
 redirects were added. Their historical Article dates were not transferred.
@@ -290,8 +296,9 @@ The shared shell is `src/Marketing/UserInterface/ReadingPage.php`;
 navigation uses the shared `nav-header`, `nav-primary` and `nav-panel` selectors.
 Header controls size to their content rather than reserving fixed side columns.
 The current menu destination remains bold with a double underline.
-each page adapter (`HomePage`, `CoachingPage`, `ServicesPage`, `ResourcesPage`,
-`ActionLoopPage`, `MotivatorsPage`, `FivePsPage`, `BooksPage`) only names its route; metadata
+Each page adapter (`HomePage`, `CoachingPage`, `ServicesPage`, `ResourcesPage`,
+`ActionLoopPage`, `MotivatorsPage`, `FivePsPage`, `BooksPage`, `TimeBookPage`)
+only names its route; metadata
 comes from `PageMetadata`. Each entry point only loads Composer and renders its page.
 `site-root/public/css/reading.css` adapts
 the apps legal page's executable CSS: 16px base typography, exact `70ch` main

@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 final class PilotIsolationTest extends TestCase
 {
-    public function testLegacyRoutesStillRenderTheirOriginalStylesheetWithoutThePilotShell(): void
+    public function testTimeBookDetailUsesTheSharedReadingShell(): void
     {
         $root = dirname(__DIR__) . '/site-root/public';
         foreach (
@@ -18,10 +18,10 @@ final class PilotIsolationTest extends TestCase
         ) {
             $html = $this->renderLegacyRoute($root . $route);
             self::assertStringStartsWith('<!doctype html>', $html, $route);
-            self::assertStringContainsString('/css/main.css?v=1.1', $html, $route);
+            self::assertStringNotContainsString('/css/main.css', $html, $route);
             self::assertStringNotContainsString('coaching.css', $html, $route);
-            self::assertStringNotContainsString('reading.css', $html, $route);
-            self::assertStringNotContainsString('is="nav-header"', $html, $route);
+            self::assertStringContainsString('reading.css', $html, $route);
+            self::assertStringContainsString('is="nav-header"', $html, $route);
         }
     }
 
