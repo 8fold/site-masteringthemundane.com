@@ -20,7 +20,7 @@ Do not change the original `.com` host.
   Confirm the shared 16px/24px typography and 70ch column. Use a screen reader
   to check landmarks, heading order and definition-list announcements.
 - Title, description and social metadata retain the prior values. No form,
-  account, embed, external font or runtime Markdown request is introduced.
+  account, embed, third-party font or runtime Markdown request is introduced.
 - Dates stack by default; at 70ch and wider they share a row with Updated left
   and Original right. Both retain visible labels and semantic `time` values.
   Check a single Original date stays left-aligned at both widths, and longer

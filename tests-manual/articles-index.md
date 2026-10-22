@@ -31,8 +31,9 @@ must approve and verify a preview switch first. Do not change MAMP or the
   Full-document automated checks use the shared WhatWG URL assertion.
   The shared CSS supplies the accent superscript new-tab marker; the index
   currently has no external content destination to mark.
-- Check page-load requests: local CSS/favicons only, no JavaScript, downloaded
-  fonts, external embeds, account or database requests.
+- Check page-load requests: local CSS/favicons and, only when needed, self-hosted
+  WOFF2 font subsets; no JavaScript, third-party font or embed, account or
+  database requests.
 - Run `composer production`, `composer compile-content` twice and
   `composer check-content`. All four generated fragments must be deterministic.
   Compiler stdout lists Articles' `published.json` then Coaching's `content.md`

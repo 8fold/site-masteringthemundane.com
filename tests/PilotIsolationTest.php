@@ -35,8 +35,42 @@ final class PilotIsolationTest extends TestCase
         $css = file_get_contents($root . '/css/reading.css');
         self::assertIsString($css);
         self::assertStringNotContainsString('@import', $css);
-        self::assertStringNotContainsString('@font-face', $css);
-        self::assertStringNotContainsString('url(', $css);
+        self::assertSame(8, substr_count($css, '@font-face'));
+        preg_match_all('/@font-face\s*\{(.*?)\}/s', $css, $faces);
+        self::assertCount(8, $faces[1]);
+        $faceStyles = [];
+        foreach ($faces[1] as $face) {
+            preg_match('/font-style:\s*(normal|italic);/', $face, $style);
+            preg_match('/font-weight:\s*(400|700);/', $face, $weight);
+            self::assertNotEmpty($style);
+            self::assertNotEmpty($weight);
+            $descriptor = $style[1] . ':' . $weight[1];
+            $faceStyles[$descriptor] = ($faceStyles[$descriptor] ?? 0) + 1;
+        }
+        self::assertSame(
+            [
+                'normal:400' => 2,
+                'normal:700' => 2,
+                'italic:400' => 2,
+                'italic:700' => 2
+            ],
+            $faceStyles
+        );
+        self::assertStringContainsString('"Atkinson Hyperlegible Hosted"', $css);
+        self::assertSame(8, substr_count($css, 'font-display: swap'));
+        self::assertStringNotContainsString('https://', $css);
+        $fontFiles = glob($root . '/fonts/AtkinsonHyperlegible-v12-*.woff2');
+        self::assertIsArray($fontFiles);
+        self::assertCount(8, $fontFiles);
+        foreach ($fontFiles as $fontFile) {
+            $hash = hash_file('sha256', $fontFile);
+            self::assertIsString($hash);
+            self::assertStringContainsString(
+                '/fonts/' . basename($fontFile) . '?v=' . $hash,
+                $css
+            );
+        }
+        self::assertFileExists($root . '/fonts/AtkinsonHyperlegible-OFL.txt');
         self::assertStringContainsString(':focus-visible', $css);
         self::assertStringContainsString('[is="skip-link"]:focus', $css);
     }

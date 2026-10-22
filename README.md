@@ -170,9 +170,20 @@ width and responsive padding, heading defaults, footer,
 focus and link styling. Main renders the compiled fragment directly,
 without a marketing article wrapper. The header `h1` is the sole page title;
 content subsections remain unboxed except the exercises' explicit group applications.
-No acceptance form, downloaded fonts or apps
-business-domain dependencies are imported. CSS uses a content-hashed URL;
-missing content/assets fail explicitly. Existing page
+No acceptance form, third-party runtime font downloads or apps business-domain
+dependencies are imported. The reading stylesheet prefers local Atkinson families
+before its self-hosted Atkinson fallback. That fallback includes the four official
+regular, bold, italic and bold-italic faces as Latin and Latin-ext WOFF2 subsets;
+all eight files total 109,980 bytes, use `font-display: swap`, and are not preloaded.
+The accompanying SIL Open Font License is in `site-root/public/fonts/AtkinsonHyperlegible-OFL.txt`.
+The WOFF2 subsets come from the Google Fonts CSS API v12; its stylesheet is
+`https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap`.
+The included license and family metadata are from
+`google/fonts/ofl/atkinsonhyperlegible` at
+`45e3d5269e4a17d823f6d84470bc084dc5ae46f6`; its upstream metadata identifies
+the original `googlefonts/atkinson-hyperlegible` source at commit
+`1cb311624b2ddf88e9e37873999d165a8cd28b46`.
+CSS uses a content-hashed URL; missing content/assets fail explicitly. Existing page
 metadata values and external booking behavior are retained, not a new SEO policy.
 
 The pilot header adapts apps' native, JavaScript-free popover pattern: Menu,
