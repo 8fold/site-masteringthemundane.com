@@ -210,6 +210,12 @@ p {
   margin-block: 0 var(--space-md);
 }
 
+main > :is(ul, ol, dl):not([is]):not([role]):not(:has(> li[is])):not(nav *),
+main > section[is="group-application"]
+  > :is(ul, ol, dl):not([is]):not([role]):not(:has(> li[is])):not(nav *) {
+  margin-block: 0 var(--space-md);
+}
+
 [is="publication-dates"] {
   display: flex;
   flex-direction: column;

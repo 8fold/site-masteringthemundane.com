@@ -13,8 +13,12 @@ saved concrete root.
   has a labelled section container with h2. It is a collective application of
   the exercise, not another step in the individual walkthrough.
 - Check 320px, tablet, desktop and 200% zoom; no overflow, paired definitions
-  with the shared list spacing, 16px/24px typography and 70ch reading column.
-  Dates stack by default and align Updated left / Original right from 70ch.
+  and root prose lists with a 1.5rem block gap matching paragraphs; the
+  definition-pair and list-item gaps remain 0.75rem. Ordered instructions in
+  "For groups" also have the paragraph gap before and after. Nested/component
+  lists retain their existing spacing. Check 16px/24px typography and the 70ch
+  reading column. Dates stack by default and align Updated left / Original
+  right from 70ch.
 - Check light/dark, forced-colors and screen-reader heading/definition-list
   announcements. Test skip-to-main, native Menu/Read with pointer and keyboard,
   Escape/outside dismissal and focus return. No navigation link should falsely
