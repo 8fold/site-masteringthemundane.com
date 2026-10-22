@@ -133,6 +133,19 @@ final class ContentCompilerTest extends TestCase
         fclose($pipes[2]);
         self::assertSame(0, proc_close($process));
         self::assertSame('', $errors);
+        $lines = explode(PHP_EOL, trim($output));
+        $htmlLines = array_filter($lines, static fn(string $line): bool =>
+            str_ends_with($line, ' -> content.html'));
+        $jsonLines = array_values(array_filter($lines, static fn(string $line): bool =>
+            str_ends_with($line, ' -> structured-data.json')));
+        $expectedJson = [];
+        foreach (\MTM\Marketing\UserInterface\PageMetadata::ROUTES as $route) {
+            $expectedJson[] = 'compiled (mastering-the-mundane.com): /public_content'
+                . $route . 'meta.json -> structured-data.json';
+        }
+        sort($expectedJson);
+        sort($jsonLines);
+        self::assertSame($expectedJson, $jsonLines);
         self::assertSame(
             'compiled (mastering-the-mundane.com): '
                 . '/public_content/coaching-and-mentoring/content.md -> content.html' . PHP_EOL
@@ -152,7 +165,7 @@ final class ContentCompilerTest extends TestCase
                 . 'compiled (mastering-the-mundane.com): '
                 . '/public_content/services/content.md -> content.html'
                 . PHP_EOL,
-            $output
+            implode(PHP_EOL, $htmlLines) . PHP_EOL
         );
         self::assertStringNotContainsString($root, $output);
     }

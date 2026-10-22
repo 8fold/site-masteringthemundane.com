@@ -287,7 +287,22 @@ final class ResourcesIndexTest extends TestCase
             $generated,
             file_get_contents($this->root . '/public_content/resources/content.html')
         );
-        self::assertSame([0, "Verified 5 content fragment(s).\n", ''], $this->command('--check'));
+        self::assertSame([0, "Verified 12 content artifact(s).\n", ''], $this->command('--check'));
+        $schemaPath = $this->root . '/public_content/services/structured-data.json';
+        $schema = file_get_contents($schemaPath);
+        self::assertIsString($schema);
+        unlink($schemaPath);
+        self::assertSame(1, $this->command('--check')[0]);
+        self::assertFileDoesNotExist($schemaPath);
+        file_put_contents($schemaPath, '{');
+        self::assertSame(1, $this->command('--check')[0]);
+        self::assertSame('{', file_get_contents($schemaPath));
+        self::assertSame(0, $this->command()[0]);
+        self::assertSame($schema, file_get_contents($schemaPath));
+        $this->write('public_content/services/meta.json', '{"title":"Changed","description":"D"}');
+        self::assertSame(1, $this->command('--check')[0]);
+        self::assertSame($schema, file_get_contents($schemaPath));
+        $this->write('public_content/services/meta.json', '{"title":"T","description":"D"}');
         $this->write(
             'public_content/item/meta.json',
             str_replace('20240229', '20240301', $this->metadata())

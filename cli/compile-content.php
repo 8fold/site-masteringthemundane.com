@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 use MTM\Marketing\ContentCompiler;
 use MTM\Marketing\ResourcesIndex;
+use MTM\Marketing\StructuredData;
+use MTM\Marketing\UserInterface\ContentFragment;
+use MTM\Marketing\UserInterface\PageMetadata;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -48,6 +51,13 @@ foreach ($sources as $source) {
     }
     $artifacts[$target] = ['html' => ContentCompiler::compile($markdown), 'source' => $source];
 }
+foreach (PageMetadata::ROUTES as $route) {
+    $directory = ContentFragment::directory($route, __DIR__ . '/..');
+    $artifacts[$directory . 'structured-data.json'] = [
+        'html' => StructuredData::compile($route, dirname(__DIR__)),
+        'source' => $directory . 'meta.json'
+    ];
+}
 ksort($artifacts, SORT_STRING);
 
 $stale = false;
@@ -75,5 +85,5 @@ if ($stale) {
     exit(1);
 }
 if ($check) {
-    echo 'Verified ' . count($artifacts) . " content fragment(s).\n";
+    echo 'Verified ' . count($artifacts) . " content artifact(s).\n";
 }

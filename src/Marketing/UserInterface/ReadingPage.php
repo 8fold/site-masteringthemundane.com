@@ -8,6 +8,7 @@ use Eightfold\HtmlBuilder\Document;
 use Eightfold\HtmlBuilder\Element;
 use Eightfold\HtmlBuilder\Components\Copyright;
 use Eightfold\HtmlBuilder\Components\PageTitle;
+use MTM\Marketing\StructuredData;
 
 final class ReadingPage
 {
@@ -67,18 +68,8 @@ final class ReadingPage
             self::meta('name', 'twitter:description', $description),
             self::meta('name', 'twitter:image', $poster),
             self::link('stylesheet', AssetUrl::versioned('/css/reading.css')),
-            Element::create('script', <<<'JSON'
-            {
-              "@context": "https://schema.org",
-              "@type": "CoachingService",
-              "provider": {
-                "@type": "Person",
-                "name": "Joshua Bruce",
-                "url": "https://itsjoshbruce.com"
-              },
-              "areaServed": "Remote"
-            }
-            JSON)->props('type application/ld+json')
+            Element::create('script', StructuredData::forRoute($route))
+                ->props('type application/ld+json')
         ];
 
         return (string) Document::create($pageTitle, 'en-US')->head(...$head)->body(

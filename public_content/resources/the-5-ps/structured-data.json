@@ -1,0 +1,30 @@
+{
+    "@context": "https://schema.org",
+    "@graph": [
+        {
+            "@type": "WebSite",
+            "@id": "https://mastering-the-mundane.com/#website",
+            "url": "https://mastering-the-mundane.com/",
+            "name": "Mastering the Mundane",
+            "publisher": {
+                "@id": "https://itsjoshbruce.com/#person"
+            }
+        },
+        {
+            "@type": "Person",
+            "@id": "https://itsjoshbruce.com/#person",
+            "name": "Joshua Bruce",
+            "url": "https://itsjoshbruce.com"
+        },
+        {
+            "@type": "WebPage",
+            "@id": "https://mastering-the-mundane.com/resources/the-5-ps/#webpage",
+            "url": "https://mastering-the-mundane.com/resources/the-5-ps/",
+            "name": "The 5 Ps exercise by Josh Bruce",
+            "description": "A life design framework to clarify your passions, prohibitions, and career path. Explore the 5 Ps exercise used in team culture and personal coaching.",
+            "isPartOf": {
+                "@id": "https://mastering-the-mundane.com/#website"
+            }
+        }
+    ]
+}

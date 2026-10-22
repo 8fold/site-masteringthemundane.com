@@ -136,16 +136,10 @@ final class CoachingPageTest extends TestCase
             $this->text($xpath, 'string(//link[@rel="stylesheet"]/@href)')
         );
         self::assertSame(0, $this->countMatches($xpath, '//header//img'));
-        self::assertSame([
-            '@context' => 'https://schema.org',
-            '@type' => 'CoachingService',
-            'provider' => [
-                '@type' => 'Person',
-                'name' => 'Joshua Bruce',
-                'url' => 'https://itsjoshbruce.com'
-            ],
-            'areaServed' => 'Remote'
-        ], json_decode($this->text($xpath, 'string(//script)'), true, flags: JSON_THROW_ON_ERROR));
+        self::assertSame(
+            \MTM\Marketing\StructuredData::forRoute('/coaching-and-mentoring/'),
+            $this->text($xpath, 'string(//script)')
+        );
     }
 
     private function page(): DOMXPath
