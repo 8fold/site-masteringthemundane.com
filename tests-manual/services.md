@@ -6,7 +6,7 @@ Visit `/services/` on the verified worktree HTTPS preview.
   and lists, and unchanged pricing, qualifications and introduction destination.
 - Menu lists Services directly after Coaching; only Services is current here.
   Coaching and Resources must also expose that link without falsely marking it
-  current. Books and Resources are also in Menu; "Apps" links to the
+  current. Resources and Books are also in Menu; "Apps" links to the
   apps site.
 - Test native Menu with pointer and keyboard: open, dismiss, focus return.
   Check skip-to-main, light/dark mode, forced colors and screen-reader heading

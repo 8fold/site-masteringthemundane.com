@@ -80,8 +80,8 @@ final class ReadingPage
                     '/' => 'Home',
                     '/coaching-and-mentoring/' => 'Coaching',
                     '/services/' => 'Services',
-                    '/books/' => 'Books',
-                    '/resources/' => 'Resources'
+                    '/resources/' => 'Resources',
+                    '/books/' => 'Books'
                 ]),
                 Element::create('h1', $heading),
                 Element::create('a', 'Apps')->props(
