@@ -18,6 +18,7 @@ if ($argc > 2 || ($argc === 2 && $argv[1] !== '--check')) {
 
 $check = $argc === 2;
 $sources = [
+    __DIR__ . '/../site-root/public/articles/the-action-loop/content.md',
     __DIR__ . '/../site-root/public/tools-and-resources/motivators/content.md',
     __DIR__ . '/../site-root/public/tools-and-resources/the-5-ps/content.md'
 ];

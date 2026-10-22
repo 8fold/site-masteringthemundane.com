@@ -24,11 +24,11 @@ You should see the same Mastering the Mundane website that you could find on the
 
 ### Reading pages: Coaching, Articles and exercises
 
-`/coaching-and-mentoring/`, the `/articles/` index and
+`/coaching-and-mentoring/`, the `/articles/` index, `/articles/the-action-loop/`,
 `/tools-and-resources/motivators/` and `/tools-and-resources/the-5-ps/` adopt the apps site's
 visual and architectural foundation. All other routes still use their existing
 templates and stylesheet. Legacy redirects are unchanged.
-Other individual articles and resources, Home and Books are not migrated.
+Other resources, Home and Books are not migrated.
 The Articles index corrects its inherited Time/Tools and Resources labels to
 Articles, with a short matching description. Open Graph and Twitter titles and
 descriptions follow those corrected values; other metadata and SEO policy are
@@ -83,7 +83,7 @@ Negative compiler-rendered fixtures prove that unsafe raw anchors fail this
 assertion; the check does not sanitize them at runtime or migrate legacy pages.
 Tests protect these link/rendering contracts, not editorial wording, prices,
 paragraph counts or incidental wrappers.
-It never publishes `content-root/` drafts or recompiles older articles.
+It never publishes `content-root/` drafts or scans other legacy content.
 Motivators and The 5 Ps are explicitly selected legacy sources in the compiler:
 edit `site-root/public/tools-and-resources/{motivators,the-5-ps}/content.md`
 and commit each generated sibling `content.html`. These stay at their existing paths to avoid
@@ -106,6 +106,15 @@ apostrophes and a quotation pair in its Markdown are aligned with punctuation
 already displayed in the legacy HTML.
 Both exercises reuse the mobile-first publication dates: stacked by default,
 Updated left and Original right from 70ch, with an Original-only date left-aligned.
+Action Loop is also explicitly selected at
+`site-root/public/articles/the-action-loop/content.md`, with its generated sibling
+`content.html` and an explicit `ContentFragment` mapping. `ActionLoopPage` supplies
+its sole h1; existing h2 sections, lists, links, metadata and URL are preserved.
+Markdown apostrophes match those already displayed in its published HTML.
+It reuses the same publication-date layout without correcting the existing
+chronology discrepancy: Original June 23, 2024 is later than Updated February 2,
+2024. This requires a separate editorial decision, not an inferred date.
+Its `article`/`Time` classification and the local-only font policy are unchanged.
 The existing Markdown library's `descriptionLists()` extension preserves their
 semantic definition lists; no new dependency or runtime converter is used.
 The Articles compiler reports

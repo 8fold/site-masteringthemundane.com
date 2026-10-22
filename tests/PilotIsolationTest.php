@@ -17,7 +17,6 @@ final class PilotIsolationTest extends TestCase
             '/books/index.php',
             '/books/time-mastering-the-mundane/index.php',
             '/services/index.php',
-            '/articles/the-action-loop/index.php',
             '/tools-and-resources/index.php',
             ] as $route
         ) {

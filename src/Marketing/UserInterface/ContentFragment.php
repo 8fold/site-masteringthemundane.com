@@ -19,6 +19,7 @@ final class ContentFragment
         $path = dirname(__DIR__, 3) . '/public_content' . $route . 'content.html';
         if (
             in_array($route, [
+                '/articles/the-action-loop/',
                 '/tools-and-resources/motivators/',
                 '/tools-and-resources/the-5-ps/'
             ], true)
