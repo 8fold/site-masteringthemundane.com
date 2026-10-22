@@ -287,7 +287,7 @@ final class ResourcesIndexTest extends TestCase
             $generated,
             file_get_contents($this->root . '/public_content/resources/content.html')
         );
-        self::assertSame([0, "Verified 13 content artifact(s).\n", ''], $this->command('--check'));
+        self::assertSame([0, "Verified 14 content artifact(s).\n", ''], $this->command('--check'));
         $schemaPath = $this->root . '/public_content/services/structured-data.json';
         $schema = file_get_contents($schemaPath);
         self::assertIsString($schema);

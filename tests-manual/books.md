@@ -13,7 +13,14 @@ Visit `/books/` on the saved HTTPS preview.
   description/status and links. Cards wrap without clipping at narrow widths.
 - Verify keyboard navigation, skip link, external-link indication, light/dark
   modes, narrow-screen wrapping and no horizontal overflow.
-- Follow "read more about Time": the existing detail page and URL remain intact.
+- Follow "read more about Time": the existing URL now uses the shared reading
+  shell, with one title, the original descriptive prose, no cover image and
+  all four original retailer URLs. This preserves existing availability copy,
+  not a new verification of retailer stock. No direct-sales button is added.
+- On the detail page check 320px through desktop: no image or caption remains,
+  purchase links keep their new-tab announcements and there is no overflow.
+- The opening "Part of the..." paragraph is a blockquote using apps' surface,
+  accent left border, small body type and snug line-height in light/dark modes.
 - The catalog reads private compiled HTML, metadata and structured data; source
   URLs are not downloads. Regenerate after edits with `composer compile-content`
   and check freshness with `composer check-content`.

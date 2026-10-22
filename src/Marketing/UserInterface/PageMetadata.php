@@ -24,7 +24,8 @@ final class PageMetadata
         '/resources/the-action-loop/',
         '/resources/motivators/',
         '/resources/the-5-ps/',
-        '/books/'
+        '/books/',
+        '/books/time-mastering-the-mundane/'
     ];
 
     /** @return array{titles: non-empty-list<string>, description: string} */
