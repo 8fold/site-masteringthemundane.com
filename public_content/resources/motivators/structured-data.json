@@ -1,0 +1,30 @@
+{
+    "@context": "https://schema.org",
+    "@graph": [
+        {
+            "@type": "WebSite",
+            "@id": "https://mastering-the-mundane.com/#website",
+            "url": "https://mastering-the-mundane.com/",
+            "name": "Mastering the Mundane",
+            "publisher": {
+                "@id": "https://itsjoshbruce.com/#person"
+            }
+        },
+        {
+            "@type": "Person",
+            "@id": "https://itsjoshbruce.com/#person",
+            "name": "Joshua Bruce",
+            "url": "https://itsjoshbruce.com"
+        },
+        {
+            "@type": "WebPage",
+            "@id": "https://mastering-the-mundane.com/resources/motivators/#webpage",
+            "url": "https://mastering-the-mundane.com/resources/motivators/",
+            "name": "The Motivators exercise by Josh Bruce",
+            "description": "Discover what truly motivates you. The Motivators exercise clarifies your core drivers across 8 dimensions\u2014for self-discovery, team building, and intentional life design.",
+            "isPartOf": {
+                "@id": "https://mastering-the-mundane.com/#website"
+            }
+        }
+    ]
+}

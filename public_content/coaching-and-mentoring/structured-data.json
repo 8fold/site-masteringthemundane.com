@@ -1,0 +1,43 @@
+{
+    "@context": "https://schema.org",
+    "@graph": [
+        {
+            "@type": "WebSite",
+            "@id": "https://mastering-the-mundane.com/#website",
+            "url": "https://mastering-the-mundane.com/",
+            "name": "Mastering the Mundane",
+            "publisher": {
+                "@id": "https://itsjoshbruce.com/#person"
+            }
+        },
+        {
+            "@type": "Person",
+            "@id": "https://itsjoshbruce.com/#person",
+            "name": "Joshua Bruce",
+            "url": "https://itsjoshbruce.com"
+        },
+        {
+            "@type": "Service",
+            "@id": "https://mastering-the-mundane.com/coaching-and-mentoring/#service",
+            "url": "https://mastering-the-mundane.com/coaching-and-mentoring/",
+            "name": "Coaching and Mentoring",
+            "description": "Josh Bruce has spent his life making peace with time, space, and money while also helping others do the same. He\u02bcs worked with individuals, The United States Federal Government Agencies, micro-businesses, Fortune 500 companies in the for-profit and not-for-profit categories.",
+            "provider": {
+                "@id": "https://itsjoshbruce.com/#person"
+            }
+        },
+        {
+            "@type": "WebPage",
+            "@id": "https://mastering-the-mundane.com/coaching-and-mentoring/#webpage",
+            "url": "https://mastering-the-mundane.com/coaching-and-mentoring/",
+            "name": "Coaching and Mentoring",
+            "description": "Josh Bruce has spent his life making peace with time, space, and money while also helping others do the same. He\u02bcs worked with individuals, The United States Federal Government Agencies, micro-businesses, Fortune 500 companies in the for-profit and not-for-profit categories.",
+            "isPartOf": {
+                "@id": "https://mastering-the-mundane.com/#website"
+            },
+            "mainEntity": {
+                "@id": "https://mastering-the-mundane.com/coaching-and-mentoring/#service"
+            }
+        }
+    ]
+}

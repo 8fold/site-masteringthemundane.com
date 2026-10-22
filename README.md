@@ -228,6 +228,42 @@ generated index as well as Markdown fragments without modifying files.
 Discovery metadata is parsed only at build time; page titles and descriptions
 are validated at request time. There is no new dependency, search or filtering.
 
+#### Compiled structured data
+
+`composer compile-content` also generates a committed private sibling
+`structured-data.json` for each route in `PageMetadata::ROUTES`.
+`composer check-content` verifies all 14 HTML/JSON artifacts without writing.
+All artifacts are prepared and validated before any are written. Metadata
+changes require regeneration; deploy the generated JSON alongside the HTML.
+
+`StructuredData` builds a limited schema.org graph: `WebPage` from the page's
+own validated title/description, `WebSite` named from root metadata, and shared
+`Person` identity authored once in the generator. Only Coaching also describes
+a `Service`. `CoachingService` is not a defined schema.org type (its schema.org
+URL returned 404); `WebPage`, `WebSite`, `Person` and `Service` are defined types.
+The generator uses an explicit production origin plus the route, never request
+Host or the preview origin. It does not infer Article types, publication dates,
+offers, geographic coverage or ratings from internal discovery taxonomy.
+
+The shared shell embeds the saved JSON, safely encoded for a script element.
+Runtime checks JSON shape and script safety, but never regenerates the graph or
+compares it with source metadata. Missing, unreadable or invalid artifacts fail
+explicitly with their path. Freshness belongs to build/CI `composer check-content`;
+run `composer compile-content` after metadata or generator/provider/origin changes
+and deploy the resulting artifacts together with the code.
+This replaces the blanket service markup on converted routes only; visible
+copy, browser/social metadata and discovery behavior are unchanged. No SEO or
+AI-search ranking improvement is promised.
+
+Legacy boundaries remain deliberately separate: `site-root/public/head.php`
+still emits its old `CoachingService` literal for legacy pages such as Books.
+The retained `/resources/the-action-loop/article.html`,
+`/resources/motivators/article.html` and `/resources/the-5-ps/article.html`
+remain public old documents with manually authored Article markup and dates.
+They are not inputs to the compiler or canonical converted pages. Cleanup or
+redirects for those documents, and reconciliation of their disputed historical
+dates, require a separate decision.
+
 The shared shell is `src/Marketing/UserInterface/ReadingPage.php`;
 each page adapter (`HomePage`, `CoachingPage`, `ServicesPage`, `ResourcesPage`,
 `ActionLoopPage`, `MotivatorsPage`, `FivePsPage`) only names its route; metadata
