@@ -301,7 +301,9 @@ anchors; Read links to Books and Resources. Home includes a People
 section so `/#people` resolves. Rewriting Home copy is deferred until the other
 pages have been converted; see [#10](https://github.com/8fold/site-masteringthemundane.com/issues/10).
 The current route has `aria-current="page"`
-and the established bold/double-underline visual current-page indication.
+and the established bold/double-underline visual current-page indication:
+regular links use a 2px underline that increases to 3px on hover, while current
+navigation links use a double 1px underline that increases to 2px on hover.
 The footer contains copyright only; the original tagline is omitted on the pilot.
 
 The local Copilot preview is
