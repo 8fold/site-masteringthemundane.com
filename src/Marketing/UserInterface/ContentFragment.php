@@ -11,7 +11,7 @@ final class ContentFragment
 {
     public static function forRoute(string $route): string
     {
-        if (preg_match('~\A/(?:[a-z0-9-]+/)+\z~', $route) !== 1) {
+        if (preg_match('~\A/(?:[a-z0-9-]+/)*\z~', $route) !== 1) {
             throw new InvalidArgumentException(
                 'Expected a physical content route with a trailing slash.'
             );

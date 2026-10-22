@@ -17,6 +17,9 @@ if ($argc > 2 || ($argc === 2 && $argv[1] !== '--check')) {
 }
 
 $check = $argc === 2;
+if (is_file(__DIR__ . '/../public_content/content.md')) {
+    \MTM\Marketing\UserInterface\HomePage::metadata();
+}
 $sources = [
     __DIR__ . '/../site-root/public/resources/the-action-loop/content.md',
     __DIR__ . '/../site-root/public/resources/motivators/content.md',

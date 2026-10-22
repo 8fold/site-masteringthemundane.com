@@ -1,0 +1,35 @@
+<section aria-labelledby="time">
+<h2 id="time">Time</h2>
+
+Notice where your time goes and choose what comes next. Explore a pace that respects your energy, with room to review and adjust.
+
+[Coaching](/coaching-and-mentoring/) for understanding your patterns and choosing manageable actions. [Services](/services/) for practical help with the work you want to delegate or do together.
+
+</section>
+
+<section aria-labelledby="people">
+<h2 id="people">People</h2>
+
+Make room for your own identity and the connections that matter to you. Explore your motivations, boundaries and relationships without making connection another demand.
+
+[Coaching](/coaching-and-mentoring/) for exploring what matters to you and how you want to relate to others. [Services](/services/) for understanding the practical support available and whether it fits your needs.
+
+</section>
+
+<section aria-labelledby="space">
+<h2 id="space">Space</h2>
+
+Make your physical and digital spaces work with you. Choose a baseline that fits your life, then use manageable actions to maintain or restore it.
+
+[Coaching](/coaching-and-mentoring/) for choosing routines and an environment that support you. [Services](/services/) for hands-on professional organizing of physical and digital spaces.
+
+</section>
+
+<section aria-labelledby="money">
+<h2 id="money">Money</h2>
+
+Understand your cash flow and choose how your money supports your needs. Use clear information to make decisions with less uncertainty, without judging where you are starting.
+
+[Coaching](/coaching-and-mentoring/) for exploring your relationship with money and the choices available to you. [Services](/services/) for bookkeeping, account reconciliation and categorizing transactions.
+
+</section>
