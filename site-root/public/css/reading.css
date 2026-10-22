@@ -352,6 +352,10 @@ a:focus-visible {
   text-align: center;
 }
 
+[is="nav-header"] > a > .new-tab-tail {
+  text-decoration: inherit;
+}
+
 nav button {
   min-height: 44px;
   padding-block: var(--space-sm);
@@ -405,9 +409,10 @@ nav ul {
   list-style: none;
 }
 
-nav a {
+[is="nav-panel"] a {
   display: block;
-  padding-block: var(--space-2xs);
+  min-height: 44px;
+  padding-block: calc(var(--space-2xs) + 2px);
 }
 
 nav a[aria-current="page"] {

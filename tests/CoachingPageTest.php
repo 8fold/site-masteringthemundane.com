@@ -47,6 +47,18 @@ final class CoachingPageTest extends TestCase
         self::assertStringNotContainsString('menu-picker', $css);
         self::assertStringNotContainsString('navigation-panel', $css);
         self::assertStringContainsString(
+            '[is="nav-header"] > a > .new-tab-tail {' . "\n"
+                . '  text-decoration: inherit;',
+            $css
+        );
+        self::assertStringContainsString(
+            '[is="nav-panel"] a {' . "\n"
+                . '  display: block;' . "\n"
+                . '  min-height: 44px;' . "\n"
+                . '  padding-block: calc(var(--space-2xs) + 2px);',
+            $css
+        );
+        self::assertStringContainsString(
             'nav a[aria-current="page"] {' . "\n"
                 . '  font-weight: var(--font-weight-bold);',
             $css
