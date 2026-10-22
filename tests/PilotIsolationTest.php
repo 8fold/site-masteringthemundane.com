@@ -123,6 +123,28 @@ final class PilotIsolationTest extends TestCase
         self::assertStringContainsString('Header set Cache-Control "no-cache"', $config);
     }
 
+    public function testRootProseListsShareParagraphSpacingWithoutChangingInternalGaps(): void
+    {
+        $css = file_get_contents(dirname(__DIR__) . '/site-root/public/css/reading.css');
+        self::assertIsString($css);
+        $normalizedCss = preg_replace('/\s+/', ' ', $css);
+        self::assertIsString($normalizedCss);
+        self::assertStringContainsString(
+            'main > :is(ul, ol, dl):not([is]):not([role]):not(:has(> li[is])):not(nav *)',
+            $normalizedCss
+        );
+        self::assertStringContainsString(
+            'main > section[is="group-application"] > :is(ul, ol, dl)'
+                . ':not([is]):not([role]):not(:has(> li[is])):not(nav *)',
+            $normalizedCss
+        );
+        self::assertStringContainsString('margin-block: 0 var(--space-md);', $css);
+        self::assertStringContainsString('> li + li,', $css);
+        self::assertStringContainsString('> dd + dt {', $css);
+        self::assertStringContainsString('margin-block-start: var(--space-xs);', $css);
+        self::assertStringContainsString('nav ul {', $css);
+    }
+
     public function testReadingPagesDoNotPreloadFonts(): void
     {
         $html = $this->renderLegacyRoute(

@@ -12,13 +12,18 @@ and normal hostname resolution. Do not repoint the original site.
   Read placement, and each open native popover. Check OS light/dark appearance and
   forced colors. Fonts are local-first with same-origin Next downloads when
   the matching installed face is unavailable, then system fallbacks.
-- Prose lists in main should have half the paragraph gap between items:
-  `--space-xs` (0.75rem), with no extra trailing item gap. Check simple, nested
-  and paragraph-containing items at narrow widths and enlarged text, including
-  RTL. Paragraphs within an item retain their paragraph spacing; trailing
-  paragraph/list margins must not double the inter-item gap. Menu/Read controls
-  and explicitly marked component lists (`is`, `role`, or direct `li[is]`)
-  retain their existing spacing, including navigation inside main.
+- Root prose lists and definition lists, including ordered exercise instructions
+  directly inside the "For groups" prose section, use the same `--space-md`
+  (1.5rem) block gap as paragraphs. Gaps between list items and definition pairs
+  remain `--space-xs` (0.75rem). Check simple, nested and paragraph-containing
+  items at narrow widths and enlarged text, including RTL. Paragraphs within an
+  item retain their paragraph spacing; trailing paragraph/list margins must not
+  double the inter-item gap. Menu/Read controls and explicitly marked component
+  lists (`is`, `role`, or direct `li[is]`) retain their existing spacing,
+  including navigation inside main.
+  No lead-in meaning is inferred from prose or punctuation; a Markdown-friendly
+  treatment is tracked separately in
+  [8fold/site-mastering-the-mundane.apps#354](https://github.com/8fold/site-mastering-the-mundane.apps/issues/354).
 - Tab from the start: the skip link becomes visible, jumps to the focusable
   main landmark, and subsequent focus remains visible. Check header/home,
   labeled Menu/Read navigation, heading hierarchy and footer with a screen reader.

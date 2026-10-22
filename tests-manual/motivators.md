@@ -15,10 +15,11 @@ Do not change the original `.com` host.
   falsely claims to be the current page; Articles still leads to the index.
 - Check 320px, tablet, desktop, 200% zoom, light/dark and forced-colors; ensure
   terms and definitions remain associated, long prose wraps, and focus is visible.
-  Subsequent terms have the same 0.75rem gap as list items, separating pairs
-  without adding space between a term and its definition or before the first term.
-  Confirm the shared 16px/24px typography and 70ch column. Use a screen reader
-  to check landmarks, heading order and definition-list announcements.
+  Root prose lists and definition lists have a 1.5rem block gap matching
+  paragraphs; subsequent terms retain the 0.75rem gap between definition pairs,
+  without adding space between a term and its definition or before the first
+  term. Confirm the shared 16px/24px typography and 70ch column. Use a screen
+  reader to check landmarks, heading order and definition-list announcements.
 - Title, description and social metadata retain the prior values. No form,
   account, embed, third-party font or runtime Markdown request is introduced.
 - Dates stack by default; at 70ch and wider they share a row with Updated left

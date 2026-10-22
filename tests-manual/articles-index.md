@@ -24,8 +24,10 @@ must approve and verify a preview switch first. Do not change MAMP or the
 - At 320px, tablet, desktop and 200% zoom, check no horizontal overflow,
   centered text-only heading, 70ch reading column, native popovers, visible focus
   and skip-to-main behavior. Check light/dark and forced-colors appearance and
-  screen-reader landmarks. The shell uses the same stylesheet as Coaching;
-  recheck Coaching's navigation, booking link, prose spacing and appearance.
+  screen-reader landmarks. Root prose lists use the same 1.5rem block gap as
+  paragraphs; list-item gaps remain 0.75rem. The shell uses the same stylesheet
+  as Coaching; recheck Coaching's navigation, booking link, prose spacing and
+  appearance.
 - Same-host and relative links stay same-tab. External HTTP(S) links, if added,
   including subdomains, need `_blank` and both `noopener` and `noreferrer`.
   Full-document automated checks use the shared WhatWG URL assertion.
