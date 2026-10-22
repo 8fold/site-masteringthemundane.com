@@ -24,7 +24,7 @@ You should see the same Mastering the Mundane website that you could find on the
 
 ### Reading pages: Coaching, Resources and exercises
 
-`/coaching-and-mentoring/`, the `/resources/` index, `/resources/the-action-loop/`,
+`/coaching-and-mentoring/`, `/services/`, the `/resources/` index, `/resources/the-action-loop/`,
 `/resources/motivators/` and `/resources/the-5-ps/` adopt the apps site's
 visual and architectural foundation. All other routes still use their existing
 templates and stylesheet. Home and Books are not migrated.
@@ -48,6 +48,12 @@ Apache's document root remains `site-root/public`; neither `src/` nor
 JavaScript build, or account system is required.
 
 Edit `public_content/coaching-and-mentoring/content.md` for Coaching prose.
+Edit `public_content/services/content.md` for Services prose. Each service uses
+an h2 followed by its pricing, paragraphs and lists in ordinary Markdown;
+requests use the generated sibling `content.html`, without a runtime converter.
+Services preserves its offerings, prices, introduction link and URL. The shared
+Menu includes Services immediately after Coaching and marks only the actual
+current page. Home and Books remain on the legacy presentation.
 The Resources fragment is generated from the published collection described below,
 not hand-maintained Markdown. After changing either source, run:
 

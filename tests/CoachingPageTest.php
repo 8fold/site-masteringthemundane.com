@@ -21,11 +21,14 @@ final class CoachingPageTest extends TestCase
         self::assertSame(0, $this->countMatches($xpath, '//header/h1/*'));
         self::assertNotSame('', trim($this->text($xpath, 'string(//main)')));
         self::assertSame(
-            ['/', '/coaching-and-mentoring/', '/#time', '/#people', '/#space', '/#money'],
+            [
+                '/', '/coaching-and-mentoring/', '/services/',
+                '/#time', '/#people', '/#space', '/#money'
+            ],
             $this->texts($xpath, '//nav[@aria-label="Menu"]//a/@href')
         );
         self::assertSame(
-            ['Home', 'Coaching', 'Time', 'People', 'Space', 'Money'],
+            ['Home', 'Coaching', 'Services', 'Time', 'People', 'Space', 'Money'],
             $this->texts($xpath, '//nav[@aria-label="Menu"]//a')
         );
         self::assertSame(
