@@ -23,7 +23,8 @@ final class PageMetadata
         '/resources/',
         '/resources/the-action-loop/',
         '/resources/motivators/',
-        '/resources/the-5-ps/'
+        '/resources/the-5-ps/',
+        '/books/'
     ];
 
     /** @return array{titles: non-empty-list<string>, description: string} */

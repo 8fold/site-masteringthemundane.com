@@ -34,7 +34,7 @@ No synthetic `/home/` route is used.
 
 Every shared-shell page reads its own `title` and `description` from the
 `meta.json` beside its `content.html`: `public_content/<route>/meta.json` for
-all seven converted pages. `PageMetadata::ROUTES` lists these routes.
+all eight converted pages. `PageMetadata::ROUTES` lists these routes.
 Following the apps site's `PageTitle` convention, there is no separate heading:
 the header h1 is the page's own `title`, and the browser and social title is
 `PageTitle` of that title followed by each ancestor route's title, joined with
@@ -48,12 +48,12 @@ Each domain links to Coaching and Services. Copy draws on the operational
 domains and calm, practical, autonomy-first voice in the apps repository's
 `docs/brand-style-guide-2026v1.md` reference snapshot, without advertising
 planned software or inventing domain-specific services. This is a content
-rewrite, not a preservation-only migration. Books remains deferred.
+rewrite, not a preservation-only migration.
 
 `/coaching-and-mentoring/`, `/services/`, the `/resources/` index, `/resources/the-action-loop/`,
-`/resources/motivators/` and `/resources/the-5-ps/` adopt the apps site's
+`/resources/motivators/`, `/resources/the-5-ps/` and `/books/` adopt the apps site's
 visual and architectural foundation. All other routes still use their existing
-templates and stylesheet. Books is not migrated.
+templates and stylesheet. The existing Time book-detail page is not migrated.
 The Resources index discovers three explicitly selected published items from
 their metadata. Its heading, Read navigation and descriptive metadata identify
 Resources. Content and unrelated metadata remain unchanged.
@@ -80,7 +80,7 @@ an h2 followed by its pricing, paragraphs and lists in ordinary Markdown;
 requests use the generated sibling `content.html`, without a runtime converter.
 Services preserves its offerings, prices, introduction link and URL. The shared
 Menu includes Services immediately after Coaching and marks only the actual
-current page. Books remains on the legacy presentation.
+current page.
 The Resources fragment is generated from the published collection described below,
 not hand-maintained Markdown. After changing either source, run:
 
@@ -91,6 +91,24 @@ composer run style
 composer run stan
 composer test
 ```
+
+#### Books catalog
+
+`/books/` is a text-only catalog authored in `public_content/books/content.md`,
+with sibling metadata, compiled HTML and generated structured data. It lists
+Time: Mastering the Mundane and Triumph over Time, 1st Edition with Leanpub
+purchase links, and Money: Mastering the Mundane as the current work in progress.
+The author confirmed Money's status; both Leanpub pages showed purchase offers
+when checked on October 22, 2026. No price or release-date promises are authored.
+Each book's h3 and content sit in an accessible named section, using the shared
+card treatment for sections beginning with h3.
+
+This is a user-approved content rewrite/re-engineering, not a preservation-only
+refactor: images, the old crowdfunding/hopper list and distribution plans are
+removed from the catalog. The Time detail page at
+`/books/time-mastering-the-mundane/` and its retailer links remain unchanged.
+Direct website sales is a separate business/operations discussion; the catalog
+does not add checkout, delivery, inventory or new distribution arrangements.
 
 Commit the source changes and generated `content.html`. Compilation uses
 portable per-file output, for example
@@ -232,7 +250,7 @@ are validated at request time. There is no new dependency, search or filtering.
 
 `composer compile-content` also generates a committed private sibling
 `structured-data.json` for each route in `PageMetadata::ROUTES`.
-`composer check-content` verifies all 14 HTML/JSON artifacts without writing.
+`composer check-content` verifies all 16 HTML/JSON artifacts without writing.
 All artifacts are prepared and validated before any are written. Metadata
 changes require regeneration; deploy the generated JSON alongside the HTML.
 
@@ -256,14 +274,15 @@ copy, browser/social metadata and discovery behavior are unchanged. No SEO or
 AI-search ranking improvement is promised.
 
 Legacy boundaries remain deliberately separate: `site-root/public/head.php`
-still emits its old `CoachingService` literal for legacy pages such as Books.
+still emits its old `CoachingService` literal for legacy pages such as the Time
+book detail. The Books catalog uses the generated WebPage graph.
 The orphaned resource `article.html` JSON-LD-only files were removed; they were
 not inputs to the compiler or canonical converted pages. No compatibility
 redirects were added. Their historical Article dates were not transferred.
 
 The shared shell is `src/Marketing/UserInterface/ReadingPage.php`;
 each page adapter (`HomePage`, `CoachingPage`, `ServicesPage`, `ResourcesPage`,
-`ActionLoopPage`, `MotivatorsPage`, `FivePsPage`) only names its route; metadata
+`ActionLoopPage`, `MotivatorsPage`, `FivePsPage`, `BooksPage`) only names its route; metadata
 comes from `PageMetadata`. Each entry point only loads Composer and renders its page.
 `site-root/public/css/reading.css` adapts
 the apps legal page's executable CSS: 16px base typography, exact `70ch` main
