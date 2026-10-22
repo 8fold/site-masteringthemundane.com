@@ -32,9 +32,12 @@ final class ResourcesIndex
                 throw new RuntimeException($manifest . ': invalid or duplicate published route.');
             }
             $seen[] = $route;
-            $directory = $root . '/site-root/public' . $route;
+            $directory = $root . '/public_content' . $route;
             $path = $directory . 'meta.json';
-            if (!is_file($directory . 'index.php') || !is_file($directory . 'content.html')) {
+            if (
+                !is_file($root . '/site-root/public' . $route . 'index.php') ||
+                !is_file($directory . 'content.html')
+            ) {
                 throw new RuntimeException(
                     $path . ': missing published entry point or content.html.'
                 );

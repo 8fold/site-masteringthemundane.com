@@ -6,9 +6,11 @@ worktree before reviewing
 Do not alter the original `.com` host or assume the current symlink selects MAMP's
 saved concrete root.
 
-- Keep the original title as the sole shared-header h1. Confirm dates, prose,
+- Keep the page's own title as the sole shared-header h1. Confirm dates, prose,
   the five term/definition pairs, individual examples and ordered group steps
   retain their content and order.
+- Browser and social titles read "The 5 Ps exercise by Josh Bruce |
+  Resources | Mastering the Mundane". The h1 remains "The 5 Ps exercise by Josh Bruce".
 - The individual walkthrough is unboxed; the existing "For groups" application
   has a labelled section container with h2. It is a collective application of
   the exercise, not another step in the individual walkthrough.

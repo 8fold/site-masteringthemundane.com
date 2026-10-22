@@ -112,8 +112,8 @@ final class FivePsPageTest extends TestCase
     public function testExistingMetadataDatesAndSharedStylesheet(): void
     {
         $xpath = $this->page();
-        $title = 'The 5 Ps Framework: Design Your Life (Passions, Pensives, More)'
-            . ' | Tools and Resources | Mastering the Mundane';
+        $title = 'The 5 Ps exercise by Josh Bruce'
+            . ' | Resources | Mastering the Mundane';
         $description = 'A life design framework to clarify your passions, prohibitions, '
             . 'and career path. Explore the 5 Ps exercise used in team culture '
             . 'and personal coaching.';

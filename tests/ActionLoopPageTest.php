@@ -52,7 +52,10 @@ final class ActionLoopPageTest extends TestCase
             self::assertSame(1.0, $xpath->evaluate('count(' . $query . ')'));
         }
         self::assertSame(1.0, $xpath->evaluate('count(//h1)'));
-        self::assertSame('Action loop', $xpath->evaluate('string(//header/h1)'));
+        self::assertSame(
+            'Action loop',
+            $xpath->evaluate('string(//header/h1)')
+        );
         self::assertSame(0.0, $xpath->evaluate('count(//main//h1|//main//article)'));
         self::assertSame(5.0, $xpath->evaluate('count(//main/h2)'));
         self::assertGreaterThan(0.0, $xpath->evaluate('count(//main/ol/li)'));
@@ -104,7 +107,7 @@ final class ActionLoopPageTest extends TestCase
     public function testExistingMetadataAndSharedStylesheet(): void
     {
         $xpath = $this->page();
-        $title = 'The Action Loop: Work Sustainably and Get Things Done | Resources'
+        $title = 'Action loop | Resources'
             . ' | Mastering the Mundane';
         $description = 'Master the 5-phase action loop to sustain energy, prevent burnout, '
             . 'and maintain peak productivity. Learn the framework for intentional, '

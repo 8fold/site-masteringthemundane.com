@@ -139,7 +139,7 @@ final class MotivatorsPageTest extends TestCase
     public function testExistingPageMetadataAndSharedStylesheet(): void
     {
         $xpath = $this->page();
-        $title = 'The Motivators Exercise: Clarify Your Core Drivers | Tools and Resources'
+        $title = 'The Motivators exercise by Josh Bruce | Resources'
             . ' | Mastering the Mundane';
         $description = 'Discover what truly motivates you. The Motivators exercise clarifies '
             . 'your core drivers across 8 dimensions—for self-discovery, team building, '
