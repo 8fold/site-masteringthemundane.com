@@ -171,20 +171,89 @@ focus and link styling. Main renders the compiled fragment directly,
 without a marketing article wrapper. The header `h1` is the sole page title;
 content subsections remain unboxed except the exercises' explicit group applications.
 No acceptance form, third-party runtime font downloads or apps business-domain
-dependencies are imported. The reading stylesheet prefers local Atkinson families
-before its self-hosted Atkinson fallback. That fallback includes the four official
-regular, bold, italic and bold-italic faces as Latin and Latin-ext WOFF2 subsets;
-all eight files total 109,980 bytes, use `font-display: swap`, and are not preloaded.
-The accompanying SIL Open Font License is in `site-root/public/fonts/AtkinsonHyperlegible-OFL.txt`.
-The WOFF2 subsets come from the Google Fonts CSS API v12; its stylesheet is
-`https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap`.
+dependencies are imported. A single reading delivery family tries exact local
+Next face names, matching original Atkinson faces where available, then same-origin
+Next URLs. Direct local family names do not precede that delivery family.
+The installed Next faces are static, so CSS declares the actual shared weights
+400, 500 and 700 separately for normal and italic, not a misleading variable
+range for local Regular. Original Atkinson has no medium face; 500 tries local
+Next Medium then hosted Next. Twelve declarations reuse two official variable
+faces, normal and italic, without synthetic styles. Each file has Latin and Latin-ext
+WOFF2 subsets; all four files total 110,864 bytes, use `font-display: swap`, and are
+not preloaded. Browsers fetch only the styles/subsets actually used, not the entire
+shipped set. Local font availability depends on the browser's privacy policy;
+no browser setting change or Font Book extraction is needed.
+Apache with `mod_headers` caches SHA-256-versioned WOFF2 URLs for one year as
+immutable; unversioned font URLs revalidate. This policy does not imply an
+observed browser cache hit, and the PHP development server does not apply `.htaccess`.
+The accompanying SIL Open Font License is in `site-root/public/fonts/AtkinsonHyperlegibleNext-OFL.txt`.
+The unmodified WOFF2 subsets come from the Google Fonts CSS API v7; its stylesheet is
+`https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:ital,wght@0,200..800;1,200..800&display=swap`.
 The included license and family metadata are from
-`google/fonts/ofl/atkinsonhyperlegible` at
+`google/fonts/ofl/atkinsonhyperlegiblenext` at
 `45e3d5269e4a17d823f6d84470bc084dc5ae46f6`; its upstream metadata identifies
-the original `googlefonts/atkinson-hyperlegible` source at commit
-`1cb311624b2ddf88e9e37873999d165a8cd28b46`.
+the `googlefonts/atkinson-hyperlegible-next` source at commit
+`7925f50f649b3813257faf2f4c0b381011f434f1`.
+The exact WOFF2s identify Next version 2.001, the Next Project Authors'
+2020-2024 copyright and `https://openfontlicense.org`; their variable weight axes
+are 200/400/800 (minimum/default/maximum). The retained
+[upstream license](https://github.com/googlefonts/atkinson-hyperlegible-next/blob/7925f50f649b3813257faf2f4c0b381011f434f1/OFL.txt)
+permits commercial/noncommercial embedding, redistribution and modification,
+including subsets/format conversion, with copyright/license retained, no
+standalone font sale, no implied endorsement and OFL-licensed derivatives.
+No Reserved Font Names are declared in that license. We redistribute Google's
+existing subsets without further subsetting or conversion. This does not
+relicense the legacy `Atkinson-Hyperlegible-*-102a.woff2` files, which retain their
+separate no-alteration license; they remain unchanged for legacy pages.
 CSS uses a content-hashed URL; missing content/assets fail explicitly. Existing page
 metadata values and external booking behavior are retained, not a new SEO policy.
+
+The following cold payload comparison is from an isolated WebKit HTTP fixture at
+640 CSS pixels, with local font candidates deliberately removed in **both**
+columns to exercise hosted delivery. It is not production timing or proof that
+an untouched local-first stack selected the hosted face.
+
+| Reading page | Original hosted: requests / font bytes | Next hosted: requests / font bytes |
+| --- | ---: | ---: |
+| Coaching | 2 / 34,732 | 1 / 33,996 |
+| Articles | 1 / 17,208 | 1 / 33,996 |
+| Action Loop | 3 / 53,024 | 2 / 71,640 |
+| Motivators | 3 / 53,024 | 2 / 71,640 |
+| The 5 Ps | 2 / 34,732 | 1 / 33,996 |
+
+Natural native Chrome checks of the final twelve-rule implementation at 640px
+confirmed the same hosted request/byte matrix. All five local-first pages used
+installed Next with zero font requests and rendered pixels distinct from their
+system controls; paragraph geometry matched their hosted-only controls.
+Only Latin subsets were requested in those pages. Normal variable delivery
+includes regular, medium and bold together; italic adds a separate 37,644-byte
+Latin file. Total shipped bytes (110,864 Next versus 109,980 original) are not
+per-page network cost. In the same fixture, a repeat visit reused the immutable
+Next file with zero transfer and only one server request across both visits;
+that observation does not establish production or other browsers' cache behavior.
+Untouched local-first embedded WebKit rendered system-font pixels without
+downloading Next. A native headless Chrome 155 specimen naturally selected
+installed Next for both local-first and local-only with zero font requests;
+the hosted-only control fetched 33,996 bytes and rendered Next separately.
+On the earlier regular-only `src: local(Next), url(Next)` specimen, the user
+observed standalone Safari local-first and hosted-only as an exact visual match,
+while local-only failed. This is visual evidence, not a network measurement.
+The earlier direct-family production stack was not equivalent. In the final
+production-equivalent full-style review, the user accepted Safari local-first
+and hosted-only as visually matching, with local-only unavailable as expected.
+The user accepted Chrome's spacing difference in the larger specimen paragraphs,
+but not the introductory paragraphs; its magnitude and cause remain unmeasured.
+These are user-observed visual results, not Safari network measurements or a
+measured temporal font-swap shift.
+The production-equivalent twelve-rule specimen in native headless Chrome at
+640px naturally selected all six local styles without font requests. Its
+hosted-only control fetched two files totaling 71,640 bytes, shared across all
+three weights. All six rendered styles differed from system fallback.
+Settled tops, heights, line heights and line counts matched for six samples and
+two paragraphs at that viewport, although medium/bold glyph widths differed
+slightly between installed static and hosted variable Next, both version 2.001.
+That bounded comparison neither establishes the cause of the user's observation
+nor measures temporal font-swap movement.
 
 The pilot header adapts apps' native, JavaScript-free popover pattern: Menu,
 centered text-only "Coaching and Mentoring" heading, and Read. Menu links to Home,

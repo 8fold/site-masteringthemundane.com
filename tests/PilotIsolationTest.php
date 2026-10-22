@@ -35,44 +35,100 @@ final class PilotIsolationTest extends TestCase
         $css = file_get_contents($root . '/css/reading.css');
         self::assertIsString($css);
         self::assertStringNotContainsString('@import', $css);
-        self::assertSame(8, substr_count($css, '@font-face'));
+        self::assertSame(12, substr_count($css, '@font-face'));
         preg_match_all('/@font-face\s*\{(.*?)\}/s', $css, $faces);
-        self::assertCount(8, $faces[1]);
+        self::assertCount(12, $faces[1]);
+        $localNextFaces = [
+            'normal:400' => 'Regular',
+            'italic:400' => 'RegularItalic',
+            'normal:500' => 'Medium',
+            'italic:500' => 'MediumItalic',
+            'normal:700' => 'Bold',
+            'italic:700' => 'BoldItalic'
+        ];
+        $localOriginalFaces = [
+            'normal:400' => 'Regular',
+            'italic:400' => 'Italic',
+            'normal:700' => 'Bold',
+            'italic:700' => 'BoldItalic'
+        ];
         $faceStyles = [];
         foreach ($faces[1] as $face) {
             preg_match('/font-style:\s*(normal|italic);/', $face, $style);
-            preg_match('/font-weight:\s*(400|700);/', $face, $weight);
+            preg_match('/font-weight:\s*(400|500|700);/', $face, $weight);
             self::assertNotEmpty($style);
             self::assertNotEmpty($weight);
             $descriptor = $style[1] . ':' . $weight[1];
             $faceStyles[$descriptor] = ($faceStyles[$descriptor] ?? 0) + 1;
+            $source = 'src: local("AtkinsonHyperlegibleNext-'
+                . $localNextFaces[$descriptor] . '"), ';
+            if (isset($localOriginalFaces[$descriptor])) {
+                $source .= 'local("AtkinsonHyperlegible-'
+                    . $localOriginalFaces[$descriptor] . '"), ';
+            }
+            self::assertStringContainsString($source . 'url("/fonts/', $face);
+            self::assertStringContainsString(
+                'font-family: "Atkinson Hyperlegible Next Hosted";',
+                $face
+            );
+            $fileStyle = $style[1] === 'normal' ? 'Normal' : 'Italic';
+            self::assertStringContainsString('Next-v7-' . $fileStyle . '-', $face);
         }
         self::assertSame(
             [
                 'normal:400' => 2,
-                'normal:700' => 2,
                 'italic:400' => 2,
+                'normal:500' => 2,
+                'italic:500' => 2,
+                'normal:700' => 2,
                 'italic:700' => 2
             ],
             $faceStyles
         );
-        self::assertStringContainsString('"Atkinson Hyperlegible Hosted"', $css);
-        self::assertSame(8, substr_count($css, 'font-display: swap'));
+        self::assertStringContainsString(
+            '--font-body: "Atkinson Hyperlegible Next Hosted", -apple-system,',
+            $css
+        );
+        self::assertStringNotContainsString('--font-body: "Atkinson Hyperlegible Next",', $css);
+        self::assertStringNotContainsString('--font-body: "Atkinson Hyperlegible",', $css);
+        self::assertSame(12, substr_count($css, 'font-display: swap'));
+        self::assertStringNotContainsString('AtkinsonHyperlegible-v12-', $css);
         self::assertStringNotContainsString('https://', $css);
-        $fontFiles = glob($root . '/fonts/AtkinsonHyperlegible-v12-*.woff2');
+        $fontFiles = glob($root . '/fonts/AtkinsonHyperlegibleNext-v7-*.woff2');
         self::assertIsArray($fontFiles);
-        self::assertCount(8, $fontFiles);
+        self::assertCount(4, $fontFiles);
         foreach ($fontFiles as $fontFile) {
             $hash = hash_file('sha256', $fontFile);
             self::assertIsString($hash);
-            self::assertStringContainsString(
-                '/fonts/' . basename($fontFile) . '?v=' . $hash,
-                $css
+            self::assertSame(
+                3,
+                substr_count($css, '/fonts/' . basename($fontFile) . '?v=' . $hash)
             );
         }
-        self::assertFileExists($root . '/fonts/AtkinsonHyperlegible-OFL.txt');
+        self::assertFileExists($root . '/fonts/AtkinsonHyperlegibleNext-OFL.txt');
         self::assertStringContainsString(':focus-visible', $css);
         self::assertStringContainsString('[is="skip-link"]:focus', $css);
+    }
+
+    public function testFontCachePolicyIsLimitedToVersionedWoff2Files(): void
+    {
+        $config = file_get_contents(dirname(__DIR__) . '/site-root/public/.htaccess');
+        self::assertIsString($config);
+        self::assertStringContainsString('m#\.woff2$#', $config);
+        self::assertStringContainsString('v=[0-9a-f]{64}(&|$)', $config);
+        self::assertStringContainsString(
+            'Header set Cache-Control "public, max-age=31536000, immutable"',
+            $config
+        );
+        self::assertStringContainsString('Header set Cache-Control "no-cache"', $config);
+    }
+
+    public function testReadingPagesDoNotPreloadFonts(): void
+    {
+        $html = $this->renderLegacyRoute(
+            dirname(__DIR__) . '/site-root/public/coaching-and-mentoring/index.php'
+        );
+        self::assertStringNotContainsString('rel="preload"', $html);
     }
 
     private function renderLegacyRoute(string $file): string
