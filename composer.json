@@ -15,6 +15,7 @@
   },
   "require": {
     "php": "^8.5",
+    "ext-dom": "*",
     "8fold/php-html-builder": "^5.0"
   },
   "require-dev": {

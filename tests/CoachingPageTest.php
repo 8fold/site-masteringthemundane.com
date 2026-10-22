@@ -34,7 +34,7 @@ final class CoachingPageTest extends TestCase
         self::assertSame(0, $this->countMatches($xpath, '//nav[@aria-label="Read"]'));
         $readingHistoryLink = '//header/a[@href="https://apps.mastering-the-mundane.com"]';
         self::assertSame(
-            'Apps',
+            'Apps (opens in a new tab)',
             $xpath->evaluate('string(' . $readingHistoryLink . ')')
         );
         self::assertSame(

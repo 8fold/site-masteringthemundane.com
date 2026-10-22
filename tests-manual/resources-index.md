@@ -36,7 +36,8 @@ must approve and verify a preview switch first. Do not change MAMP or the
 - Same-host and relative links stay same-tab. External HTTP(S) links, if added,
   including subdomains, need `_blank` and both `noopener` and `noreferrer`.
   Full-document automated checks use the shared WhatWG URL assertion.
-  The shared CSS supplies the accent superscript new-tab marker; the index
+  Compiled content and the Apps header supply a text-level square-and-arrow
+  new-tab marker, with underlined text but an un-underlined icon and gap; the index
   currently has no external content destination to mark.
 - Check page-load requests: local CSS/favicons and, only when needed, self-hosted
   WOFF2 font subsets; no JavaScript, third-party font or embed, account or
