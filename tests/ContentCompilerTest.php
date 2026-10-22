@@ -23,7 +23,12 @@ final class ContentCompilerTest extends TestCase
             self::assertSame($compiled, ContentCompiler::compile($source));
             self::assertSame($compiled, ContentFragment::forRoute($route));
         }
-        foreach (['/tools-and-resources/motivators/', '/tools-and-resources/the-5-ps/'] as $route) {
+        $legacyRoutes = [
+            '/articles/the-action-loop/',
+            '/tools-and-resources/motivators/',
+            '/tools-and-resources/the-5-ps/'
+        ];
+        foreach ($legacyRoutes as $route) {
             $source = file_get_contents(
                 dirname(__DIR__) . '/site-root/public' . $route . 'content.md'
             );
@@ -133,6 +138,8 @@ final class ContentCompilerTest extends TestCase
                 . '/public_content/articles/published.json -> content.html' . PHP_EOL
                 . 'compiled (mastering-the-mundane.com): '
                 . '/public_content/coaching-and-mentoring/content.md -> content.html' . PHP_EOL
+                . 'compiled (mastering-the-mundane.com): '
+                . '/site-root/public/articles/the-action-loop/content.md -> content.html' . PHP_EOL
                 . 'compiled (mastering-the-mundane.com): '
                 . '/site-root/public/tools-and-resources/motivators/content.md -> content.html'
                 . PHP_EOL

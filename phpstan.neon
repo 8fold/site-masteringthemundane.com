@@ -6,5 +6,6 @@ parameters:
 		- tests
 		- site-root/public/coaching-and-mentoring/index.php
 		- site-root/public/articles/index.php
+		- site-root/public/articles/the-action-loop/index.php
 		- site-root/public/tools-and-resources/motivators/index.php
 		- site-root/public/tools-and-resources/the-5-ps/index.php
