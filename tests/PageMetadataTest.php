@@ -7,6 +7,7 @@ namespace MTM\Tests;
 use DOMDocument;
 use DOMXPath;
 use MTM\Marketing\UserInterface\ActionLoopPage;
+use MTM\Marketing\UserInterface\BooksPage;
 use MTM\Marketing\UserInterface\CoachingPage;
 use MTM\Marketing\UserInterface\ContentFragment;
 use MTM\Marketing\UserInterface\FivePsPage;
@@ -32,6 +33,7 @@ final class PageMetadataTest extends TestCase
         yield 'action loop' => ['/resources/the-action-loop/', ActionLoopPage::render(...)];
         yield 'motivators' => ['/resources/motivators/', MotivatorsPage::render(...)];
         yield 'the 5 ps' => ['/resources/the-5-ps/', FivePsPage::render(...)];
+        yield 'books' => ['/books/', BooksPage::render(...)];
     }
 
     /** @param callable(): string $render */
@@ -92,7 +94,7 @@ final class PageMetadataTest extends TestCase
             '/resources/the-5-ps/' =>
                 'The 5 Ps Framework: Design Your Life (Passions, Pensives, More)'
         ];
-        foreach (array_slice(PageMetadata::ROUTES, 4) as $route) {
+        foreach (array_keys($listingTitles) as $route) {
             $path = ContentFragment::directory($route, dirname(__DIR__)) . 'meta.json';
             $json = file_get_contents($path);
             self::assertIsString($json);
