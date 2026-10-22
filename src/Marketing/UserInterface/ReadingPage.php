@@ -89,7 +89,7 @@ final class ReadingPage
                     'target _blank',
                     'rel noopener noreferrer'
                 ))
-            )->props('is marketing-header'),
+            )->props('is nav-header'),
             Element::create(
                 'main',
                 ContentFragment::forRoute($route)
@@ -122,11 +122,11 @@ final class ReadingPage
             'nav',
             Element::create('button', $label)->props('type button', 'popovertarget ' . $id),
             Element::create('div', Element::create('ul', ...$items))->props(
-                'is navigation-panel',
+                'is nav-panel',
                 'id ' . $id,
                 'popover auto'
             )
-        )->props('is ' . strtolower($label) . '-picker', 'aria-label ' . $label);
+        )->props('is nav-primary', 'aria-label ' . $label);
     }
 
     private static function meta(string $attribute, string $name, string $content): Element

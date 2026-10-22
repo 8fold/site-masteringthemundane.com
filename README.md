@@ -287,6 +287,9 @@ not inputs to the compiler or canonical converted pages. No compatibility
 redirects were added. Their historical Article dates were not transferred.
 
 The shared shell is `src/Marketing/UserInterface/ReadingPage.php`;
+navigation uses the shared `nav-header`, `nav-primary` and `nav-panel` selectors.
+Header controls size to their content rather than reserving fixed side columns.
+The current menu destination remains bold with a double underline.
 each page adapter (`HomePage`, `CoachingPage`, `ServicesPage`, `ResourcesPage`,
 `ActionLoopPage`, `MotivatorsPage`, `FivePsPage`, `BooksPage`) only names its route; metadata
 comes from `PageMetadata`. Each entry point only loads Composer and renders its page.
