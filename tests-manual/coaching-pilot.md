@@ -41,6 +41,8 @@ and normal hostname resolution. Do not repoint the original site.
 - Check the header's `nav-header`, Menu's `nav-primary` and popover's `nav-panel`
   selectors. Header controls are content-sized, not fixed 5em side columns.
   The current menu item remains bold and double-underlined.
+  Popover links are 44px tall at default text size, with a 44px minimum that
+  permits growth for enlarged or wrapped text. Header controls are unchanged.
 - Confirm the introduction booking anchor retains its exact destination,
   `_blank`, `noopener noreferrer`, and the new-window marker.
   Check all `_blank` markers are text-level square-and-arrow icons and match the
