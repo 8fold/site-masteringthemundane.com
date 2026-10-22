@@ -89,14 +89,28 @@ final class ResourcesIndex
             if ($updated === false || $updated->format('Ymd') !== $meta->updated) {
                 throw new RuntimeException($path . ': updated must be a valid YYYYMMDD date.');
             }
-            $items[] = '<li><a href="' . self::escape($route) . '">'
+            $html = '<li><a href="' . self::escape($route) . '">'
                 . self::escape($meta->listingTitle) . '</a> - '
                 . ucfirst($meta->type) . ' / ' . $meta->domain
                 . '<br>Last updated: <time datetime="' . $updated->format('Y-m-d') . '">'
                 . $updated->format('F j, Y') . '</time></li>';
+            $items[] = [
+                'updated' => $updated->format('Ymd'),
+                'title' => $meta->listingTitle,
+                'route' => $route,
+                'html' => $html
+            ];
         }
 
-        return "<ul>\n" . implode("\n", $items) . "\n</ul>\n";
+        usort(
+            $items,
+            static fn(array $a, array $b): int =>
+                strcmp($b['updated'], $a['updated'])
+                ?: strcasecmp($a['title'], $b['title'])
+                ?: strcmp($a['route'], $b['route'])
+        );
+
+        return "<ul>\n" . implode("\n", array_column($items, 'html')) . "\n</ul>\n";
     }
 
     private static function readJson(string $path): mixed

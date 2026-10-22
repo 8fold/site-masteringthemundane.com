@@ -113,6 +113,47 @@ final class ResourcesIndexTest extends TestCase
         self::assertStringNotContainsString('unlisted', $html);
     }
 
+    public function testUpdatedDateTitleAndRouteDetermineOrderNotManifestPosition(): void
+    {
+        $entries = [
+            '/older/' => ['20251231', 'A first title'],
+            '/z-title/' => ['20260511', 'Z last title'],
+            '/b-tie/' => ['20260511', 'alpha'],
+            '/a-tie/' => ['20260511', 'Alpha'],
+            '/newest/' => ['20270101', 'Z newest title']
+        ];
+        foreach ($entries as $route => [$date, $title]) {
+            $dir = 'site-root/public' . $route;
+            mkdir($this->root . '/' . $dir, 0700, true);
+            $this->write($dir . 'index.php', '<?php');
+            $this->write($dir . 'content.html', '<p>Published</p>');
+            $meta = json_decode($this->metadata(), true, 512, JSON_THROW_ON_ERROR);
+            self::assertIsArray($meta);
+            $this->write(
+                $dir . 'meta.json',
+                json_encode(
+                    array_replace($meta, ['updated' => $date, 'listingTitle' => $title]),
+                    JSON_THROW_ON_ERROR
+                )
+            );
+        }
+        $expected = ['/newest/', '/a-tie/', '/b-tie/', '/z-title/', '/older/'];
+        $previous = null;
+        foreach ([array_keys($entries), array_reverse(array_keys($entries))] as $routes) {
+            $this->write(
+                'public_content/resources/published.json',
+                json_encode($routes, JSON_THROW_ON_ERROR)
+            );
+            $html = ResourcesIndex::compile($this->root);
+            preg_match_all('/<a href="([^"]+)"/', $html, $matches);
+            self::assertSame($expected, $matches[1]);
+            if ($previous !== null) {
+                self::assertSame($previous, $html);
+            }
+            $previous = $html;
+        }
+    }
+
     /** @return iterable<string, array{string, string}> */
     public static function invalidMetadata(): iterable
     {

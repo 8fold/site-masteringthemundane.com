@@ -131,11 +131,17 @@ the compiled HTML without loading the development-only Markdown converter.
 
 #### Published content metadata
 
-`public_content/resources/published.json` is the explicit, ordered collection of
+`public_content/resources/published.json` is the explicit collection of
 existing public routes for discovery on Resources. There is no metadata glob and
 no automatic publication: adding a `meta.json`, including under `content-root/`,
 does not include an item. A selected route must already have `index.php`,
 `content.html`, and `meta.json` under `site-root/public`.
+
+The list is generated in descending `updated` date order, regardless of manifest
+order. Equal dates sort alphabetically by `listingTitle` (case-insensitive),
+then by route for deterministic ties. Sorting never expands the published
+selection. The editorial update date reflects meaningful resource changes;
+rebuilds, URL moves and shared CSS changes do not automatically update it.
 
 Each selected item's `meta.json` supplies:
 

@@ -56,7 +56,7 @@ final class ResourcesPageTest extends TestCase
         }
         self::assertSame(1.0, $xpath->evaluate('count(//h1)'));
         self::assertSame(
-            '/resources/the-action-loop/',
+            '/resources/the-5-ps/',
             $xpath->evaluate('string(//main//a/@href)')
         );
         self::assertSame(3.0, $xpath->evaluate('count(//main//a)'));

@@ -17,6 +17,9 @@ must approve and verify a preview switch first. Do not change MAMP or the
   No drafts appear.
   Each list item has a second "Last updated" line: February 2, 2024 for
   Action Loop and May 11, 2026 for both exercises.
+  Items appear most recently updated first: The 5 Ps, Motivators, then Action Loop.
+  Equal dates use case-insensitive title order, then route. Manifest order must
+  not control presentation or change which resources are published.
 - Check Menu and Read with keyboard and pointer: open using Enter/Space,
   dismiss using Escape or outside click, and verify focus return. Only Resources
   is current, in Read, with bold double-underline styling. Menu keeps Home,
