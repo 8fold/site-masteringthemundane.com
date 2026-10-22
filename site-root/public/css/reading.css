@@ -324,8 +324,17 @@ a[target="_blank"]::after {
 
 [is="marketing-header"] > nav {
   display: flex;
-  flex: 0 0 4em;
+  flex: 0 0 5em;
   justify-content: center;
+}
+
+[is="marketing-header"] > a {
+  display: flex;
+  flex: 0 0 5em;
+  align-items: center;
+  justify-content: center;
+  padding-inline: var(--space-2xs);
+  text-align: center;
 }
 
 nav button {
@@ -360,17 +369,8 @@ nav button:hover {
   border-radius: var(--space-3xs);
 }
 
-[is="read-picker"] [is="navigation-panel"] {
-  inset-inline-start: auto;
-  inset-inline-end: max(8px, env(safe-area-inset-right, 0px));
-}
-
 [is="menu-picker"] button {
   anchor-name: --menu;
-}
-
-[is="read-picker"] button {
-  anchor-name: --read;
 }
 
 @supports (top: anchor(bottom)) {
@@ -381,11 +381,6 @@ nav button:hover {
   [is="menu-picker"] [is="navigation-panel"] {
     position-anchor: --menu;
     left: anchor(left);
-  }
-
-  [is="read-picker"] [is="navigation-panel"] {
-    position-anchor: --read;
-    right: anchor(right);
   }
 }
 

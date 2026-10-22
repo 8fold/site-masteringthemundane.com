@@ -23,51 +23,62 @@ final class CoachingPageTest extends TestCase
         self::assertSame(
             [
                 '/', '/coaching-and-mentoring/', '/services/',
-                '/#time', '/#people', '/#space', '/#money'
+                '/books/', '/resources/'
             ],
             $this->texts($xpath, '//nav[@aria-label="Menu"]//a/@href')
         );
         self::assertSame(
-            ['Home', 'Coaching', 'Services', 'Time', 'People', 'Space', 'Money'],
+            ['Home', 'Coaching', 'Services', 'Books', 'Resources'],
             $this->texts($xpath, '//nav[@aria-label="Menu"]//a')
         );
+        self::assertSame(0, $this->countMatches($xpath, '//nav[@aria-label="Read"]'));
+        $readingHistoryLink = '//header/a[@href="https://apps.mastering-the-mundane.com"]';
         self::assertSame(
-            ['/books/', '/resources/'],
-            $this->texts($xpath, '//nav[@aria-label="Read"]//a/@href')
+            'Apps',
+            $xpath->evaluate('string(' . $readingHistoryLink . ')')
+        );
+        self::assertSame(
+            '_blank',
+            $xpath->evaluate('string(' . $readingHistoryLink . '/@target)')
+        );
+        self::assertSame(
+            'noopener noreferrer',
+            $xpath->evaluate('string(' . $readingHistoryLink . '/@rel)')
         );
         self::assertSame(1, $this->countMatches($xpath, '//nav//a[@aria-current]'));
         self::assertSame(
             '/coaching-and-mentoring/',
             $xpath->evaluate('string(//nav//a[@aria-current="page"]/@href)')
         );
-        foreach (['primary-navigation', 'read-navigation'] as $id) {
-            self::assertSame(
-                1,
-                $this->countMatches(
-                    $xpath,
-                    '//button[@type="button"][@popovertarget="' . $id . '"]'
-                )
-            );
-            self::assertSame(
-                1,
-                $this->countMatches($xpath, '//div[@id="' . $id . '"][@popover="auto"]')
-            );
-        }
+        self::assertSame(
+            1,
+            $this->countMatches(
+                $xpath,
+                '//button[@type="button"][@popovertarget="primary-navigation"]'
+            )
+        );
+        self::assertSame(
+            1,
+            $this->countMatches($xpath, '//div[@id="primary-navigation"][@popover="auto"]')
+        );
         self::assertSame(
             '© 2023–' . date('Y') . ' Mastering the Mundane',
             $this->text($xpath, 'string(//footer)')
         );
     }
 
-    public function testHomeDomainTargetsMatchTheMenuDestinations(): void
+    public function testHomeDomainsRemainAvailableWithoutMenuShortcuts(): void
     {
         $home = \MTM\Marketing\UserInterface\HomePage::render();
         foreach (['time', 'people', 'space', 'money'] as $id) {
             self::assertStringContainsString('id="' . $id . '"', $home);
         }
         self::assertSame(
-            '/#people',
-            $this->page()->evaluate('string(//nav//a[.="People"]/@href)')
+            0,
+            $this->countMatches(
+                $this->page(),
+                '//nav[@aria-label="Menu"]//a[starts-with(@href, "/#")]'
+            )
         );
     }
     public function testBookingAndServicesRemainAccessibleWithoutClientOrAccountDependencies(): void

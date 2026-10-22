@@ -6,8 +6,9 @@ Visit `/services/` on the verified worktree HTTPS preview.
   and lists, and unchanged pricing, qualifications and introduction destination.
 - Menu lists Services directly after Coaching; only Services is current here.
   Coaching and Resources must also expose that link without falsely marking it
-  current. Read still leads to Books and Resources.
-- Test native Menu/Read with pointer and keyboard: open, dismiss, focus return.
+  current. Books and Resources are also in Menu; "Apps" links to the
+  apps site.
+- Test native Menu with pointer and keyboard: open, dismiss, focus return.
   Check skip-to-main, light/dark mode, forced colors and screen-reader heading
   navigation. At 320px, 900px and 200% zoom, check wrapping and no overflow.
 - Coaching stays same-tab; the introduction opens a separate tab with the

@@ -80,16 +80,15 @@ final class ReadingPage
                     '/' => 'Home',
                     '/coaching-and-mentoring/' => 'Coaching',
                     '/services/' => 'Services',
-                    '/#time' => 'Time',
-                    '/#people' => 'People',
-                    '/#space' => 'Space',
-                    '/#money' => 'Money'
-                ]),
-                Element::create('h1', $heading),
-                self::navigation('Read', 'read-navigation', $route, [
                     '/books/' => 'Books',
                     '/resources/' => 'Resources'
-                ])
+                ]),
+                Element::create('h1', $heading),
+                Element::create('a', 'Apps')->props(
+                    'href https://apps.mastering-the-mundane.com',
+                    'target _blank',
+                    'rel noopener noreferrer'
+                )
             )->props('is marketing-header'),
             Element::create(
                 'main',

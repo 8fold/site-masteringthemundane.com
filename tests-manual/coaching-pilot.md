@@ -8,9 +8,9 @@ and normal hostname resolution. Do not repoint the original site.
   heading, unchanged copy, fees, session durations and all meaningful links.
 - At 320px, tablet and desktop widths, check readable text, wrapping navigation,
   no horizontal scrolling, and 200% zoom. Check Menu, centered text-only
-  "Coaching and Mentoring" heading and
-  Read placement, and each open native popover. Check OS light/dark appearance and
-  forced colors. Fonts are local-first with same-origin Next downloads when
+  "Coaching and Mentoring" heading, and the "Apps" link placement.
+  Menu is the only popover. Check OS light/dark appearance and forced colors.
+  Fonts are local-first with same-origin Next downloads when
   the matching installed face is unavailable, then system fallbacks.
 - Root prose lists and definition lists, including ordered exercise instructions
   directly inside the "For groups" prose section, use the same `--space-md`
@@ -18,7 +18,7 @@ and normal hostname resolution. Do not repoint the original site.
   remain `--space-xs` (0.75rem). Check simple, nested and paragraph-containing
   items at narrow widths and enlarged text, including RTL. Paragraphs within an
   item retain their paragraph spacing; trailing paragraph/list margins must not
-  double the inter-item gap. Menu/Read controls and explicitly marked component
+  double the inter-item gap. Menu controls and explicitly marked component
   lists (`is`, `role`, or direct `li[is]`) retain their existing spacing,
   including navigation inside main.
   No lead-in meaning is inferred from prose or punctuation; a Markdown-friendly
@@ -26,19 +26,18 @@ and normal hostname resolution. Do not repoint the original site.
   [8fold/site-mastering-the-mundane.apps#354](https://github.com/8fold/site-mastering-the-mundane.apps/issues/354).
 - Tab from the start: the skip link becomes visible, jumps to the focusable
   main landmark, and subsequent focus remains visible. Check header/home,
-  labeled Menu/Read navigation, heading hierarchy and footer with a screen reader.
-  Check native popover buttons with Enter/Space and dismissal with Escape and
-  outside click; focus should return to the invoking button after Escape.
+  labeled Menu navigation, the "Apps" external link, heading hierarchy
+  and footer with a screen reader. Check the native Menu popover with
+  Enter/Space and dismissal with Escape and outside click; focus should return
+  to the invoking button after Escape.
   Coaching must have `aria-current="page"` and the bold,
   double-underline visual indicator (1px at rest, 2px on hover). Other links
-  and the Menu and Read buttons use a 2px underline at rest and 3px on hover.
-  No other menu link is current.
+  and the Menu button use a 2px underline at rest and 3px on hover. No other
+  menu link is current.
 - Menu destinations are Home `/`, Coaching `/coaching-and-mentoring/`,
-  Time `/#time`, People `/#people`, Space
-  `/#space`, and Money `/#money`. Read destinations are Books `/books/` and
-  Resources `/resources/`. People now targets a placeholder Home section. Confirm
-  `/#people` reaches its heading; final Home copy is deferred until the other
-  pages have been converted.
+  Services `/services/`, Books `/books/` and Resources `/resources/`; it has no
+  Home domain shortcuts. The header's "Apps" link opens
+  `https://apps.mastering-the-mundane.com` in a separate tab.
 - Confirm the introduction booking anchor retains its exact destination,
   `_blank`, `noopener noreferrer`, and the new-window marker.
   Check all `_blank` markers are larger (1em), superscript, and match the link
@@ -84,7 +83,7 @@ navigation revisions; they are not a claim that subsequent revisions were review
 | --- | --- |
 | JavaScript disabled | Pass |
 | Light/dark appearance and fonts | Pass |
-| Wrapping navigation | Pass; requested apps-style Menu, heading and Read pattern; exact Menu domains pending clarification |
+| Wrapping navigation | Pass; requested apps-style Menu, heading and Read pattern; later navigation redesign is documented above |
 | Tab navigation | Pass; requested an apps issue for a visual current-page indicator alongside `aria-current` |
 | Introduction and links | Pass; requested removal of Gather and explanation of Cal.com confirmation link |
 | Page-load network requests | Unverified by human; appeared to pass, but reviewer was unsure how to verify |
