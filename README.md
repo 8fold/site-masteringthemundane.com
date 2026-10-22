@@ -114,7 +114,7 @@ Markdown apostrophes match those already displayed in its published HTML.
 It reuses the same publication-date layout without correcting the existing
 chronology discrepancy: Original June 23, 2024 is later than Updated February 2,
 2024. This requires a separate editorial decision, not an inferred date.
-Its `article`/`Time` classification and the local-only font policy are unchanged.
+Its `model`/`Time` classification is independent of its prose presentation.
 The existing Markdown library's `descriptionLists()` extension preserves their
 semantic definition lists; no new dependency or runtime converter is used.
 The Articles compiler reports
@@ -135,18 +135,25 @@ Each selected item's `meta.json` supplies:
 
 - `listingTitle`: a non-empty display title, taken from the existing public link
   or page title. This avoids using copied/inconsistent legacy `title` values.
-- `type`: exactly `article`, `exercise`, or `reference`.
+- `type`: exactly `model`, `exercise`, `guide`, `reference`, or `essay`.
+  This describes the resource's primary purpose, not its delivery format:
+  understand a model, perform an exercise, follow a guide, consult a reference,
+  or consider an essay. Choose one primary type, even for hybrid resources.
 - `domain`: exactly `Time`, `People`, `Space`, or `Money`.
 - `tags`: a JSON list of non-empty topic strings; `[]` is valid. Tags are not
   another type/domain taxonomy and are not displayed or used for filtering yet.
 - `updated`: a valid calendar date in `YYYYMMDD` format, rendered on a second
   line as "Last updated" with a machine-readable HTML `time` element.
 
-The current collection is Action Loop (`article`, `Time`), Motivators
+There is no `format` field. Prose, downloads, video and audio do not change the
+resource's type. Tags describe additional topics rather than duplicating type
+or domain; an empty list remains valid.
+
+The current collection is Action Loop (`model`, `Time`), Motivators
 (`exercise`, `People`) and The 5 Ps (`exercise`, `People`), all with empty tags.
 Action Loop's discussion of sustainable pace, Parkinson's Law and the model from
 *Triumph over Time* supports its Time classification. Articles intentionally
-provides unified discovery of both articles and exercises while the existing
+provides unified discovery of models and exercises while the existing
 resources index and detail URLs remain available.
 
 Source content and unrelated legacy metadata fields are preserved. The three

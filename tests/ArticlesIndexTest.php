@@ -67,6 +67,31 @@ final class ArticlesIndexTest extends TestCase
         $html = ArticlesIndex::compile(dirname(__DIR__));
         self::assertSame($html, ArticlesIndex::compile(dirname(__DIR__)));
         self::assertSame($html, ContentFragment::forRoute('/articles/'));
+        self::assertStringContainsString(
+            ' - Model / Time',
+            $html
+        );
+    }
+
+    /** @return iterable<string, array{string}> */
+    public static function resourceTypes(): iterable
+    {
+        foreach (['model', 'exercise', 'guide', 'reference', 'essay'] as $type) {
+            yield $type => [$type];
+        }
+    }
+
+    #[DataProvider('resourceTypes')]
+    public function testPurposeTypesRenderWithoutAFormatField(string $type): void
+    {
+        $this->write(
+            'site-root/public/item/meta.json',
+            str_replace('"type":"reference"', '"type":"' . $type . '"', $this->metadata())
+        );
+        self::assertStringContainsString(
+            ' - ' . ucfirst($type) . ' / Money',
+            ArticlesIndex::compile($this->root)
+        );
     }
 
     public function testExplicitSelectionIgnoresDraftsAncillaryAndUnlistedMetadata(): void
@@ -97,6 +122,8 @@ final class ArticlesIndexTest extends TestCase
         yield 'invalid title' => ['{"listingTitle":[]}', 'listingTitle'];
         yield 'empty title' => ['{"listingTitle":" "}', 'listingTitle'];
         yield 'unknown type' => ['{"type":"video"}', 'type must'];
+        yield 'former format type' => ['{"type":"article"}', 'type must'];
+        yield 'download format' => ['{"type":"worksheet"}', 'type must'];
         yield 'invalid type' => ['{"type":[]}', 'type must'];
         yield 'unknown domain' => ['{"domain":"Tools"}', 'domain must'];
         yield 'wrong domain case' => ['{"domain":"time"}', 'domain must'];
