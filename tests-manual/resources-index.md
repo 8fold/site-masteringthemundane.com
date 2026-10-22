@@ -23,7 +23,8 @@ must approve and verify a preview switch first. Do not change MAMP or the
 - Check Menu and Read with keyboard and pointer: open using Enter/Space,
   dismiss using Escape or outside click, and verify focus return. Only Resources
   is current, in Read, with bold double 1px underline styling that increases
-  to 2px on hover. Other links use 2px at rest and 3px on hover. Menu keeps Home,
+  to 2px on hover. Other links and the Menu and Read buttons use 2px at rest
+  and 3px on hover. Menu keeps Home,
   Coaching and the four existing Home domain anchors.
 - At 320px, tablet, desktop and 200% zoom, check no horizontal overflow,
   centered text-only heading, 70ch reading column, native popovers, visible focus

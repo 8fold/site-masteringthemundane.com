@@ -31,7 +31,8 @@ and normal hostname resolution. Do not repoint the original site.
   outside click; focus should return to the invoking button after Escape.
   Coaching must have `aria-current="page"` and the bold,
   double-underline visual indicator (1px at rest, 2px on hover). Other links
-  use a 2px underline at rest and 3px on hover. No other menu link is current.
+  and the Menu and Read buttons use a 2px underline at rest and 3px on hover.
+  No other menu link is current.
 - Menu destinations are Home `/`, Coaching `/coaching-and-mentoring/`,
   Time `/#time`, People `/#people`, Space
   `/#space`, and Money `/#money`. Read destinations are Books `/books/` and
