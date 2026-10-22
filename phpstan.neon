@@ -7,6 +7,7 @@ parameters:
 		- site-root/public/coaching-and-mentoring/index.php
 		- site-root/public/resources/index.php
 		- site-root/public/services/index.php
+		- site-root/public/index.php
 		- site-root/public/resources/the-action-loop/index.php
 		- site-root/public/resources/motivators/index.php
 		- site-root/public/resources/the-5-ps/index.php

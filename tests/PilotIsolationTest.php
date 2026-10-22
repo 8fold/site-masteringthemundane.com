@@ -13,7 +13,6 @@ final class PilotIsolationTest extends TestCase
         $root = dirname(__DIR__) . '/site-root/public';
         foreach (
             [
-            '/index.php',
             '/books/index.php',
             '/books/time-mastering-the-mundane/index.php',
             ] as $route

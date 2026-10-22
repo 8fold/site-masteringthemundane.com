@@ -61,8 +61,7 @@ final class CoachingPageTest extends TestCase
 
     public function testHomeDomainTargetsMatchTheMenuDestinations(): void
     {
-        $home = file_get_contents(dirname(__DIR__) . '/site-root/public/index.php');
-        self::assertIsString($home);
+        $home = \MTM\Marketing\UserInterface\HomePage::render();
         foreach (['time', 'people', 'space', 'money'] as $id) {
             self::assertStringContainsString('id="' . $id . '"', $home);
         }

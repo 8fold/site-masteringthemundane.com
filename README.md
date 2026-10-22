@@ -24,10 +24,24 @@ You should see the same Mastering the Mundane website that you could find on the
 
 ### Reading pages: Coaching, Resources and exercises
 
+Home uses the same shared shell, with four labelled h2 sections retaining the
+Time, People, Space and Money fragment identifiers. Edit
+`public_content/content.md` and regenerate its sibling `content.html`.
+Root `public_content/meta.json` holds Home's `heading` (visible h1), `title`
+(browser and social title), and `description` (page and social description).
+All three must be non-empty strings; build checks and requests validate them
+with path-specific errors. Other page adapters retain their existing metadata
+until a separately scoped migration. No synthetic `/home/` route is used.
+Each domain links to Coaching and Services. Copy draws on the operational
+domains and calm, practical, autonomy-first voice in the apps repository's
+`docs/brand-style-guide-2026v1.md` reference snapshot, without advertising
+planned software or inventing domain-specific services. This is a content
+rewrite, not a preservation-only migration. Books remains deferred.
+
 `/coaching-and-mentoring/`, `/services/`, the `/resources/` index, `/resources/the-action-loop/`,
 `/resources/motivators/` and `/resources/the-5-ps/` adopt the apps site's
 visual and architectural foundation. All other routes still use their existing
-templates and stylesheet. Home and Books are not migrated.
+templates and stylesheet. Books is not migrated.
 The Resources index discovers three explicitly selected published items from
 their metadata. Its heading, Read navigation and descriptive metadata identify
 Resources. Content and unrelated metadata remain unchanged.
@@ -53,7 +67,7 @@ an h2 followed by its pricing, paragraphs and lists in ordinary Markdown;
 requests use the generated sibling `content.html`, without a runtime converter.
 Services preserves its offerings, prices, introduction link and URL. The shared
 Menu includes Services immediately after Coaching and marks only the actual
-current page. Home and Books remain on the legacy presentation.
+current page. Books remains on the legacy presentation.
 The Resources fragment is generated from the published collection described below,
 not hand-maintained Markdown. After changing either source, run:
 
@@ -283,7 +297,7 @@ nor measures temporal font-swap movement.
 The pilot header adapts apps' native, JavaScript-free popover pattern: Menu,
 centered text-only "Coaching and Mentoring" heading, and Read. Menu links to Home,
 Coaching, and Home's Time/People/Space/Money
-anchors; Read links to Books and Resources. Home includes a placeholder People
+anchors; Read links to Books and Resources. Home includes a People
 section so `/#people` resolves. Rewriting Home copy is deferred until the other
 pages have been converted; see [#10](https://github.com/8fold/site-masteringthemundane.com/issues/10).
 The current route has `aria-current="page"`
