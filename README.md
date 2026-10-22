@@ -48,8 +48,8 @@ Apache's document root remains `site-root/public`; neither `src/` nor
 JavaScript build, or account system is required.
 
 Edit `public_content/coaching-and-mentoring/content.md` for Coaching prose.
-Edit `public_content/services/content.md` for Services prose. Its definition
-list retains reviewed HTML for the paragraphs and lists inside each definition;
+Edit `public_content/services/content.md` for Services prose. Each service uses
+an h2 followed by its pricing, paragraphs and lists in ordinary Markdown;
 requests use the generated sibling `content.html`, without a runtime converter.
 Services preserves its offerings, prices, introduction link and URL. The shared
 Menu includes Services immediately after Coaching and marks only the actual

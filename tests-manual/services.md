@@ -2,14 +2,14 @@
 
 Visit `/services/` on the verified worktree HTTPS preview.
 
-- Confirm one Services h1, two paired service definitions, readable paragraphs
+- Confirm one Services h1, two service h2 headings, readable paragraphs
   and lists, and unchanged pricing, qualifications and introduction destination.
 - Menu lists Services directly after Coaching; only Services is current here.
   Coaching and Resources must also expose that link without falsely marking it
   current. Read still leads to Books and Resources.
 - Test native Menu/Read with pointer and keyboard: open, dismiss, focus return.
-  Check skip-to-main, light/dark mode, forced colors and screen-reader definition
-  associations. At 320px, 900px and 200% zoom, check wrapping and no overflow.
+  Check skip-to-main, light/dark mode, forced colors and screen-reader heading
+  navigation. At 320px, 900px and 200% zoom, check wrapping and no overflow.
 - Coaching stays same-tab; the introduction opens a separate tab with the
   external-link indicator. Do not book or submit anything.
 - Recheck Home, Books, resource pages and existing redirects. No publication

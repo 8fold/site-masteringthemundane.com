@@ -50,13 +50,13 @@ final class ServicesPageTest extends TestCase
                 $xpath->evaluate('count(//main[@id="main"][@tabindex="-1"])')
             );
             self::assertSame(1.0, $xpath->evaluate('count(//a[@href="#main"])'));
-            self::assertSame(2.0, $xpath->evaluate('count(//main/dl/dt)'));
-            self::assertSame(2.0, $xpath->evaluate('count(//main/dl/dd)'));
+            self::assertSame(2.0, $xpath->evaluate('count(//main/h2)'));
+            self::assertSame(0.0, $xpath->evaluate('count(//main//dl|//main//dt|//main//dd)'));
             self::assertSame(
-                0.0,
-                $xpath->evaluate('count(//main/dl/dt[not(following-sibling::*[1][self::dd])])')
+                2.0,
+                $xpath->evaluate('count(//main/h2[following-sibling::*[1][self::p]])')
             );
-            self::assertSame(2.0, $xpath->evaluate('count(//main/dl/dd/ul)'));
+            self::assertSame(2.0, $xpath->evaluate('count(//main/ul)'));
             self::assertSame(0.0, $xpath->evaluate('count(//main//h1|//main/article)'));
             $current = '//nav[@aria-label="Menu"]//a[@aria-current="page"]';
             self::assertSame(1.0, $xpath->evaluate('count(//nav//a[@aria-current])'));
