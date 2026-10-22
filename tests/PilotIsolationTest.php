@@ -16,7 +16,6 @@ final class PilotIsolationTest extends TestCase
             '/index.php',
             '/books/index.php',
             '/books/time-mastering-the-mundane/index.php',
-            '/services/index.php',
             ] as $route
         ) {
             $html = $this->renderLegacyRoute($root . $route);

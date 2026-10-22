@@ -79,6 +79,7 @@ final class ReadingPage
                 self::navigation('Menu', 'primary-navigation', $route, [
                     '/' => 'Home',
                     '/coaching-and-mentoring/' => 'Coaching',
+                    '/services/' => 'Services',
                     '/#time' => 'Time',
                     '/#people' => 'People',
                     '/#space' => 'Space',
