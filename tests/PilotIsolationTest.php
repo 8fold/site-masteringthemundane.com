@@ -142,6 +142,43 @@ final class PilotIsolationTest extends TestCase
         self::assertStringContainsString('nav ul {', $css);
     }
 
+    public function testReadingLinkUnderlinesEmphasizeHoverAndCurrentPageStates(): void
+    {
+        $css = file_get_contents(dirname(__DIR__) . '/site-root/public/css/reading.css');
+        self::assertIsString($css);
+        $normalizedCss = preg_replace('/\s+/', ' ', $css);
+        self::assertIsString($normalizedCss);
+        self::assertStringContainsString(
+            'a, a:visited, a:active { color: var(--color-ink); text-decoration: underline; '
+                . 'text-decoration-color: var(--color-accent); text-decoration-thickness: 2px; '
+                . 'text-underline-offset: var(--space-4xs); }',
+            $normalizedCss
+        );
+        self::assertStringContainsString(
+            'a:hover { text-decoration-thickness: 3px; }',
+            $normalizedCss
+        );
+        self::assertStringContainsString(
+            'nav a[aria-current="page"] { font-weight: var(--font-weight-bold); '
+                . 'text-decoration-style: double; text-decoration-thickness: 1px; }',
+            $normalizedCss
+        );
+        self::assertStringContainsString(
+            'nav a[aria-current="page"]:hover { text-decoration-thickness: 2px; }',
+            $normalizedCss
+        );
+        self::assertStringContainsString(
+            'a:focus-visible { outline: 3px solid var(--color-information); '
+                . 'outline-offset: var(--space-3xs); border-radius: var(--space-4xs); }',
+            $normalizedCss
+        );
+        self::assertStringContainsString('text-decoration-color: LinkText;', $css);
+        self::assertStringContainsString(
+            'text-decoration: underline 3px var(--color-accent);',
+            $css
+        );
+    }
+
     public function testReadingPagesDoNotPreloadFonts(): void
     {
         $html = $this->renderLegacyRoute(

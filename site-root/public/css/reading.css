@@ -249,12 +249,12 @@ a, a:visited, a:active {
   color: var(--color-ink);
   text-decoration: underline;
   text-decoration-color: var(--color-accent);
-  text-decoration-thickness: 3px;
+  text-decoration-thickness: 2px;
   text-underline-offset: var(--space-4xs);
 }
 
 a:hover {
-  text-decoration-thickness: 2px;
+  text-decoration-thickness: 3px;
 }
 
 a:focus-visible {
@@ -399,11 +399,11 @@ nav a {
 nav a[aria-current="page"] {
   font-weight: var(--font-weight-bold);
   text-decoration-style: double;
-  text-decoration-thickness: 2px;
+  text-decoration-thickness: 1px;
 }
 
 nav a[aria-current="page"]:hover {
-  text-decoration-thickness: 1px;
+  text-decoration-thickness: 2px;
 }
 
 @supports not selector(:popover-open) {
