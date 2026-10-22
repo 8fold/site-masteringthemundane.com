@@ -32,7 +32,7 @@ final class ReadingPage
             . 'remote, hybrid, josh, bruce, josh bruce';
         $domain = 'mastering-the-mundane.com';
         $url = 'https://' . $domain;
-        $poster = $url . '/media/poster.png';
+        $poster = $url . '/assets/media/poster.png';
         $head = [
             self::meta('name', 'viewport', 'width=device-width,initial-scale=1'),
             self::link('apple-touch-icon', '/favicons/apple-touch-icon.png')->prop('sizes 180x180'),
@@ -67,7 +67,8 @@ final class ReadingPage
             self::meta('name', 'twitter:title', $title),
             self::meta('name', 'twitter:description', $description),
             self::meta('name', 'twitter:image', $poster),
-            self::link('stylesheet', AssetUrl::versioned('/css/reading.css')),
+            self::link('stylesheet', AssetUrl::versioned('/assets/css/reading.min.css'))
+                ->prop('blocking render'),
             Element::create('script', StructuredData::forRoute($route))
                 ->props('type application/ld+json')
         ];

@@ -18,7 +18,7 @@ final class AssetUrl
         if (!is_file($file)) {
             throw new RuntimeException('Missing public asset: ' . $path);
         }
-        $hash = hash_file('sha256', $file);
+        $hash = hash_file('xxh3', $file);
         if ($hash === false) {
             throw new RuntimeException('Could not hash public asset: ' . $path);
         }

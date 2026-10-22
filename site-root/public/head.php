@@ -36,8 +36,10 @@
     <meta name="twitter:description" content="<?php print($description); ?>">
     <meta name="twitter:image" content="<?php print($poster); ?>">
 
-    <!-- Styles w/ query cache break -->
-    <link type="text/css" rel="stylesheet" href="/css/main.css?v=1.1">
+    <!-- Legacy pages share the content-versioned asset policy. -->
+    <?php require_once dirname(__DIR__, 2) . '/vendor/autoload.php'; ?>
+    <link type="text/css" rel="stylesheet" blocking="render"
+        href="<?php echo \MTM\Marketing\UserInterface\AssetUrl::versioned('/assets/css/main.min.css'); ?>">
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",

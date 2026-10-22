@@ -40,7 +40,7 @@ final class CoachingPageTest extends TestCase
                     . '/div[@is="nav-panel"][@id="primary-navigation"][@popover="auto"]'
             )
         );
-        $css = file_get_contents(dirname(__DIR__) . '/site-root/public/css/reading.css');
+        $css = file_get_contents(dirname(__DIR__) . '/site-root/public/assets/css/reading.css');
         self::assertIsString($css);
         self::assertStringNotContainsString('flex: 0 0 5em', $css);
         self::assertStringNotContainsString('marketing-header', $css);
@@ -158,12 +158,12 @@ final class CoachingPageTest extends TestCase
             $xpath->evaluate('string(//meta[@property="twitter:url"]/@content)')
         );
         self::assertSame(
-            'https://mastering-the-mundane.com/media/poster.png',
+            'https://mastering-the-mundane.com/assets/media/poster.png',
             $xpath->evaluate('string(//meta[@property="og:image"]/@content)')
         );
         self::assertSame(1, $this->countMatches($xpath, '//link[@rel="stylesheet"]'));
         self::assertMatchesRegularExpression(
-            '~\A/css/reading\.css\?v=[a-f0-9]{64}\z~',
+            '~\A/assets/css/reading\.min\.css\?v=[a-f0-9]{16}\z~',
             $this->text($xpath, 'string(//link[@rel="stylesheet"]/@href)')
         );
         self::assertSame(0, $this->countMatches($xpath, '//header//img'));

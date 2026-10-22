@@ -155,8 +155,8 @@ final class MotivatorsPageTest extends TestCase
             'property="og:url"' => 'mastering-the-mundane.com',
             'property="twitter:domain"' => 'mastering-the-mundane.com',
             'property="twitter:url"' => 'https://mastering-the-mundane.com',
-            'property="og:image"' => 'https://mastering-the-mundane.com/media/poster.png',
-            'name="twitter:image"' => 'https://mastering-the-mundane.com/media/poster.png'
+            'property="og:image"' => 'https://mastering-the-mundane.com/assets/media/poster.png',
+            'name="twitter:image"' => 'https://mastering-the-mundane.com/assets/media/poster.png'
             ] as $selector => $value
         ) {
             self::assertSame(
@@ -169,7 +169,7 @@ final class MotivatorsPageTest extends TestCase
         $stylesheet = $xpath->evaluate('string(//link[@rel="stylesheet"]/@href)');
         self::assertIsString($stylesheet);
         self::assertMatchesRegularExpression(
-            '~\A/css/reading\.css\?v=[a-f0-9]{64}\z~',
+            '~\A/assets/css/reading\.min\.css\?v=[a-f0-9]{16}\z~',
             $stylesheet
         );
     }

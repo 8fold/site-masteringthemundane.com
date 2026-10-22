@@ -75,7 +75,8 @@ and normal hostname resolution. Do not repoint the original site.
 
 The Resources index now shares the reading shell and `reading.css`; it is no
 longer a non-pilot comparison route. See `resources-index.md`. Historical
-`coaching.css` URLs below record the initial pilot only.
+`coaching.css` URLs below record the initial pilot only. Current shared pages
+use `/assets/css/reading.min.css` with an xxh3 content version; see `assets.md`.
 
 https://com.mastering-the-mundane.copilot:8890/css/coaching.css?v=88c0f768290a72ae1067f15c1d135e12817f4dc62a00f30693b8a29aa3d50480
 https://com.mastering-the-mundane.copilot:8890/css/coaching.css?v=878788938ad55a365cbf20c789975ec273f4a08b88c24348041a277448114814

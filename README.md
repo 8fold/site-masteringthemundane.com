@@ -300,7 +300,7 @@ Each page adapter (`HomePage`, `CoachingPage`, `ServicesPage`, `ResourcesPage`,
 `ActionLoopPage`, `MotivatorsPage`, `FivePsPage`, `BooksPage`, `TimeBookPage`)
 only names its route; metadata
 comes from `PageMetadata`. Each entry point only loads Composer and renders its page.
-`site-root/public/css/reading.css` adapts
+`site-root/public/assets/css/reading.css` adapts
 the apps legal page's executable CSS: 16px base typography, exact `70ch` main
 width and responsive padding, heading defaults, footer,
 focus and link styling. Main renders the compiled fragment directly,
@@ -319,10 +319,12 @@ WOFF2 subsets; all four files total 110,864 bytes, use `font-display: swap`, and
 not preloaded. Browsers fetch only the styles/subsets actually used, not the entire
 shipped set. Local font availability depends on the browser's privacy policy;
 no browser setting change or Font Book extraction is needed.
-Apache with `mod_headers` caches SHA-256-versioned WOFF2 URLs for one year as
-immutable; unversioned font URLs revalidate. This policy does not imply an
+Apache with `mod_headers` caches content-versioned CSS, JS and WOFF2 URLs for one year as
+immutable; unversioned requests revalidate. Fonts retain their SHA-256 versions.
+This policy does not imply an
 observed browser cache hit, and the PHP development server does not apply `.htaccess`.
-The accompanying SIL Open Font License is in `site-root/public/fonts/AtkinsonHyperlegibleNext-OFL.txt`.
+The accompanying SIL Open Font License is in
+`site-root/public/assets/fonts/AtkinsonHyperlegibleNext-OFL.txt`.
 The unmodified WOFF2 subsets come from the Google Fonts CSS API v7; its stylesheet is
 `https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:ital,wght@0,200..800;1,200..800&display=swap`.
 The included license and family metadata are from
@@ -341,8 +343,37 @@ No Reserved Font Names are declared in that license. We redistribute Google's
 existing subsets without further subsetting or conversion. This does not
 relicense the legacy `Atkinson-Hyperlegible-*-102a.woff2` files, which retain their
 separate no-alteration license; they remain unchanged for legacy pages.
-CSS uses a content-hashed URL; missing content/assets fail explicitly. Existing page
+CSS uses an xxh3 content-hashed URL, matching apps; missing content/assets fail explicitly. Existing page
 metadata values and external booking behavior are retained, not a new SEO policy.
+
+### Public assets
+
+Following the 8fold web-project convention used by apps, authored stylesheets live
+in `site-root/public/assets/css/`. `composer minify` uses the same MatthiasMullie
+minifier as apps to generate committed sibling `.min.css` files. Shared and legacy
+PHP pages link these minified files with content versions and `blocking="render"`.
+Run `composer check-assets` to verify freshness without writing; CI and
+`composer production` include this check. Deploy generated assets as-is; production
+does not require the development minifier.
+
+UI SVGs live under `/assets/ui/`; this site's poster and book cover use
+`/assets/media/`. Fonts and their licenses live under `/assets/fonts/` with unchanged
+bytes, SHA-256 versions and font-selection rules. Apache redirects the former
+`/fonts/`, `/css/`, `/ui/` and
+`/media/` URLs to their corresponding `/assets/` locations with query strings
+preserved, so existing inbound links, shared image URLs and cached stylesheets
+continue to resolve. Old unminified stylesheet URLs redirect to the corresponding
+authored CSS, not a removed file.
+
+Cache-busting gives fresh HTML the updated stylesheet URL, but does not replace
+CSS in already-open documents. Those documents can request additional font
+styles or glyph ranges later. Redirects keep these lazy font requests working
+without retaining duplicate binaries.
+
+The branded `/favicons/` files, manifest, browser configuration and declarations
+remain intact. Apps currently has no favicon files or declarations to copy;
+the user deferred a shared favicon convention. This does not imply centralized
+hosting. No JavaScript is currently shipped by this site.
 
 The following cold payload comparison is from an isolated WebKit HTTP fixture at
 640 CSS pixels, with local font candidates deliberately removed in **both**

@@ -13,16 +13,16 @@ final class AssetUrlTest extends TestCase
 {
     public function testVersionIsTheContentHashAndChangesWhenTheFileChanges(): void
     {
-        $path = '/css/.asset-test-' . bin2hex(random_bytes(8)) . '.css';
+        $path = '/assets/css/.asset-test-' . bin2hex(random_bytes(8)) . '.css';
         $file = dirname(__DIR__) . '/site-root/public' . $path;
         try {
             self::assertSame(3, file_put_contents($file, 'one'));
             $first = AssetUrl::versioned($path);
-            self::assertSame($path . '?v=' . hash('sha256', 'one'), $first);
+            self::assertSame($path . '?v=' . hash('xxh3', 'one'), $first);
             self::assertSame($first, AssetUrl::versioned($path));
             self::assertSame(3, file_put_contents($file, 'two'));
             self::assertNotSame($first, AssetUrl::versioned($path));
-            self::assertSame($path . '?v=' . hash('sha256', 'two'), AssetUrl::versioned($path));
+            self::assertSame($path . '?v=' . hash('xxh3', 'two'), AssetUrl::versioned($path));
         } finally {
             if (is_file($file)) {
                 unlink($file);
@@ -33,7 +33,7 @@ final class AssetUrlTest extends TestCase
     public function testMissingAssetFailsInsteadOfSilentlyShippingAnUnversionedUrl(): void
     {
         $this->expectException(RuntimeException::class);
-        AssetUrl::versioned('/css/does-not-exist.css');
+        AssetUrl::versioned('/assets/css/does-not-exist.css');
     }
 
     public function testExternalAssetsAreNotAccepted(): void
