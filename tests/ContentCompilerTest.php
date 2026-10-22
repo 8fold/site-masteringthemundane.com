@@ -30,7 +30,7 @@ final class ContentCompilerTest extends TestCase
         ];
         foreach ($legacyRoutes as $route) {
             $source = file_get_contents(
-                dirname(__DIR__) . '/site-root/public' . $route . 'content.md'
+                dirname(__DIR__) . '/public_content' . $route . 'content.md'
             );
             self::assertIsString($source);
             $compiled = ContentCompiler::compile($source);
@@ -141,15 +141,16 @@ final class ContentCompilerTest extends TestCase
                 . 'compiled (mastering-the-mundane.com): '
                 . '/public_content/resources/published.json -> content.html' . PHP_EOL
                 . 'compiled (mastering-the-mundane.com): '
-                . '/public_content/services/content.md -> content.html' . PHP_EOL
-                . 'compiled (mastering-the-mundane.com): '
-                . '/site-root/public/resources/motivators/content.md -> content.html'
+                . '/public_content/resources/motivators/content.md -> content.html'
                 . PHP_EOL
                 . 'compiled (mastering-the-mundane.com): '
-                . '/site-root/public/resources/the-5-ps/content.md -> content.html'
+                . '/public_content/resources/the-5-ps/content.md -> content.html'
                 . PHP_EOL
                 . 'compiled (mastering-the-mundane.com): '
-                . '/site-root/public/resources/the-action-loop/content.md -> content.html'
+                . '/public_content/resources/the-action-loop/content.md -> content.html'
+                . PHP_EOL
+                . 'compiled (mastering-the-mundane.com): '
+                . '/public_content/services/content.md -> content.html'
                 . PHP_EOL,
             $output
         );
@@ -161,6 +162,20 @@ final class ContentCompilerTest extends TestCase
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('run composer compile-content');
         ContentFragment::forRoute('/not-published/');
+    }
+
+    public function testConvertedContentHasNoPublicSourceCopies(): void
+    {
+        foreach (['the-action-loop', 'motivators', 'the-5-ps'] as $slug) {
+            foreach (['content.md', 'content.html', 'meta.json'] as $file) {
+                self::assertFileExists(
+                    dirname(__DIR__) . '/public_content/resources/' . $slug . '/' . $file
+                );
+                self::assertFileDoesNotExist(
+                    dirname(__DIR__) . '/site-root/public/resources/' . $slug . '/' . $file
+                );
+            }
+        }
     }
 
     public function testDescriptionListsPreserveTermsDefinitionsAndInlineSemantics(): void

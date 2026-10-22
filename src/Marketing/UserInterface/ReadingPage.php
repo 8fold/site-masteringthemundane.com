@@ -7,15 +7,24 @@ namespace MTM\Marketing\UserInterface;
 use Eightfold\HtmlBuilder\Document;
 use Eightfold\HtmlBuilder\Element;
 use Eightfold\HtmlBuilder\Components\Copyright;
+use Eightfold\HtmlBuilder\Components\PageTitle;
 
 final class ReadingPage
 {
+    /** @param non-empty-list<string> $titles The page's title, then each ancestor's. */
     public static function render(
         string $route,
-        string $heading,
-        string $title,
+        array $titles,
         string $description
     ): string {
+        // HtmlBuilder writes text and attribute values verbatim.
+        $escape = static fn(string $text): string =>
+            htmlspecialchars($text, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+        $titles = array_map($escape, $titles);
+        $description = $escape($description);
+        $heading = $titles[0];
+        $pageTitle = PageTitle::create($titles);
+        $title = implode(' | ', $titles);
         $keywords = 'Time Management, Self Management, Life Management, Life Coaching, '
             . 'Productivity Coaching, Financial Coaching, Professional Organization, '
             . 'bookkeeping, accoutability partner, digital organization, onsite, on-site, '
@@ -72,7 +81,7 @@ final class ReadingPage
             JSON)->props('type application/ld+json')
         ];
 
-        return (string) Document::create($title, 'en-US')->head(...$head)->body(
+        return (string) Document::create($pageTitle, 'en-US')->head(...$head)->body(
             Element::create('a', 'Skip to main content')->props('is skip-link', 'href #main'),
             Element::create(
                 'header',

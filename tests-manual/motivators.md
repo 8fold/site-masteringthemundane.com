@@ -5,7 +5,7 @@ Verify the saved MAMP HTTPS DocumentRoot and the actual response before reviewin
 Do not assume the `current` symlink selects the saved concrete vhost root.
 Do not change the original `.com` host.
 
-- The original content title is the sole h1 in the shared header. Existing dates,
+- The page's own title is the sole h1 in the shared header. Existing dates,
   prose, ordered instructions, two definition lists, abbreviation and h2 sections
   remain readable, with no duplicated title. The individual walkthrough remains
   unboxed; only "For groups" has a named section container, with its h2.
@@ -20,7 +20,8 @@ Do not change the original `.com` host.
   without adding space between a term and its definition or before the first
   term. Confirm the shared 16px/24px typography and 70ch column. Use a screen
   reader to check landmarks, heading order and definition-list announcements.
-- Title, description and social metadata retain the prior values. No form,
+- Browser and social title read "The Motivators exercise by Josh Bruce |
+  Resources | Mastering the Mundane"; the description is unchanged. No form,
   account, embed, third-party font or runtime Markdown request is introduced.
 - Dates stack by default; at 70ch and wider they share a row with Updated left
   and Original right. Both retain visible labels and semantic `time` values.
@@ -30,7 +31,7 @@ Do not change the original `.com` host.
   Recheck Coaching, Resources, Action Loop and The 5 Ps. Do not book or submit anything.
 - Run `composer compile-content` twice, `composer check-content` and
   `composer production`. The third portable compiler line names
-  `/site-root/public/resources/motivators/content.md -> content.html`.
+  `/public_content/resources/motivators/content.md -> content.html`.
   Keep both source and compiled artifact; requests load the artifact only.
 
 Report browser, physical keyboard/assistive technology and trusted HTTPS checks

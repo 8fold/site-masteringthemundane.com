@@ -27,11 +27,23 @@ You should see the same Mastering the Mundane website that you could find on the
 Home uses the same shared shell, with four labelled h2 sections retaining the
 Time, People, Space and Money fragment identifiers. Edit
 `public_content/content.md` and regenerate its sibling `content.html`.
-Root `public_content/meta.json` holds Home's `heading` (visible h1), `title`
-(browser and social title), and `description` (page and social description).
-All three must be non-empty strings; build checks and requests validate them
-with path-specific errors. Other page adapters retain their existing metadata
-until a separately scoped migration. No synthetic `/home/` route is used.
+Root `public_content/meta.json` holds Home's `title` and `description`.
+No synthetic `/home/` route is used.
+
+#### Reading page metadata
+
+Every shared-shell page reads its own `title` and `description` from the
+`meta.json` beside its `content.html`: `public_content/<route>/meta.json` for
+all seven converted pages. `PageMetadata::ROUTES` lists these routes.
+Following the apps site's `PageTitle` convention, there is no separate heading:
+the header h1 is the page's own `title`, and the browser and social title is
+`PageTitle` of that title followed by each ancestor route's title, joined with
+" | " (for example "Services | Mastering the Mundane"). Both fields must be
+non-empty strings, and a `heading` field is rejected. `composer compile-content` and
+`composer check-content` validate every route before preparing fragments, and
+requests validate the page they render; failures name the `meta.json` path.
+Values are HTML-escaped when rendered. Edit wording in `meta.json`, not in the
+page adapters.
 Each domain links to Coaching and Services. Copy draws on the operational
 domains and calm, practical, autonomy-first voice in the apps repository's
 `docs/brand-style-guide-2026v1.md` reference snapshot, without advertising
@@ -46,7 +58,8 @@ The Resources index discovers three explicitly selected published items from
 their metadata. Its heading, Read navigation and descriptive metadata identify
 Resources. Content and unrelated metadata remain unchanged.
 
-Published resources now live together under `site-root/public/resources/`.
+Published resource entrypoints remain under `site-root/public/resources/`; their
+sources, metadata and compiled fragments live under `public_content/resources/`.
 The index collection and generated fragment live under `public_content/resources/`.
 Explicit permanent redirects in `.htaccess` send `/articles/` and
 `/tools-and-resources/` to `/resources/`, the old Action Loop URL to
@@ -110,14 +123,13 @@ assertion; the check does not sanitize them at runtime or migrate legacy pages.
 Tests protect these link/rendering contracts, not editorial wording, prices,
 paragraph counts or incidental wrappers.
 It never publishes `content-root/` drafts or scans other legacy content.
-Motivators and The 5 Ps are explicitly selected sources in the compiler:
-edit `site-root/public/resources/{motivators,the-5-ps}/content.md`
+The compiler discovers Markdown only within `public_content`:
+edit `public_content/resources/{motivators,the-5-ps}/content.md`
 and commit each generated sibling `content.html`. Source, metadata and generated
-artifact move together without duplication. `ContentFragment` explicitly maps
-only the published detail routes to those artifacts; other legacy directories
-are not scanned or rendered by the new shell.
-The original content heading now lives in `MotivatorsPage`'s shared header, so
-the page has one h1. Prose, dates, order and exercise instructions are unchanged.
+artifact move together without duplication. `ContentFragment` maps every route
+to `public_content/<route>/content.html`; legacy directories outside that root
+are not scanned.
+The page's own title is the shared-header h1, so the page has one h1. Prose, dates, order and exercise instructions are unchanged.
 Four straight apostrophes in Markdown were aligned with the curly apostrophes
 already displayed in its legacy HTML, preserving the published text exactly.
 The individual walkthrough stays unboxed. "For groups" is a named section
@@ -126,14 +138,13 @@ its heading remains h2. The closing "One other thing" remains outside that
 container because its guidance applies to either context.
 The 5 Ps similarly keeps the individual walkthrough unboxed and places its
 existing "For groups" application (including ordered instructions) in a named
-h2 section container. Its original content heading moves to `FivePsPage`'s
-shared header; existing metadata, dates and prose remain unchanged. Three
+h2 section container. Its own title is the shared-header h1; existing dates and prose remain unchanged. Three
 apostrophes and a quotation pair in its Markdown are aligned with punctuation
 already displayed in the legacy HTML.
 Both exercises reuse the mobile-first publication dates: stacked by default,
 Updated left and Original right from 70ch, with an Original-only date left-aligned.
 Action Loop is also explicitly selected at
-`site-root/public/resources/the-action-loop/content.md`, with its generated sibling
+`public_content/resources/the-action-loop/content.md`, with its generated sibling
 `content.html` and an explicit `ContentFragment` mapping. `ActionLoopPage` supplies
 its sole h1; existing h2 sections, lists, links and editorial metadata are preserved.
 Markdown apostrophes match those already displayed in its published HTML.
@@ -154,8 +165,16 @@ the compiled HTML without loading the development-only Markdown converter.
 `public_content/resources/published.json` is the explicit collection of
 existing public routes for discovery on Resources. There is no metadata glob and
 no automatic publication: adding a `meta.json`, including under `content-root/`,
-does not include an item. A selected route must already have `index.php`,
-`content.html`, and `meta.json` under `site-root/public`.
+does not include an item. A selected route must already have `index.php` under
+`site-root/public`, plus `content.html` and `meta.json` under `public_content`.
+
+All converted pages keep authored Markdown, metadata and committed compiled
+fragments outside the webroot in route-mirrored `public_content`. Deploy that
+directory alongside the PHP code; it is required at runtime. Public directories
+retain entrypoints, assets and deliberate downloads. Removing the former
+resource `content.md`, `content.html` and `meta.json` HTTP URLs is an intentional
+developer-facing/delivery contract change (re-engineering), without compatibility
+redirects. Canonical page URLs and legacy page redirects are unchanged.
 
 The list is generated in descending `updated` date order, regardless of manifest
 order. Equal dates sort alphabetically by `listingTitle` (case-insensitive),
@@ -166,7 +185,7 @@ rebuilds, URL moves and shared CSS changes do not automatically update it.
 Each selected item's `meta.json` supplies:
 
 - `listingTitle`: a non-empty display title, taken from the existing public link
-  or page title. This avoids using copied/inconsistent legacy `title` values.
+  or page title. It is independent of the page's browser `title`.
 - `type`: exactly `model`, `exercise`, `guide`, `reference`, or `essay`.
   This describes the resource's primary purpose, not its delivery format:
   understand a model, perform an exercise, follow a guide, consult a reference,
@@ -192,17 +211,27 @@ Source content and unrelated legacy metadata fields are preserved. The three
 `updated` values were explicitly reconciled with the dates already displayed in
 published content: February 2, 2024 for Action Loop, and May 11, 2026 for both
 exercises. Dates are read from metadata, never inferred or automatically chosen
-by comparing sources. Legacy titles and creation dates still need separate
-editorial review.
+by comparing sources. The resource details' legacy `title` values were copied
+(`The 5 Ps` in all three) and never read; each now holds its exact prior h1:
+"Action loop", "The Motivators exercise by Josh Bruce", or
+"The 5 Ps exercise by Josh Bruce". This user-approved authoring-contract and
+output change is re-engineering, not a pure refactor. The h1s are unchanged;
+browser and social titles now use those concise leaves, followed by
+"Resources | Mastering the Mundane". This also replaces the retired
+"Tools and Resources" parent for Motivators and 5 Ps. Discovery `listingTitle`
+values remain independent and unchanged.
+Creation dates still need separate editorial review.
 Malformed JSON, invalid required fields, unknown taxonomy values, duplicate or
 invalid routes and missing published files fail the build with the source path.
 All fragments are prepared before writing; `composer check-content` checks the
 generated index as well as Markdown fragments without modifying files.
-There is no runtime metadata parsing, new dependency, search or filtering.
+Discovery metadata is parsed only at build time; page titles and descriptions
+are validated at request time. There is no new dependency, search or filtering.
 
 The shared shell is `src/Marketing/UserInterface/ReadingPage.php`;
-`CoachingPage`, `ResourcesPage`, `MotivatorsPage` and `FivePsPage` supply their metadata, heading and
-content route. Each entry point only loads Composer and renders its page.
+each page adapter (`HomePage`, `CoachingPage`, `ServicesPage`, `ResourcesPage`,
+`ActionLoopPage`, `MotivatorsPage`, `FivePsPage`) only names its route; metadata
+comes from `PageMetadata`. Each entry point only loads Composer and renders its page.
 `site-root/public/css/reading.css` adapts
 the apps legal page's executable CSS: 16px base typography, exact `70ch` main
 width and responsive padding, heading defaults, footer,

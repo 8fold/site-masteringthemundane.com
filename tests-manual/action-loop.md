@@ -3,6 +3,7 @@
 Visit `/resources/the-action-loop/` on the local preview.
 
 - Confirm one "Action loop" h1 in the shared header and five h2 component sections.
+- Browser and social titles read "Action loop | Resources | Mastering the Mundane".
 - Confirm the five-component and three-battery ordered lists remain readable.
 - At a narrow viewport, dates stack Updated then Original without overflow.
   At 70ch and wider, Updated aligns left and Original right.
