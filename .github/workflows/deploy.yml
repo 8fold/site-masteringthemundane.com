@@ -1,13 +1,18 @@
 name: Deploy
 
-# Deploys main to DreamHost after the PHP 8.5 gate passes.
-# Keep the workflow name below aligned with php85.yml.
+# Deploys main to DreamHost after the PHP 8.5 gate passes: a merge
+# (or push) to main runs php85.yml, and its successful completion
+# triggers this workflow. Renaming the CI workflow means updating the
+# workflows list below. The server pulls current main, not the triggering
+# run's SHA; this gate does not guarantee that a newer revision has passed.
 on:
   workflow_run:
     workflows: ["PHP 8.5"]
     types: [completed]
     branches: [main]
 
+# One deploy at a time: a queued deploy waits rather than racing the
+# checkout on the server. This does not serialize manual SSH deployments.
 concurrency:
   group: deploy-production
   cancel-in-progress: false
@@ -18,7 +23,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      # Secrets flow through env rather than inline interpolation.
+      # Secrets flow through env rather than inline ${{ }} interpolation
+      # in the run script (command-injection hygiene per GitHub's docs).
       - name: Install the deploy key and the pinned host key
         env:
           DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}

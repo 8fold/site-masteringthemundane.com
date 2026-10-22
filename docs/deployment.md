@@ -39,6 +39,10 @@ then runs `./cli/deploy.sh` in the server checkout. As in apps, configure:
 Use a dedicated deploy user and verify the server host key independently.
 The server checkout needs its own Git read access where required. Never paste
 credentials into chat or commit them.
+The header of `cli/deploy.sh` contains the adapted apps first-time setup
+walkthrough: server checkout, noninteractive shell tools, deploy key, verified
+host-key pinning, OPcache hook, Actions settings and deployment rehearsal.
+Its example paths use `mtm-com`; substitute the actual production checkout.
 
 `cli/deploy.sh` uses apps' step ordering and commands:
 
