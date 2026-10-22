@@ -31,6 +31,9 @@ jobs:
       - name: Verify committed content is current
         run: composer check-content
 
+      - name: Verify committed minified assets are current
+        run: composer check-assets
+
       - name: Run static analyzer
         run: composer run stan
 

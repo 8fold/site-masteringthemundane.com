@@ -18,9 +18,9 @@ final class PilotIsolationTest extends TestCase
         ) {
             $html = $this->renderLegacyRoute($root . $route);
             self::assertStringStartsWith('<!doctype html>', $html, $route);
-            self::assertStringNotContainsString('/css/main.css', $html, $route);
+            self::assertStringNotContainsString('/assets/css/main.css', $html, $route);
             self::assertStringNotContainsString('coaching.css', $html, $route);
-            self::assertStringContainsString('reading.css', $html, $route);
+            self::assertStringContainsString('/assets/css/reading.min.css', $html, $route);
             self::assertStringContainsString('is="nav-header"', $html, $route);
         }
     }
@@ -28,7 +28,7 @@ final class PilotIsolationTest extends TestCase
     public function testPilotStylesRemainLocalAndIncludeFocusAndSkipLinkStates(): void
     {
         $root = dirname(__DIR__) . '/site-root/public';
-        $css = file_get_contents($root . '/css/reading.css');
+        $css = file_get_contents($root . '/assets/css/reading.css');
         self::assertIsString($css);
         self::assertStringNotContainsString('@import', $css);
         self::assertSame(12, substr_count($css, '@font-face'));
@@ -106,12 +106,12 @@ final class PilotIsolationTest extends TestCase
         self::assertStringContainsString('[is="skip-link"]:focus', $css);
     }
 
-    public function testFontCachePolicyIsLimitedToVersionedWoff2Files(): void
+    public function testAssetCachePolicyMatchesAppsForStylesScriptsAndFonts(): void
     {
         $config = file_get_contents(dirname(__DIR__) . '/site-root/public/.htaccess');
         self::assertIsString($config);
-        self::assertStringContainsString('m#\.woff2$#', $config);
-        self::assertStringContainsString('v=[0-9a-f]{64}(&|$)', $config);
+        self::assertStringContainsString('m#\.(css|js|woff2)$#', $config);
+        self::assertStringContainsString('v=[0-9a-f]+(&|$)', $config);
         self::assertStringContainsString(
             'Header set Cache-Control "public, max-age=31536000, immutable"',
             $config
@@ -121,7 +121,7 @@ final class PilotIsolationTest extends TestCase
 
     public function testRootProseListsShareParagraphSpacingWithoutChangingInternalGaps(): void
     {
-        $css = file_get_contents(dirname(__DIR__) . '/site-root/public/css/reading.css');
+        $css = file_get_contents(dirname(__DIR__) . '/site-root/public/assets/css/reading.css');
         self::assertIsString($css);
         $normalizedCss = preg_replace('/\s+/', ' ', $css);
         self::assertIsString($normalizedCss);
@@ -143,7 +143,7 @@ final class PilotIsolationTest extends TestCase
 
     public function testReadingLinkUnderlinesEmphasizeHoverAndCurrentPageStates(): void
     {
-        $css = file_get_contents(dirname(__DIR__) . '/site-root/public/css/reading.css');
+        $css = file_get_contents(dirname(__DIR__) . '/site-root/public/assets/css/reading.css');
         self::assertIsString($css);
         $normalizedCss = preg_replace('/\s+/', ' ', $css);
         self::assertIsString($normalizedCss);
