@@ -8,6 +8,10 @@ We leverage GitHub's labeling system to inform prioritization of issues. The hig
 
 Security and accessibility are always the highest priority within the applicable scope of the project. Therefore, some packages are low-level and intended for developers and give the flexibility to them to surround the package within a security layer.
 
+Issue labels are cumulative, not mutually exclusive. Apply every label supported by an issue's scope and consider the aggregate impact of all applicable labels, not only the highest-ranked category. Do not add unsupported labels to inflate priority.
+
+A *refactoring* changes the internal structure of software to make it easier to understand and cheaper to modify without changing its observable behavior; the test suite passes before and after, unmodified. A *re-engineering* changes the internal structure while also changing observable behavior or explicit developer-facing contracts (public APIs, URLs, configuration).
+
 ## Overall goals (philosophy and values)
 
 There are a lot of philosphical things tied in to the way we strive to do software development. Some you are most likely familiar with, others maybe not so much.
@@ -41,3 +45,11 @@ If the language being used allows access levels on variables, constants, methods
 This reduces the size of the public API, which makes the class easier to consume by developers.
 
 Further, it is preferred that class properties remain private, always. This means pre- and post-processing for setting and getting properties can be added without being a breaking change to developers.
+
+## Commit workflow
+
+A commit is limited to a single refactoring or a single re-engineering — never both — though it may touch multiple files to complete the change. A pull request may contain multiple commits. Commit messages favor the Conventional Commits specification. The refactoring and re-engineering definitions above are canonical.
+
+## AI-assisted contributions
+
+AI-assisted contributions follow the repository-wide requirements in [AGENTS.md](../AGENTS.md), including startup, validation, security, and pull-request handling.
