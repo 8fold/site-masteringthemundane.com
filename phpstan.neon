@@ -3,11 +3,5 @@ parameters:
 	paths:
 		- src
 		- cli
+		- config
 		- tests
-		- public/coaching-and-mentoring/index.php
-		- public/resources/index.php
-		- public/services/index.php
-		- public/index.php
-		- public/resources/the-action-loop/index.php
-		- public/resources/motivators/index.php
-		- public/resources/the-5-ps/index.php
