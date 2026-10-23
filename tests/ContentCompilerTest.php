@@ -177,8 +177,8 @@ final class ContentCompilerTest extends TestCase
 
     public function testMissingArtifactFailsExplicitly(): void
     {
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('run composer compile-content');
+        parent::expectException(RuntimeException::class);
+        parent::expectExceptionMessage('run composer compile-content');
         ContentFragment::forRoute('/not-published/');
     }
 
@@ -206,7 +206,7 @@ final class ContentCompilerTest extends TestCase
 
     public function testContentRoutesCannotEscapeTheContentDirectory(): void
     {
-        $this->expectException(InvalidArgumentException::class);
+        parent::expectException(InvalidArgumentException::class);
         ContentFragment::forRoute('/../site-root/');
     }
 }

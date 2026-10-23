@@ -39,7 +39,7 @@ final class FivePsPageTest extends TestCase
 
     public function testReadingShellPreservesIndividualAndGroupExerciseStructure(): void
     {
-        $xpath = $this->page();
+        $xpath = self::page();
         foreach (
             [
             '//html[@lang="en-US"]',
@@ -111,7 +111,7 @@ final class FivePsPageTest extends TestCase
 
     public function testExistingMetadataDatesAndSharedStylesheet(): void
     {
-        $xpath = $this->page();
+        $xpath = self::page();
         $title = 'The 5 Ps exercise by Josh Bruce'
             . ' | Resources | Mastering the Mundane';
         $description = 'A life design framework to clarify your passions, prohibitions, '

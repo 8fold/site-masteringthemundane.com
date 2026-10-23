@@ -32,7 +32,7 @@ final class ResourcesRedirectTest extends TestCase
         string $path,
         string $destination
     ): void {
-        self::assertSame($destination, $this->redirect($path));
+        self::assertSame($destination, self::redirect($path));
     }
 
     public function testCanonicalAndUnknownRoutesDoNotMatchLegacyRules(): void
@@ -44,7 +44,7 @@ final class ResourcesRedirectTest extends TestCase
             'tools-and-resources/unknown/', 'books/', 'coaching-and-mentoring/'
             ] as $path
         ) {
-            self::assertNull($this->redirect($path), $path);
+            self::assertNull(self::redirect($path), $path);
         }
     }
 

@@ -358,8 +358,12 @@ metadata values and external booking behavior are retained, not a new SEO policy
 ### Public assets
 
 Following the 8fold web-project convention used by apps, authored stylesheets live
-in `public/assets/css/`. `composer minify` uses the same MatthiasMullie
-minifier as apps to generate committed sibling `.min.css` files. Shared and legacy
+in `public/assets/css/` and scripts in `public/assets/js/` when needed.
+`composer minify` uses the same MatthiasMullie CSS and JS minifiers as apps to
+generate committed sibling `.min.css` and `.min.js` files, skipping existing
+minified files and absent asset directories. The `matthiasmullie/minify`
+development dependency supplies both minifiers; no additional package is needed
+for JavaScript. Shared and legacy
 PHP pages link these minified files with content versions and `blocking="render"`.
 Run `composer check-assets` to verify freshness without writing; CI and
 `composer production` include this check. Deploy generated assets as-is; production

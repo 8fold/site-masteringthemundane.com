@@ -100,8 +100,8 @@ final class StructuredDataTest extends TestCase
             file_put_contents($path, $json);
             file_put_contents($directory . 'meta.json', '{');
             self::assertSame($json, StructuredData::forRoute('/', $root));
-            $this->expectException(RuntimeException::class);
-            $this->expectExceptionMessage($directory . 'meta.json: Syntax error');
+            parent::expectException(RuntimeException::class);
+            parent::expectExceptionMessage($directory . 'meta.json: Syntax error');
             StructuredData::compile('/', $root);
         } finally {
             unlink($path);

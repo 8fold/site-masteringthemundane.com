@@ -32,19 +32,19 @@ final class AssetUrlTest extends TestCase
 
     public function testMissingAssetFailsInsteadOfSilentlyShippingAnUnversionedUrl(): void
     {
-        $this->expectException(RuntimeException::class);
+        parent::expectException(RuntimeException::class);
         AssetUrl::versioned('/assets/css/does-not-exist.css');
     }
 
     public function testExternalAssetsAreNotAccepted(): void
     {
-        $this->expectException(InvalidArgumentException::class);
+        parent::expectException(InvalidArgumentException::class);
         AssetUrl::versioned('https://example.com/tracker.css');
     }
 
     public function testAssetPathCannotTraverseOutsideWebroot(): void
     {
-        $this->expectException(InvalidArgumentException::class);
+        parent::expectException(InvalidArgumentException::class);
         AssetUrl::versioned('/../../composer.json');
     }
 }

@@ -48,14 +48,14 @@ final class PageMetadataTest extends TestCase
         $meta = PageMetadata::forRoute($route);
         self::assertSame('Mastering the Mundane', $meta['titles'][count($meta['titles']) - 1]);
         $title = implode(' | ', $meta['titles']);
-        $xpath = $this->parse($render());
+        $xpath = self::parse($render());
         self::assertSame($meta['titles'][0], $xpath->evaluate('string(//header/h1)'));
         self::assertSame($title, $xpath->evaluate('string(//title)'));
         foreach (['og:title', 'twitter:title'] as $property) {
-            self::assertSame($title, $this->metaContent($xpath, $property));
+            self::assertSame($title, self::metaContent($xpath, $property));
         }
         foreach (['description', 'og:description', 'twitter:description'] as $property) {
-            self::assertSame($meta['description'], $this->metaContent($xpath, $property));
+            self::assertSame($meta['description'], self::metaContent($xpath, $property));
         }
     }
 
@@ -118,13 +118,13 @@ final class PageMetadataTest extends TestCase
         $text = 'A & <b>B</b> "quoted" \'single\'';
         $html = ReadingPage::render('/resources/', [$text, $text], $text);
         self::assertStringNotContainsString('<b>B</b>', $html);
-        $xpath = $this->parse($html);
+        $xpath = self::parse($html);
         self::assertSame($text, $xpath->evaluate('string(//header/h1)'));
         self::assertSame(0.0, $xpath->evaluate('count(//header/h1/*)'));
         self::assertSame($text . ' | ' . $text, $xpath->evaluate('string(//title)'));
-        self::assertSame($text . ' | ' . $text, $this->metaContent($xpath, 'og:title'));
+        self::assertSame($text . ' | ' . $text, self::metaContent($xpath, 'og:title'));
         foreach (['description', 'twitter:description'] as $property) {
-            self::assertSame($text, $this->metaContent($xpath, $property));
+            self::assertSame($text, self::metaContent($xpath, $property));
         }
     }
 
@@ -161,7 +161,7 @@ final class PageMetadataTest extends TestCase
         ?string $json,
         string $message
     ): void {
-        $root = $this->temporaryRoot();
+        $root = self::temporaryRoot();
         try {
             foreach (PageMetadata::ROUTES as $route) {
                 $directory = ContentFragment::directory($route, $root);
@@ -181,13 +181,13 @@ final class PageMetadataTest extends TestCase
                 }
             }
         } finally {
-            $this->remove($root);
+            self::remove($root);
         }
     }
 
     public function testBuildRejectsInvalidPageMetadataBeforeWritingFragments(): void
     {
-        $root = $this->temporaryRoot();
+        $root = self::temporaryRoot();
         try {
             mkdir($root . '/cli', 0700, true);
             mkdir($root . '/vendor', 0700);
@@ -225,7 +225,7 @@ final class PageMetadataTest extends TestCase
             );
             self::assertFileDoesNotExist($root . '/public_content/services/content.html');
         } finally {
-            $this->remove($root);
+            self::remove($root);
         }
     }
 

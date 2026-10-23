@@ -38,7 +38,7 @@ final class ActionLoopPageTest extends TestCase
 
     public function testReadingStructureNavigationAndDateDiscrepancyArePreserved(): void
     {
-        $xpath = $this->page();
+        $xpath = self::page();
         foreach (
             [
             '//html[@lang="en-US"]',
@@ -106,7 +106,7 @@ final class ActionLoopPageTest extends TestCase
 
     public function testExistingMetadataAndSharedStylesheet(): void
     {
-        $xpath = $this->page();
+        $xpath = self::page();
         $title = 'Action loop | Resources'
             . ' | Mastering the Mundane';
         $description = 'Master the 5-phase action loop to sustain energy, prevent burnout, '

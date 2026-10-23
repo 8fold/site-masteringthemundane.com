@@ -44,7 +44,7 @@ final class MotivatorsPageTest extends TestCase
 
     public function testReadingShellAndExerciseStructure(): void
     {
-        $xpath = $this->page();
+        $xpath = self::page();
         foreach (
             [
             '//html[@lang="en-US"]',
@@ -138,7 +138,7 @@ final class MotivatorsPageTest extends TestCase
 
     public function testExistingPageMetadataAndSharedStylesheet(): void
     {
-        $xpath = $this->page();
+        $xpath = self::page();
         $title = 'The Motivators exercise by Josh Bruce | Resources'
             . ' | Mastering the Mundane';
         $description = 'Discover what truly motivates you. The Motivators exercise clarifies '
@@ -176,7 +176,7 @@ final class MotivatorsPageTest extends TestCase
 
     public function testPublicationDatesKeepTheirMeaningAndReadingOrder(): void
     {
-        $xpath = $this->page();
+        $xpath = self::page();
         $dates = '//main/div[@is="publication-dates"]';
         self::assertSame(1.0, $xpath->evaluate('count(' . $dates . ')'));
         self::assertSame(2.0, $xpath->evaluate('count(' . $dates . '/p/time)'));

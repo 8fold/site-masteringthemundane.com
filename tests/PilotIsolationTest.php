@@ -16,7 +16,7 @@ final class PilotIsolationTest extends TestCase
             '/books/time-mastering-the-mundane/index.php',
             ] as $route
         ) {
-            $html = $this->renderLegacyRoute($root . $route);
+            $html = self::renderLegacyRoute($root . $route);
             self::assertStringStartsWith('<!doctype html>', $html, $route);
             self::assertStringNotContainsString('/assets/css/main.css', $html, $route);
             self::assertStringNotContainsString('coaching.css', $html, $route);
@@ -188,7 +188,7 @@ final class PilotIsolationTest extends TestCase
 
     public function testReadingPagesDoNotPreloadFonts(): void
     {
-        $html = $this->renderLegacyRoute(
+        $html = self::renderLegacyRoute(
             dirname(__DIR__) . '/public/coaching-and-mentoring/index.php'
         );
         self::assertStringNotContainsString('rel="preload"', $html);
