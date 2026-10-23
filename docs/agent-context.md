@@ -70,6 +70,10 @@ workflow. Do not call these as if they exist.
 
 ## Enforcement boundaries
 
+- PHPStan follows apps' applicable level-9 scan scope: `src/`, `cli/`,
+  `config/` and `tests/`. Public entry points are not selected or explicitly
+  excluded. Apps' migrations path, custom analysis rules and PDO restrictions
+  are not configured here because their supporting infrastructure is absent.
 - Apps' MethodScopeConventionRule, RecordPurityRule, data-object marker tests
   and locked-migration checks are not installed in this repository.
 - Legacy PHP does not uniformly use strict types. Guidance is not a claim of
