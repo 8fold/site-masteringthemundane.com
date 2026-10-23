@@ -1,3 +1,7 @@
+“Mastering” should suggest growing understanding and practical ability—not complete control, flawless habits, or mastery over other people.
+
+“Mundane” means the ordinary matters of life. It should never suggest that the work, or the person doing it, is trivial.
+
 <section aria-labelledby="time">
 <h2 id="time">Time</h2>
 
