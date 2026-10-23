@@ -175,6 +175,11 @@
 #        a failed deploy names the failing step in this script's output.
 #        Script success does not verify HTTP: manually check the live
 #        pages, static assets and cache headers per docs/deployment.md.
+#        A rerun of manually installed code does not prove delivery of a
+#        new change. Verify an intended visible change through merge ->
+#        CI -> Deploy -> production HTTPS, without manually deploying it
+#        first. Confirm the changed content, not just HTTP 200; record
+#        the deployment log's revision and the observed production result.
 #
 
 set -euo pipefail

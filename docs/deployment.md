@@ -68,6 +68,20 @@ automation. The script must already exist there to be invoked over SSH.
 The Deploy workflow must be on main; its activation is not proof that SSH
 credentials or the host path are configured.
 
+## Verify a deployed change
+
+A green Deploy run proves the script completed, not that a changed release is
+being served. A rerun against code already installed manually verifies the
+automation can execute, but does not prove delivery of a new visible change.
+
+For end-to-end verification, merge an intended, reviewed visible change through
+the normal PR process without manually deploying it first. Watch that revision's
+PHP 8.5 CI and Deploy runs, check the revision reported by the deployment log,
+then confirm the expected change appears at the production HTTPS URL. Record
+the observed content and HTTP result; HTTP 200 alone can still serve old code.
+If the expected change is absent, investigate the checkout, DocumentRoot and
+web OPcache/cache behavior rather than declaring deployment verified.
+
 ## Failure and cache behavior
 
 As in apps, the script uses `set -euo pipefail` and names a failed step.
