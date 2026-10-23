@@ -105,9 +105,9 @@ This adoption establishes a truthful entry point, not full apps infrastructure
 parity or a finished document integration. Keep it current in subsequent scoped
 PRs. Next steps, in priority order:
 
-1. Agree the reusable-policy versus repository-context boundary across both
-   properties. Apps' current root file still embeds stack/startup assumptions;
-   synchronize policy changes deliberately, not by overwriting either context.
+1. Maintain the agreed reusable-policy versus repository-context boundary
+   across both properties. Synchronize future shared changes deliberately,
+   without overwriting either repository's actual context.
 2. Review `.github/coding-standards-and-styles.md` against these rules. Its older
    guidance includes blanket non-null advice and historic PSR commentary.
    Resolve intentional policy differences before adding automated enforcement.
