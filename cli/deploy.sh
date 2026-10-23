@@ -51,13 +51,53 @@
 #        No apps database, mail, Stripe or account setup is needed here.
 #     2. Shell tools, the non-interactive kind. git comes preinstalled;
 #        PHP 8.5 for the shell and a global composer install follow the
-#        DreamHost guides. PATH configuration must also work for the
+#        DreamHost guides. Configure and verify them as the EXACT deploy
+#        user (DEPLOY_USER), not your everyday SSH user or root. Another
+#        user's working Composer/PHP setup does not configure this user.
+#        The hosting panel's web PHP version does not set shell PHP.
+#        Required: shell PHP 8.5+ and Composer 2 available to this user.
+#        Shell PHP version guide (configure as the deploy user):
+#          https://help.dreamhost.com/hc/en-us/articles/214202148-Change-the-PHP-version-the-shell-uses
+#        Composer installation guide (run as the deploy user):
+#          https://help.dreamhost.com/hc/en-us/articles/214899037-Installing-Composer-overview
+#        On the SERVER, edit the deploy user's ~/.bash_profile. Merge
+#        these lines into the existing file rather than replacing it.
+#        This example assumes Composer was installed at the guide's
+#        ~/.php/composer/composer path; adjust if installed elsewhere.
+#        $HOME resolves to this user's home, avoiding username placeholders:
+#          # ~/.bash_profile: executed by bash(1) for login shells.
+#          export PATH="$HOME/.php/composer:$PATH"
+#          export PATH="/usr/local/php85/bin:$PATH"
+#          alias php='/usr/local/php85/bin/php'
+#          alias composer="$HOME/.php/composer/composer"
+#        Preserve existing umask and prompt settings. The owner's example
+#        uses umask 002 and PS1='[\h]$ '; these are not PHP/Composer
+#        requirements. umask 002 permits group-writable new files, so use
+#        it only with the intended trusted-group permissions.
+#        Reload the current login shell after saving:
+#          . ~/.bash_profile
+#        This reload affects only the current shell, not future Actions
+#        sessions. ~/.bash_profile is for login shells; a remote SSH
+#        command does not reliably read it. Also put the two export PATH
+#        lines above in ~/.bashrc before any interactive-only early return.
+#        Aliases are optional interactive conveniences, not a substitute
+#        for executable paths in a noninteractive deployment.
+#        PATH configuration must also work for the
 #        non-interactive SSH session GitHub Actions opens. If ~/.bashrc
 #        returns early at '[ -z "$PS1" ] && return', required PATH lines
 #        belong ABOVE that line; interactive-only aliases are not enough.
 #        CHECK (from your Mac, not while SSHed in):
-#          ssh deployuser@your-server 'php -v && composer -V && git --version'
-#        All three must print the expected versions. Verify ext-dom for
+#          ssh deployuser@your-server 'whoami; command -v php; php -v; command -v composer; composer --version; git --version'
+#        whoami must match DEPLOY_USER. Both command -v calls must print
+#        executable paths; PHP must report 8.5+ and Composer must report 2.x.
+#        Missing composer or an older PHP is a failed prerequisite: install
+#        Composer for this user and correct its noninteractive PATH, then
+#        repeat the check before running deploy.sh. Do not bypass platform
+#        requirements or run composer update to work around a PHP mismatch.
+#        After installing the deploy key in step 3, repeat this check with
+#        -i ~/.ssh/mtm-com-deploy -o IdentitiesOnly=yes -o BatchMode=yes
+#        so it uses the same key-only, noninteractive access as Actions.
+#        Verify ext-dom for
 #        production PHP too; Composer enforces locked platform requirements.
 #     3. The deploy key -- the credential the GitHub runner uses to
 #        authenticate to the server. Commands run on YOUR MAC:
@@ -113,7 +153,7 @@
 #          CLI opcache_reset() does NOT clear the cache used by web
 #          requests. No systemctl/PHP-FPM on the plan? Ask hosting support
 #          for the appropriate web PHP refresh; do not assume this example.
-#     With no hook file, this script still succeeds but warns.
+#     With no hook file, this optional step is silently skipped.
 #
 #   GitHub (repo -> Settings -> Secrets and variables -> Actions).
 #     Configure these only after the server checks above pass:
@@ -163,14 +203,11 @@ find public -name index.php -print0 | xargs -0 -n1 php -l > /dev/null
 # Server-specific post-deploy steps (OPcache/PHP-FPM reload, cache
 # clearing) live in a gitignored hook — host details do not belong in
 # the repo. A failing hook fails the deploy like any other step.
-step="server post-deploy hook (config/deploy-server.sh)"
-echo "==> ${step}"
 hook="config/deploy-server.sh"
 if [ -f "$hook" ]; then
+    step="server post-deploy hook (config/deploy-server.sh)"
+    echo "==> ${step}"
     bash "$hook"
-else
-    echo "skipped: no ${hook}; OPcache may serve stale code until"
-    echo "revalidation (see docs/deployment.md)."
 fi
 
 trap - ERR
