@@ -54,7 +54,7 @@ final class HomePageTest extends TestCase
     public function testPhysicalHomeEntryUsesSharedPage(): void
     {
         ob_start();
-        require dirname(__DIR__) . '/site-root/public/index.php';
+        require dirname(__DIR__) . '/public/index.php';
         $html = ob_get_clean();
         self::assertSame(HomePage::render(), $html);
     }

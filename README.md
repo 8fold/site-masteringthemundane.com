@@ -12,7 +12,7 @@ This repository is a public display of [Trunk Based Development](https://trunkba
 	2. Install and launch MAMP
 	3. Click preferences
 	4. Click server
-	5. Change the root directory to `/path/to/site-mastering-the-mundane.com/site-root/public` (or local, if available)
+	5. Change the root directory to `/path/to/site-mastering-the-mundane.com/public` (or local, if available)
 	6. Click OK
 	7. Click Start (upper right on macOS or start servers on Windows)
 	8. Your default browser should automatically launch, displaying a MAMP marketing page
@@ -25,6 +25,11 @@ You should see the same Mastering the Mundane website that you could find on the
 AI coding assistants must read [AGENTS.md](AGENTS.md) and the repository-specific
 [agent context](docs/agent-context.md). These distinguish shared operating rules
 from this site's actual commands and infrastructure.
+
+Deployment and the owner-managed move from the former `site-root/public/`
+DocumentRoot are documented in [deployment and cutover](docs/deployment.md).
+Disable the old deployment webhook before this migration; merging code alone
+does not update the host's DocumentRoot.
 
 ### Reading pages: Coaching, Resources and exercises
 
@@ -63,7 +68,7 @@ The Resources index discovers three explicitly selected published items from
 their metadata. Its heading, Read navigation and descriptive metadata identify
 Resources. Content and unrelated metadata remain unchanged.
 
-Published resource entrypoints remain under `site-root/public/resources/`; their
+Published resource entrypoints remain under `public/resources/`; their
 sources, metadata and compiled fragments live under `public_content/resources/`.
 The index collection and generated fragment live under `public_content/resources/`.
 Explicit permanent redirects in `.htaccess` send `/articles/` and
@@ -75,7 +80,7 @@ The old indexes are not separate copies of the collection.
 
 Use PHP 8.5+ and run `composer install` from the repository root. Commit
 `composer.lock` so local development and CI resolve the same application dependencies.
-Apache's document root remains `site-root/public`; neither `src/` nor
+Apache's document root remains `public`; neither `src/` nor
 `public_content/` belongs in the webroot. No database, session, environment file,
 JavaScript build, or account system is required.
 
@@ -199,7 +204,7 @@ the compiled HTML without loading the development-only Markdown converter.
 existing public routes for discovery on Resources. There is no metadata glob and
 no automatic publication: adding a `meta.json`, including under `content-root/`,
 does not include an item. A selected route must already have `index.php` under
-`site-root/public`, plus `content.html` and `meta.json` under `public_content`.
+`public`, plus `content.html` and `meta.json` under `public_content`.
 
 All converted pages keep authored Markdown, metadata and committed compiled
 fragments outside the webroot in route-mirrored `public_content`. Deploy that
@@ -288,7 +293,7 @@ This replaces the blanket service markup on converted routes only; visible
 copy, browser/social metadata and discovery behavior are unchanged. No SEO or
 AI-search ranking improvement is promised.
 
-Legacy boundaries remain deliberately separate: `site-root/public/head.php`
+Legacy boundaries remain deliberately separate: `public/head.php`
 still emits its old `CoachingService` literal for legacy pages such as `/time/`.
 Both the Books catalog and Time book detail use generated WebPage graphs;
 the detail migration adds no Book/Offer schema or direct-sales claims.
@@ -304,7 +309,7 @@ Each page adapter (`HomePage`, `CoachingPage`, `ServicesPage`, `ResourcesPage`,
 `ActionLoopPage`, `MotivatorsPage`, `FivePsPage`, `BooksPage`, `TimeBookPage`)
 only names its route; metadata
 comes from `PageMetadata`. Each entry point only loads Composer and renders its page.
-`site-root/public/assets/css/reading.css` adapts
+`public/assets/css/reading.css` adapts
 the apps legal page's executable CSS: 16px base typography, exact `70ch` main
 width and responsive padding, heading defaults, footer,
 focus and link styling. Main renders the compiled fragment directly,
@@ -328,7 +333,7 @@ immutable; unversioned requests revalidate. Fonts retain their SHA-256 versions.
 This policy does not imply an
 observed browser cache hit, and the PHP development server does not apply `.htaccess`.
 The accompanying SIL Open Font License is in
-`site-root/public/assets/fonts/AtkinsonHyperlegibleNext-OFL.txt`.
+`public/assets/fonts/AtkinsonHyperlegibleNext-OFL.txt`.
 The unmodified WOFF2 subsets come from the Google Fonts CSS API v7; its stylesheet is
 `https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:ital,wght@0,200..800;1,200..800&display=swap`.
 The included license and family metadata are from
@@ -353,8 +358,12 @@ metadata values and external booking behavior are retained, not a new SEO policy
 ### Public assets
 
 Following the 8fold web-project convention used by apps, authored stylesheets live
-in `site-root/public/assets/css/`. `composer minify` uses the same MatthiasMullie
-minifier as apps to generate committed sibling `.min.css` files. Shared and legacy
+in `public/assets/css/` and scripts in `public/assets/js/` when needed.
+`composer minify` uses the same MatthiasMullie CSS and JS minifiers as apps to
+generate committed sibling `.min.css` and `.min.js` files, skipping existing
+minified files and absent asset directories. The `matthiasmullie/minify`
+development dependency supplies both minifiers; no additional package is needed
+for JavaScript. Shared and legacy
 PHP pages link these minified files with content versions and `blocking="render"`.
 Run `composer check-assets` to verify freshness without writing; CI and
 `composer production` include this check. Deploy generated assets as-is; production

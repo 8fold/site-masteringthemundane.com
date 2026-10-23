@@ -5,8 +5,34 @@ This guidance adapts the apps repository's `AGENTS.md`; repository-specific
 commands, paths and enforcement belong in the context document, not in assumed
 shared infrastructure.
 
+These documents are maintained guidance, not a completed integration milestone.
+Update rules and repository context alongside subsequent scoped changes when
+their commands, paths, safeguards or enforcement change.
+
 ## Project and architecture
 
+- All 8fold PHP websites use the repository's `public/` directory as the
+  Apache DocumentRoot. Keep application source, dependencies and private
+  content outside that directory.
+- Let the web server own routing through physical directories. Use per-route
+  `index.php` files under `public/` as lightweight controllers that delegate
+  application logic and rendering to source classes, rather than routing all
+  requests through a single application front controller. Apply this pattern
+  across all 8fold PHP websites.
+- Store private authored Markdown/metadata and generated HTML/JSON in
+  `public_content/` across all 8fold PHP websites.
+- Keep environment configuration under the repository's `config/` directory
+  across all 8fold PHP websites. Commit a secret-free JSON template at
+  `config/.env-example`; ignore actual environment files. An empty JSON object
+  is sufficient when the application has no environment settings.
+- Serve fonts and their licenses from `/assets/fonts/`, UI SVGs from
+  `/assets/ui/` and site images from `/assets/media/` across all 8fold PHP
+  websites, with files stored under `public/assets/`.
+- Store authored and minified CSS in `public/assets/css/` and JavaScript in
+  `public/assets/js/` across all 8fold PHP websites. Use `composer minify`
+  with the MatthiasMullie development dependency to generate committed sibling
+  `.min.css` and `.min.js` artifacts; skip existing minified files and absent
+  asset directories.
 - Mastering the Mundane's coaching and publishing website uses PHP 8.5+,
   Apache physical-directory routing and server-rendered HTML.
 - Preserve accessibility, progressive enhancement and operation without
@@ -19,11 +45,19 @@ shared infrastructure.
 
 ## Validation policy
 
+Across all 8fold PHP websites, `composer.json` is the source of truth for
+build, test and lint command entry points.
+
+Across these websites, `phpcs.xml` defines PSR-12 with explicit exceptions
+and a 100-character line limit.
+`phpstan.neon` configures PHPStan level 9 over implementation, CLI and test paths.
+`phpunit.xml` defines the test suite; follow its existing fixtures and helpers.
+
 - Tests: `composer test`.
 - One test class: `./vendor/bin/phpunit --filter=TestClassName`.
 - PHPStan level 9: `composer stan`.
 - PSR-12 with repository exceptions: `composer style`.
-- Generate committed minified CSS: `composer minify`.
+- Generate committed minified CSS and JS: `composer minify`.
 - Generate committed HTML and structured data: `composer compile-content`.
 - Read-only freshness checks: `composer check-assets` and `composer check-content`.
 - Full validation: `composer production` (alias `composer prod`).
@@ -31,6 +65,9 @@ shared infrastructure.
 Use the exact entry points in [Agent Context](docs/agent-context.md).
 Do not invent setup or test commands. Regenerate affected artifacts before
 validation; deploy them as-is rather than compiling at request time.
+Across all 8fold PHP websites, CI must verify committed content and asset
+freshness. Deploy the verified artifacts as-is, without regenerating them
+on the production server.
 
 Manual protocols in `tests-manual/` are part of the test bed. Keep directly
 related instructions current and distinguish human observations from automated
@@ -46,8 +83,8 @@ to obtain a green build. Test counts are not targets.
 
 - New PHP implementation files use `declare(strict_types=1);`.
 - Use `self::methodName()` for methods defined within the same class or trait;
-  reserve `$this->` for properties. Do not mass-refactor legacy exceptions as
-  part of unrelated work.
+  use `parent::methodName()` for inherited methods and reserve `$this->` for
+  properties. Do not mass-refactor legacy exceptions as part of unrelated work.
 - Production classes are final and do not extend other classes, except built-in
   exceptions. PHPUnit test classes necessarily extend `TestCase`.
 - Immutable data objects, when needed, use final readonly classes with typed
@@ -113,7 +150,9 @@ implementation. Do not copy apps' startup environment or database commands.
 
 ## Sensitive files
 
-Do not read, search or output `.env*`, credentials or secret configuration.
+Do not read, search or output actual `.env*` environment files, credentials or
+secret configuration. The committed, secret-free `config/.env-example` template
+is documentation and may be maintained; never populate it with real secrets.
 Do not bypass exclusions with Git history, scripts or other shell tools.
 Follow `.copilotignore` if present. Never copy secrets from apps or another
 checkout as an assumed prerequisite.

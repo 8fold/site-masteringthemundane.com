@@ -92,7 +92,7 @@ final class BooksPageTest extends TestCase
 
     public function testPhysicalCatalogRouteDoesNotLoadTheMarkdownConverter(): void
     {
-        $file = dirname(__DIR__) . '/site-root/public/books/index.php';
+        $file = dirname(__DIR__) . '/public/books/index.php';
         $process = proc_open(
             [
                 PHP_BINARY,

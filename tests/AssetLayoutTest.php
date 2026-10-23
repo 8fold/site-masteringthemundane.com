@@ -7,6 +7,7 @@ namespace MTM\Tests;
 use DOMDocument;
 use DOMXPath;
 use MatthiasMullie\Minify\CSS;
+use MatthiasMullie\Minify\JS;
 use MTM\Marketing\UserInterface\AssetUrl;
 use MTM\Marketing\UserInterface\HomePage;
 use PHPUnit\Framework\TestCase;
@@ -15,7 +16,7 @@ final class AssetLayoutTest extends TestCase
 {
     public function testGeneratedStylesheetsAreFreshAndKeepLocalFontUrls(): void
     {
-        $root = dirname(__DIR__) . '/site-root/public';
+        $root = dirname(__DIR__) . '/public';
         foreach (['main', 'reading'] as $name) {
             $source = $root . '/assets/css/' . $name . '.css';
             $target = $root . '/assets/css/' . $name . '.min.css';
@@ -33,7 +34,7 @@ final class AssetLayoutTest extends TestCase
 
     public function testSharedAndLegacyHeadsUseCanonicalAssetsAndPreserveFavicons(): void
     {
-        $root = dirname(__DIR__) . '/site-root/public';
+        $root = dirname(__DIR__) . '/public';
         $pageTitle = $description = $keywords = $domain = $url = '';
         $poster = '/assets/media/poster.png';
         ob_start();
@@ -72,7 +73,7 @@ final class AssetLayoutTest extends TestCase
 
     public function testLegacyAssetCompatibilityIncludesFontsButNotFavicons(): void
     {
-        $config = file_get_contents(dirname(__DIR__) . '/site-root/public/.htaccess');
+        $config = file_get_contents(dirname(__DIR__) . '/public/.htaccess');
         self::assertIsString($config);
         self::assertStringContainsString(
             'RewriteRule ^(css|ui|media|fonts)/(.*)$ /assets/$1/$2 [R=301,L]',
@@ -84,7 +85,7 @@ final class AssetLayoutTest extends TestCase
     public function testAssetCheckRejectsMissingArtifactWithoutWritingIt(): void
     {
         $name = 'freshness-' . bin2hex(random_bytes(8));
-        $directory = dirname(__DIR__) . '/site-root/public/assets/css/';
+        $directory = dirname(__DIR__) . '/public/assets/css/';
         $source = $directory . $name . '.css';
         $target = $directory . $name . '.min.css';
         try {
@@ -106,6 +107,54 @@ final class AssetLayoutTest extends TestCase
         } finally {
             if (is_file($source)) {
                 unlink($source);
+            }
+
+        }
+    }
+
+    public function testJavaScriptMinificationAndFreshness(): void
+    {
+        $directory = dirname(__DIR__) . '/public/assets/js';
+        $createdDirectory = !is_dir($directory);
+        if ($createdDirectory) {
+            self::assertTrue(mkdir($directory));
+        }
+        $source = $directory . '/freshness-' . bin2hex(random_bytes(8)) . '.js';
+        $target = substr($source, 0, -3) . '.min.js';
+        try {
+            $script = "// comment\nconst answer = 40 + 2;\n";
+            self::assertNotFalse(file_put_contents($source, $script));
+            $runs = [['--check', 1], ['', 0], ['--check', 0]];
+            foreach ($runs as [$argument, $expectedExit]) {
+                $command = [PHP_BINARY, dirname(__DIR__) . '/cli/minify-assets.php'];
+                if ($argument !== '') {
+                    $command[] = $argument;
+                }
+                $descriptors = [1 => ['pipe', 'w'], 2 => ['pipe', 'w']];
+                $process = proc_open($command, $descriptors, $pipes);
+                self::assertIsResource($process);
+                stream_get_contents($pipes[1]);
+                $errors = stream_get_contents($pipes[2]);
+                fclose($pipes[1]);
+                fclose($pipes[2]);
+                self::assertSame($expectedExit, proc_close($process), (string) $errors);
+                if ($expectedExit === 1) {
+                    self::assertFileDoesNotExist($target);
+                } else {
+                    $expected = (new JS($source))->minify();
+                    self::assertSame($expected, file_get_contents($target));
+                }
+            }
+            $doubleMinified = $directory . '/' . basename($target, '.js') . '.min.js';
+            self::assertFileDoesNotExist($doubleMinified);
+        } finally {
+            foreach ([$source, $target] as $file) {
+                if (is_file($file)) {
+                    unlink($file);
+                }
+            }
+            if ($createdDirectory) {
+                rmdir($directory);
             }
         }
     }

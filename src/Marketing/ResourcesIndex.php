@@ -35,7 +35,7 @@ final class ResourcesIndex
             $directory = $root . '/public_content' . $route;
             $path = $directory . 'meta.json';
             if (
-                !is_file($root . '/site-root/public' . $route . 'index.php') ||
+                !is_file($root . '/public' . $route . 'index.php') ||
                 !is_file($directory . 'content.html')
             ) {
                 throw new RuntimeException(

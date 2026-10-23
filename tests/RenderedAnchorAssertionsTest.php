@@ -42,7 +42,7 @@ final class RenderedAnchorAssertionsTest extends TestCase
             . "[Internal Markdown](/services/)\n\n"
             . '<a href="mailto:hello@example.com">Email</a>';
         RenderedAnchorAssertions::assertHttpHostPolicy(
-            $this->renderedFixture($markdown),
+            self::renderedFixture($markdown),
             'https://mastering-the-mundane.com/coaching-and-mentoring/'
         );
     }
@@ -52,9 +52,9 @@ final class RenderedAnchorAssertionsTest extends TestCase
         string $anchor,
         string $message
     ): void {
-        $rendered = $this->renderedFixture($anchor);
-        $this->expectException(AssertionFailedError::class);
-        $this->expectExceptionMessage($message);
+        $rendered = self::renderedFixture($anchor);
+        parent::expectException(AssertionFailedError::class);
+        parent::expectExceptionMessage($message);
         RenderedAnchorAssertions::assertHttpHostPolicy(
             $rendered,
             'https://mastering-the-mundane.com/coaching-and-mentoring/'
@@ -110,7 +110,7 @@ final class RenderedAnchorAssertionsTest extends TestCase
 
     public function testRelativeBaseAndBrowserNormalizedBackslashesRemainInternal(): void
     {
-        $rendered = $this->renderedFixture(
+        $rendered = self::renderedFixture(
             '<base href="../reading/"><a href="?page=2">Query</a>'
                 . '<a href="#main">Fragment</a><a href="../services/">Relative</a>'
                 . '<a href="https://mastering-the-mundane.com&#92;@evil.example/">Internal</a>'

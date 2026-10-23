@@ -1,6 +1,6 @@
 # Resources index continuity review
 
-Serve this feature worktree's `site-root/public` with PHP 8.5+.
+Serve this feature worktree's `public` with PHP 8.5+.
 Do not assume the existing Copilot HTTPS vhost serves this checkout: its owner
 must approve and verify a preview switch first. Do not change MAMP or the
 `current` symlink as part of this slice.

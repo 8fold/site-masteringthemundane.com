@@ -20,28 +20,28 @@ final class ResourcesIndexTest extends TestCase
         $this->root = sys_get_temp_dir() . '/mtm-index-' . bin2hex(random_bytes(8));
         $directories = [
             'public_content/resources', 'public_content/coaching', 'public_content/item',
-            'site-root/public/item'
+            'public/item'
         ];
         foreach ($directories as $dir) {
             mkdir($this->root . '/' . $dir, 0700, true);
         }
-        $this->write('public_content/resources/published.json', '["/item/"]');
-        $this->write('public_content/coaching/content.md', '## Coaching');
-        $this->write('site-root/public/item/index.php', '<?php');
-        $this->write('public_content/item/content.html', '<h1>Existing content</h1>');
-        $this->write('public_content/item/meta.json', $this->metadata());
+        self::write('public_content/resources/published.json', '["/item/"]');
+        self::write('public_content/coaching/content.md', '## Coaching');
+        self::write('public/item/index.php', '<?php');
+        self::write('public_content/item/content.html', '<h1>Existing content</h1>');
+        self::write('public_content/item/meta.json', self::metadata());
         mkdir($this->root . '/public_content/resources/the-action-loop', 0700, true);
-        $this->write(
+        self::write(
             'public_content/resources/the-action-loop/content.md',
             "## Preparing\n\nExample."
         );
         mkdir($this->root . '/public_content/resources/motivators', 0700, true);
-        $this->write(
+        self::write(
             'public_content/resources/motivators/content.md',
             "## Exercise\n\nTerm\n: Definition"
         );
         mkdir($this->root . '/public_content/resources/the-5-ps', 0700, true);
-        $this->write(
+        self::write(
             'public_content/resources/the-5-ps/content.md',
             "## Another exercise\n\nTerm\n: Definition"
         );
@@ -86,9 +86,9 @@ final class ResourcesIndexTest extends TestCase
     #[DataProvider('resourceTypes')]
     public function testPurposeTypesRenderWithoutAFormatField(string $type): void
     {
-        $this->write(
+        self::write(
             'public_content/item/meta.json',
-            str_replace('"type":"reference"', '"type":"' . $type . '"', $this->metadata())
+            str_replace('"type":"reference"', '"type":"' . $type . '"', self::metadata())
         );
         self::assertStringContainsString(
             ' - ' . ucfirst($type) . ' / Money',
@@ -99,10 +99,10 @@ final class ResourcesIndexTest extends TestCase
     public function testExplicitSelectionIgnoresDraftsAncillaryAndUnlistedMetadata(): void
     {
         mkdir($this->root . '/content-root', 0700);
-        $this->write('content-root/meta.json', 'not json');
-        $this->write('public_content/resources/meta.json', 'not json');
+        self::write('content-root/meta.json', 'not json');
+        self::write('public_content/resources/meta.json', 'not json');
         mkdir($this->root . '/public_content/unlisted', 0700);
-        $this->write('public_content/unlisted/meta.json', 'not json');
+        self::write('public_content/unlisted/meta.json', 'not json');
         $html = ResourcesIndex::compile($this->root);
         self::assertSame(
             "<ul>\n<li><a href=\"/item/\">A &amp; &lt;B&gt; &quot;title&quot;</a>"
@@ -125,14 +125,14 @@ final class ResourcesIndexTest extends TestCase
             '/newest/' => ['20270101', 'Z newest title']
         ];
         foreach ($entries as $route => [$date, $title]) {
-            mkdir($this->root . '/site-root/public' . $route, 0700, true);
-            $this->write('site-root/public' . $route . 'index.php', '<?php');
+            mkdir($this->root . '/public' . $route, 0700, true);
+            self::write('public' . $route . 'index.php', '<?php');
             $dir = 'public_content' . $route;
             mkdir($this->root . '/' . $dir, 0700, true);
-            $this->write($dir . 'content.html', '<p>Published</p>');
-            $meta = json_decode($this->metadata(), true, 512, JSON_THROW_ON_ERROR);
+            self::write($dir . 'content.html', '<p>Published</p>');
+            $meta = json_decode(self::metadata(), true, 512, JSON_THROW_ON_ERROR);
             self::assertIsArray($meta);
-            $this->write(
+            self::write(
                 $dir . 'meta.json',
                 json_encode(
                     array_replace($meta, ['updated' => $date, 'listingTitle' => $title]),
@@ -143,7 +143,7 @@ final class ResourcesIndexTest extends TestCase
         $expected = ['/newest/', '/a-tie/', '/b-tie/', '/z-title/', '/older/'];
         $previous = null;
         foreach ([array_keys($entries), array_reverse(array_keys($entries))] as $routes) {
-            $this->write(
+            self::write(
                 'public_content/resources/published.json',
                 json_encode($routes, JSON_THROW_ON_ERROR)
             );
@@ -190,7 +190,7 @@ final class ResourcesIndexTest extends TestCase
         if (in_array($override, ['{', '[]', '{}'], true)) {
             $json = $override;
         } else {
-            $original = json_decode($this->metadata(), false, 512, JSON_THROW_ON_ERROR);
+            $original = json_decode(self::metadata(), false, 512, JSON_THROW_ON_ERROR);
             $replacement = json_decode($override, false, 512, JSON_THROW_ON_ERROR);
             self::assertInstanceOf(\stdClass::class, $original);
             self::assertInstanceOf(\stdClass::class, $replacement);
@@ -199,9 +199,9 @@ final class ResourcesIndexTest extends TestCase
                 JSON_THROW_ON_ERROR
             );
         }
-        $this->write('public_content/item/meta.json', $json);
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage($this->root . '/public_content/item/meta.json:');
+        self::write('public_content/item/meta.json', $json);
+        parent::expectException(RuntimeException::class);
+        parent::expectExceptionMessage($this->root . '/public_content/item/meta.json:');
         try {
             ResourcesIndex::compile($this->root);
         } catch (RuntimeException $exception) {
@@ -221,34 +221,34 @@ final class ResourcesIndexTest extends TestCase
     #[DataProvider('invalidCollections')]
     public function testInvalidCollectionsReportManifestPath(string $json): void
     {
-        $this->write('public_content/resources/published.json', $json);
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage($this->root . '/public_content/resources/published.json:');
+        self::write('public_content/resources/published.json', $json);
+        parent::expectException(RuntimeException::class);
+        parent::expectExceptionMessage($this->root . '/public_content/resources/published.json:');
         ResourcesIndex::compile($this->root);
     }
 
     public function testMissingPublishedFilesFailExplicitly(): void
     {
         unlink($this->root . '/public_content/item/meta.json');
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('/item/meta.json: missing JSON file');
+        parent::expectException(RuntimeException::class);
+        parent::expectExceptionMessage('/item/meta.json: missing JSON file');
         ResourcesIndex::compile($this->root);
     }
 
     public function testMissingPublishedRouteFailsExplicitly(): void
     {
-        unlink($this->root . '/site-root/public/item/index.php');
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('/item/meta.json: missing published entry point');
+        unlink($this->root . '/public/item/index.php');
+        parent::expectException(RuntimeException::class);
+        parent::expectExceptionMessage('/item/meta.json: missing published entry point');
         ResourcesIndex::compile($this->root);
     }
 
     public function testPublicFragmentCannotReplaceMissingPrivateArtifact(): void
     {
         unlink($this->root . '/public_content/item/content.html');
-        $this->write('site-root/public/item/content.html', '<p>Stale public copy</p>');
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage(
+        self::write('public/item/content.html', '<p>Stale public copy</p>');
+        parent::expectException(RuntimeException::class);
+        parent::expectExceptionMessage(
             '/public_content/item/meta.json: missing published entry point or content.html.'
         );
         ResourcesIndex::compile($this->root);
@@ -263,7 +263,7 @@ final class ResourcesIndexTest extends TestCase
             if (!is_dir($directory)) {
                 mkdir($directory, 0700, true);
             }
-            $this->write(
+            self::write(
                 substr($directory, strlen($this->root) + 1) . 'meta.json',
                 '{"title":"T","description":"D"}'
             );
@@ -272,67 +272,67 @@ final class ResourcesIndexTest extends TestCase
             dirname(__DIR__) . '/cli/compile-content.php',
             $this->root . '/cli/compile-content.php'
         );
-        $this->write(
+        self::write(
             'vendor/autoload.php',
             '<?php require ' . var_export(dirname(__DIR__) . '/vendor/autoload.php', true) . ';'
         );
-        [$code, , $errors] = $this->command('--check');
+        [$code, , $errors] = self::command('--check');
         self::assertSame(1, $code);
         self::assertStringContainsString('Stale or missing fragment:', $errors);
         self::assertFileDoesNotExist($this->root . '/public_content/resources/content.html');
-        self::assertSame(0, $this->command()[0]);
+        self::assertSame(0, self::command()[0]);
         $generated = file_get_contents($this->root . '/public_content/resources/content.html');
-        self::assertSame(0, $this->command()[0]);
+        self::assertSame(0, self::command()[0]);
         self::assertSame(
             $generated,
             file_get_contents($this->root . '/public_content/resources/content.html')
         );
-        self::assertSame([0, "Verified 14 content artifact(s).\n", ''], $this->command('--check'));
+        self::assertSame([0, "Verified 14 content artifact(s).\n", ''], self::command('--check'));
         $schemaPath = $this->root . '/public_content/services/structured-data.json';
         $schema = file_get_contents($schemaPath);
         self::assertIsString($schema);
         unlink($schemaPath);
-        self::assertSame(1, $this->command('--check')[0]);
+        self::assertSame(1, self::command('--check')[0]);
         self::assertFileDoesNotExist($schemaPath);
         file_put_contents($schemaPath, '{');
-        self::assertSame(1, $this->command('--check')[0]);
+        self::assertSame(1, self::command('--check')[0]);
         self::assertSame('{', file_get_contents($schemaPath));
-        self::assertSame(0, $this->command()[0]);
+        self::assertSame(0, self::command()[0]);
         self::assertSame($schema, file_get_contents($schemaPath));
-        $this->write('public_content/services/meta.json', '{"title":"Changed","description":"D"}');
-        self::assertSame(1, $this->command('--check')[0]);
+        self::write('public_content/services/meta.json', '{"title":"Changed","description":"D"}');
+        self::assertSame(1, self::command('--check')[0]);
         self::assertSame($schema, file_get_contents($schemaPath));
-        $this->write('public_content/services/meta.json', '{"title":"T","description":"D"}');
-        $this->write(
+        self::write('public_content/services/meta.json', '{"title":"T","description":"D"}');
+        self::write(
             'public_content/item/meta.json',
-            str_replace('20240229', '20240301', $this->metadata())
+            str_replace('20240229', '20240301', self::metadata())
         );
-        self::assertSame(1, $this->command('--check')[0]);
+        self::assertSame(1, self::command('--check')[0]);
         self::assertSame(
             $generated,
             file_get_contents($this->root . '/public_content/resources/content.html')
         );
-        $this->write(
+        self::write(
             'public_content/item/meta.json',
-            str_replace('Money', 'Space', $this->metadata())
+            str_replace('Money', 'Space', self::metadata())
         );
-        self::assertSame(1, $this->command('--check')[0]);
+        self::assertSame(1, self::command('--check')[0]);
         self::assertSame(
             $generated,
             file_get_contents($this->root . '/public_content/resources/content.html')
         );
-        $this->write('public_content/resources/content.html', 'stale');
-        self::assertSame(1, $this->command('--check')[0]);
+        self::write('public_content/resources/content.html', 'stale');
+        self::assertSame(1, self::command('--check')[0]);
         $target = $this->root . '/public_content/resources/content.html';
         self::assertSame('stale', file_get_contents($target));
-        $this->write('public_content/item/meta.json', '{');
-        [$code, $output, $errors] = $this->command();
+        self::write('public_content/item/meta.json', '{');
+        [$code, $output, $errors] = self::command();
         self::assertNotSame(0, $code);
         self::assertStringContainsString('/item/meta.json:', $output . $errors);
         self::assertSame('stale', file_get_contents($target));
-        $this->write('public_content/item/meta.json', $this->metadata());
-        $this->write('public_content/resources/content.md', '[Unlisted](/unlisted/)');
-        [$code, $output, $errors] = $this->command();
+        self::write('public_content/item/meta.json', self::metadata());
+        self::write('public_content/resources/content.md', '[Unlisted](/unlisted/)');
+        [$code, $output, $errors] = self::command();
         self::assertNotSame(0, $code);
         self::assertStringContainsString(
             '/resources/content.md: conflicts with the metadata-generated index.',

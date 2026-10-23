@@ -14,33 +14,33 @@ final class CoachingPageTest extends TestCase
 {
     public function testLandmarksHeadingsAndNativeMenuNavigation(): void
     {
-        $xpath = $this->page();
-        self::assertSame(1, $this->countMatches($xpath, '//main[@id="main"][@tabindex="-1"]'));
-        self::assertSame(1, $this->countMatches($xpath, '//a[@href="#main"][@is="skip-link"]'));
+        $xpath = self::page();
+        self::assertSame(1, self::countMatches($xpath, '//main[@id="main"][@tabindex="-1"]'));
+        self::assertSame(1, self::countMatches($xpath, '//a[@href="#main"][@is="skip-link"]'));
         self::assertSame('Coaching and Mentoring', $xpath->evaluate('string(//header/h1)'));
-        self::assertSame(0, $this->countMatches($xpath, '//header/h1/*'));
-        self::assertNotSame('', trim($this->text($xpath, 'string(//main)')));
+        self::assertSame(0, self::countMatches($xpath, '//header/h1/*'));
+        self::assertNotSame('', trim(self::text($xpath, 'string(//main)')));
         self::assertSame(
             [
                 '/', '/coaching-and-mentoring/', '/services/',
                 '/resources/', '/books/'
             ],
-            $this->texts($xpath, '//nav[@aria-label="Menu"]//a/@href')
+            self::texts($xpath, '//nav[@aria-label="Menu"]//a/@href')
         );
         self::assertSame(
             ['Home', 'Coaching', 'Services', 'Resources', 'Books'],
-            $this->texts($xpath, '//nav[@aria-label="Menu"]//a')
+            self::texts($xpath, '//nav[@aria-label="Menu"]//a')
         );
-        self::assertSame(0, $this->countMatches($xpath, '//nav[@aria-label="Read"]'));
+        self::assertSame(0, self::countMatches($xpath, '//nav[@aria-label="Read"]'));
         self::assertSame(
             1,
-            $this->countMatches(
+            self::countMatches(
                 $xpath,
                 '//header[@is="nav-header"]/nav[@is="nav-primary"]'
                     . '/div[@is="nav-panel"][@id="primary-navigation"][@popover="auto"]'
             )
         );
-        $css = file_get_contents(dirname(__DIR__) . '/site-root/public/assets/css/reading.css');
+        $css = file_get_contents(dirname(__DIR__) . '/public/assets/css/reading.css');
         self::assertIsString($css);
         self::assertStringNotContainsString('flex: 0 0 5em', $css);
         self::assertStringNotContainsString('marketing-header', $css);
@@ -76,25 +76,25 @@ final class CoachingPageTest extends TestCase
             'noopener noreferrer',
             $xpath->evaluate('string(' . $readingHistoryLink . '/@rel)')
         );
-        self::assertSame(1, $this->countMatches($xpath, '//nav//a[@aria-current]'));
+        self::assertSame(1, self::countMatches($xpath, '//nav//a[@aria-current]'));
         self::assertSame(
             '/coaching-and-mentoring/',
             $xpath->evaluate('string(//nav//a[@aria-current="page"]/@href)')
         );
         self::assertSame(
             1,
-            $this->countMatches(
+            self::countMatches(
                 $xpath,
                 '//button[@type="button"][@popovertarget="primary-navigation"]'
             )
         );
         self::assertSame(
             1,
-            $this->countMatches($xpath, '//div[@id="primary-navigation"][@popover="auto"]')
+            self::countMatches($xpath, '//div[@id="primary-navigation"][@popover="auto"]')
         );
         self::assertSame(
             '© 2023–' . date('Y') . ' Mastering the Mundane',
-            $this->text($xpath, 'string(//footer)')
+            self::text($xpath, 'string(//footer)')
         );
     }
 
@@ -106,41 +106,41 @@ final class CoachingPageTest extends TestCase
         }
         self::assertSame(
             0,
-            $this->countMatches(
-                $this->page(),
+            self::countMatches(
+                self::page(),
                 '//nav[@aria-label="Menu"]//a[starts-with(@href, "/#")]'
             )
         );
     }
     public function testBookingAndServicesRemainAccessibleWithoutClientOrAccountDependencies(): void
     {
-        $xpath = $this->page();
+        $xpath = self::page();
         $booking = '//main//a[@href="https://cal.com/mastering-the-mundane/introduction"]';
-        self::assertSame(1, $this->countMatches($xpath, $booking));
-        self::assertNotSame('', trim($this->text($xpath, 'string(' . $booking . ')')));
+        self::assertSame(1, self::countMatches($xpath, $booking));
+        self::assertNotSame('', trim(self::text($xpath, 'string(' . $booking . ')')));
         self::assertSame('/services/', $xpath->evaluate('string(//main//a[not(@target)]/@href)'));
-        self::assertSame(0, $this->countMatches($xpath, '//form|//iframe|//script[@src]'));
-        self::assertSame(0, $this->countMatches($xpath, '//link[@rel="canonical"]'));
-        self::assertSame(1, $this->countMatches($xpath, '//script'));
+        self::assertSame(0, self::countMatches($xpath, '//form|//iframe|//script[@src]'));
+        self::assertSame(0, self::countMatches($xpath, '//link[@rel="canonical"]'));
+        self::assertSame(1, self::countMatches($xpath, '//script'));
         self::assertSame(PHP_SESSION_NONE, session_status());
     }
 
     public function testEveryRenderedHttpAnchorFollowsTheHostnamePolicy(): void
     {
         RenderedAnchorAssertions::assertHttpHostPolicy(
-            $this->page(),
+            self::page(),
             'https://mastering-the-mundane.com/coaching-and-mentoring/'
         );
     }
 
     public function testMetadataRetainsExistingValuesAndPilotAssetsAreLocalAndVersioned(): void
     {
-        $xpath = $this->page();
+        $xpath = self::page();
         self::assertSame(
             'Coaching and Mentoring | Mastering the Mundane',
             $xpath->evaluate('string(//title)')
         );
-        $description = $this->text($xpath, 'string(//meta[@name="description"]/@content)');
+        $description = self::text($xpath, 'string(//meta[@name="description"]/@content)');
         self::assertStringStartsWith(
             'Josh Bruce has spent his life making peace with time, space, and money',
             $description
@@ -161,15 +161,15 @@ final class CoachingPageTest extends TestCase
             'https://mastering-the-mundane.com/assets/media/poster.png',
             $xpath->evaluate('string(//meta[@property="og:image"]/@content)')
         );
-        self::assertSame(1, $this->countMatches($xpath, '//link[@rel="stylesheet"]'));
+        self::assertSame(1, self::countMatches($xpath, '//link[@rel="stylesheet"]'));
         self::assertMatchesRegularExpression(
             '~\A/assets/css/reading\.min\.css\?v=[a-f0-9]{16}\z~',
-            $this->text($xpath, 'string(//link[@rel="stylesheet"]/@href)')
+            self::text($xpath, 'string(//link[@rel="stylesheet"]/@href)')
         );
-        self::assertSame(0, $this->countMatches($xpath, '//header//img'));
+        self::assertSame(0, self::countMatches($xpath, '//header//img'));
         self::assertSame(
             \MTM\Marketing\StructuredData::forRoute('/coaching-and-mentoring/'),
-            $this->text($xpath, 'string(//script)')
+            self::text($xpath, 'string(//script)')
         );
     }
 

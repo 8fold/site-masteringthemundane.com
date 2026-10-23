@@ -13,7 +13,7 @@ final class ActionLoopPageTest extends TestCase
 {
     public function testPhysicalRouteUsesCompiledContentWithoutRuntimeMarkdown(): void
     {
-        $file = dirname(__DIR__) . '/site-root/public/resources/the-action-loop/index.php';
+        $file = dirname(__DIR__) . '/public/resources/the-action-loop/index.php';
         $process = proc_open(
             [
                 PHP_BINARY, '-r',
@@ -38,7 +38,7 @@ final class ActionLoopPageTest extends TestCase
 
     public function testReadingStructureNavigationAndDateDiscrepancyArePreserved(): void
     {
-        $xpath = $this->page();
+        $xpath = self::page();
         foreach (
             [
             '//html[@lang="en-US"]',
@@ -106,7 +106,7 @@ final class ActionLoopPageTest extends TestCase
 
     public function testExistingMetadataAndSharedStylesheet(): void
     {
-        $xpath = $this->page();
+        $xpath = self::page();
         $title = 'Action loop | Resources'
             . ' | Mastering the Mundane';
         $description = 'Master the 5-phase action loop to sustain energy, prevent burnout, '

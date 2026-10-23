@@ -37,7 +37,7 @@
     <meta name="twitter:image" content="<?php print($poster); ?>">
 
     <!-- Legacy pages share the content-versioned asset policy. -->
-    <?php require_once dirname(__DIR__, 2) . '/vendor/autoload.php'; ?>
+    <?php require_once dirname(__DIR__) . '/vendor/autoload.php'; ?>
     <link type="text/css" rel="stylesheet" blocking="render"
         href="<?php echo \MTM\Marketing\UserInterface\AssetUrl::versioned('/assets/css/main.min.css'); ?>">
     <script type="application/ld+json">

@@ -13,16 +13,15 @@ portable facts.
 
 ## Layout and runtime
 
+- `config/.env-example` is an empty JSON template; no environment loader or
+  required environment settings are implemented here. PHP files in `config/`
+  are included in the PHPCS scan.
 - PHP 8.5+, `ext-dom` at runtime; `ext-uri` is a development requirement.
-- Apache DocumentRoot: this checkout's `site-root/public/`, not apps' `public/`.
 - PSR-4 application namespace: `MTM\`, rooted at `src/`.
 - Reading presentation: `src/Marketing/UserInterface/ReadingPage.php`.
-- Private authored Markdown/metadata and generated HTML/JSON: `public_content/`.
-  `PageMetadata::ROUTES` defines the converted routes.
-- Public authored/minified CSS: `site-root/public/assets/css/`.
-  Fonts/licenses, UI SVGs and site images use `/assets/fonts/`, `/assets/ui/`
-  and `/assets/media/`. Legacy asset URLs redirect; do not remove compatibility
-  incidentally.
+- `PageMetadata::ROUTES` defines the converted routes for content in
+  `public_content/`.
+- Legacy asset URLs redirect; do not remove compatibility incidentally.
 - Branded `/favicons/` remains unchanged. The shared favicon convention is
   explicitly deferred.
 - Physical PHP routes and some legacy templates remain. Do not convert unrelated
@@ -33,9 +32,25 @@ portable facts.
 
 ## Build, test and lint commands
 
-`composer.json` is the source of truth for entry points.
-`composer production` runs optimized autoload generation, both freshness checks,
-PHPCS, PHPStan and PHPUnit. CI is `.github/workflows/php85.yml`.
+- `composer production` (or `composer prod`): generate the optimized autoloader,
+  verify asset and content freshness, then run PHPCS, PHPStan and PHPUnit.
+- `composer minify`: generate committed sibling `.min.css` and `.min.js` assets
+  from authored CSS and JavaScript, skipping existing minified files.
+- `composer check-assets`: verify minified CSS and JS freshness without writing;
+  fail if an artifact is missing or differs from its generated output.
+- `composer compile-content`: generate committed HTML and structured-data JSON
+  from authored content and metadata.
+- `composer check-content`: verify generated content freshness without writing.
+- `composer style`: run PHPCS with the repository's coding standard.
+- `composer stan`: run PHPStan with the repository's level 9 configuration.
+- `composer test`: run the PHPUnit suite.
+- `composer optimize-autoload`: generate a no-dev, authoritative classmap.
+- `composer deploy`: run `production`, then `optimize-autoload` locally; this
+  does not connect to or deploy onto the production server.
+
+CI is `.github/workflows/php85.yml`.
+Deployment uses `.github/workflows/deploy.yml` and `cli/deploy.sh`; follow
+[deployment and cutover](deployment.md) before enabling it.
 
 The current local environment uses MAMP PHP 8.5.2:
 
@@ -55,15 +70,10 @@ workflow. Do not call these as if they exist.
 
 ## Enforcement boundaries
 
-- `phpcs.xml`: PSR-12 with explicit exceptions and a 100-character line limit.
-- `phpstan.neon`: level 9 over configured implementation, CLI and test paths.
-- `phpunit.xml`: the existing test suite; follow its fixtures and helpers.
-- Content and asset freshness are checked without writes by CI and production.
 - Apps' MethodScopeConventionRule, RecordPurityRule, data-object marker tests
   and locked-migration checks are not installed in this repository.
-- Existing tests contain `$this->` method calls, and legacy PHP does not
-  uniformly use strict types. Guidance is not a claim of complete enforcement
-  or permission to bulk-refactor these files.
+- Legacy PHP does not uniformly use strict types. Guidance is not a claim of
+  complete enforcement or permission to bulk-refactor these files.
 
 ## Preview and environment safety
 
@@ -72,6 +82,9 @@ The current saved local preview is
 It is trusted MAMP HTTPS, not a loopback development server.
 Verify its returned markup and versioned stylesheet against the current
 checkout before relying on browser results.
+After the webroot migration, the existing MAMP DocumentRoot may still target
+the removed `site-root/public/`. Request a user-managed change to this checkout's
+`public/` or use isolated HTTP checks; do not silently repair the shared host.
 
 Do not retarget MAMP, edit shared/root-owned vhost configuration, move `current`
 symlinks or access another checkout to force the preview to match. If it is
@@ -85,7 +98,8 @@ build commands require no secret environment setup.
 ## Agent infrastructure review and recommended sequence
 
 This adoption establishes a truthful entry point, not full apps infrastructure
-parity. Next steps, in priority order:
+parity or a finished document integration. Keep it current in subsequent scoped
+PRs. Next steps, in priority order:
 
 1. Agree the reusable-policy versus repository-context boundary across both
    properties. Apps' current root file still embeds stack/startup assumptions;

@@ -14,7 +14,7 @@ final class ResourcesPageTest extends TestCase
 {
     public function testPhysicalRouteRendersWithoutLoadingTheMarkdownConverter(): void
     {
-        $file = dirname(__DIR__) . '/site-root/public/resources/index.php';
+        $file = dirname(__DIR__) . '/public/resources/index.php';
         $process = proc_open(
             [
                 PHP_BINARY,
@@ -40,7 +40,7 @@ final class ResourcesPageTest extends TestCase
 
     public function testReadingLandmarksNavigationAndPublishedDestination(): void
     {
-        $xpath = $this->page();
+        $xpath = self::page();
         foreach (
             [
             '//html[@lang="en-US"]',
@@ -140,7 +140,7 @@ final class ResourcesPageTest extends TestCase
 
     public function testArticlesLabelsAndMetadataAreConsistentWithoutAnSeoPolicyChange(): void
     {
-        $xpath = $this->page();
+        $xpath = self::page();
         self::assertSame('Resources', $xpath->evaluate('string(//header/h1)'));
         $title = $xpath->evaluate('string(//title)');
         self::assertIsString($title);
