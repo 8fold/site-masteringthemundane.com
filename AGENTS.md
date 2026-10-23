@@ -156,9 +156,9 @@ use the first suitable canonical home and link elsewhere rather than maintaining
 7. Inspect and follow the repository PR template. Keep changes scoped and
    distinguish local verification from deployed behavior.
 8. **Contribution and triage conventions:** Follow the commit scope and message
-   conventions in [.github/CONTRIBUTING.md](.github/CONTRIBUTING.md#commit-workflow),
+   conventions in [.github/contributing.md](.github/contributing.md#commit-workflow),
    and apply its cumulative issue-triage policy in
-   [Priorities](.github/CONTRIBUTING.md#priorities).
+   [Priorities](.github/contributing.md#priorities).
 9. **Push with every commit:** Keep the origin branch current with each commit;
    pushing also updates any open PR.
 10. **Pre-PR review evidence:** Before opening a PR, verify that its diff
