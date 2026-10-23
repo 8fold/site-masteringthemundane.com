@@ -127,6 +127,10 @@ graph churn as part of unrelated work.
 There is no database or secret environment-copy gate for this site's current
 implementation. Do not copy apps' startup environment or database commands.
 
+## Voice
+
+Frame things impersonally — the work and reality matter, not the participants, individually or collectively. Artifacts, arguments, and errors belong to no one in the telling: "the tea cup is broken," not "you broke the tea cup"; "the point presented," not "your point"; "the README," even when one person wrote every line. "Your" survives only when giving credit — "to your point" as acknowledgment, never as preface to a rebuttal or counterargument.
+
 ## Interaction and worktree lifecycle
 
 **Information placement:** Follow
@@ -151,6 +155,16 @@ use the first suitable canonical home and link elsewhere rather than maintaining
    PR is merged and the branch is synced.
 7. Inspect and follow the repository PR template. Keep changes scoped and
    distinguish local verification from deployed behavior.
+8. **Contribution and triage conventions:** Follow the commit scope and message
+   conventions in [.github/CONTRIBUTING.md](.github/CONTRIBUTING.md#commit-workflow),
+   and apply its cumulative issue-triage policy in
+   [Priorities](.github/CONTRIBUTING.md#priorities).
+9. **Push with every commit:** Keep the origin branch current with each commit;
+   pushing also updates any open PR.
+10. **Pre-PR review evidence:** Before opening a PR, verify that its diff
+    contains only the intended change with
+    `git --no-pager diff origin/main...HEAD --stat`, and report that output with
+    the exact changed-file list in the current user-facing session.
 
 ## Sensitive files
 
