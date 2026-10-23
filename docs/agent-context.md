@@ -13,6 +13,9 @@ portable facts.
 
 ## Layout and runtime
 
+- `config/.env-example` is an empty JSON template; no environment loader or
+  required environment settings are implemented here. PHP files in `config/`
+  are included in the PHPCS scan.
 - PHP 8.5+, `ext-dom` at runtime; `ext-uri` is a development requirement.
 - PSR-4 application namespace: `MTM\`, rooted at `src/`.
 - Reading presentation: `src/Marketing/UserInterface/ReadingPage.php`.

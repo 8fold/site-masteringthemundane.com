@@ -21,6 +21,10 @@ their commands, paths, safeguards or enforcement change.
   across all 8fold PHP websites.
 - Store private authored Markdown/metadata and generated HTML/JSON in
   `public_content/` across all 8fold PHP websites.
+- Keep environment configuration under the repository's `config/` directory
+  across all 8fold PHP websites. Commit a secret-free JSON template at
+  `config/.env-example`; ignore actual environment files. An empty JSON object
+  is sufficient when the application has no environment settings.
 - Serve fonts and their licenses from `/assets/fonts/`, UI SVGs from
   `/assets/ui/` and site images from `/assets/media/` across all 8fold PHP
   websites, with files stored under `public/assets/`.
@@ -146,7 +150,9 @@ implementation. Do not copy apps' startup environment or database commands.
 
 ## Sensitive files
 
-Do not read, search or output `.env*`, credentials or secret configuration.
+Do not read, search or output actual `.env*` environment files, credentials or
+secret configuration. The committed, secret-free `config/.env-example` template
+is documentation and may be maintained; never populate it with real secrets.
 Do not bypass exclusions with Git history, scripts or other shell tools.
 Follow `.copilotignore` if present. Never copy secrets from apps or another
 checkout as an assumed prerequisite.
