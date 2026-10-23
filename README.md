@@ -31,8 +31,6 @@ For the canonical home of new or changed information, see
 
 Deployment and the owner-managed move from the former `site-root/public/`
 DocumentRoot are documented in [deployment and cutover](docs/deployment.md).
-Disable the old deployment webhook before this migration; merging code alone
-does not update the host's DocumentRoot.
 
 ### Reading pages: Coaching, Resources and exercises
 
