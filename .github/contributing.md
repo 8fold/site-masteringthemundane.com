@@ -2,17 +2,77 @@
 
 Contributions are **welcome** and will be **credited**. We accept contributions via pull requests to the GitHub project repository.
 
-## Priorities
+## Issue triage (maintainer policy)
 
-We leverage GitHub's labeling system to inform prioritization of issues. The higher the number, the higher priority.
+Use these issue labels as qualitative impact categories, ordered from highest to
+lowest priority. This is a maintainer triage aid, not a numeric score or an
+automatic queue ordering. Apply every label supported by the issue's scope;
+categories may overlap.
 
-Security and accessibility are always the highest priority within the applicable scope of the project. Therefore, some packages are low-level and intended for developers and give the flexibility to them to surround the package within a security layer.
+Security and accessibility are always the highest priority within the
+applicable scope of the project. Therefore, some packages are low-level and
+intended for developers and give the flexibility to them to surround the
+package within a security layer.
 
-Issue labels are cumulative, not mutually exclusive. Apply every label supported by an issue's scope and consider the aggregate impact of all applicable labels, not only the highest-ranked category. Do not add unsupported labels to inflate priority.
+If a label in this rubric is missing from the repository, open an issue
+requesting it rather than substituting an unrelated label.
 
-A *refactoring* changes the internal structure of software to make it easier to understand and cheaper to modify without changing its observable behavior; the test suite passes before and after, unmodified. A *re-engineering* changes the internal structure while also changing observable behavior or explicit developer-facing contracts (public APIs, URLs, configuration).
+1. **Security/Accessibility** (label `security/accessibility`)
+2. **Broken** — doesn't work as promised (label `broken`)
+3. **Annoying** — doesn't work as promised but has a workaround, or could be
+   improved (label `annoying`)
+4. **Refactor/Re-engineer** (label `refactor/re-engineer`; see
+   [Change classification](#change-classification))
+5. **New by policy** — a capability that someone with policy authority over the
+   project (a maintainer) has proposed or adopted on record in the issue, such
+   as an internal governance or product decision (e.g. "only 200 users at the
+   $2 tier"), or one required by an external policy or legal requirement,
+   whoever raises it (label `new-by-policy`)
+6. **New user request** — a capability requested by someone without policy
+   authority and not yet adopted by a maintainer (label `new-user-request`)
 
-## Overall goals (philosophy and values)
+The `new-user-request` and `new-by-policy` labels form an escalation path: a
+maintainer who champions a user request records that adoption in the issue and
+adds `new-by-policy`, keeping `new-user-request` as the record of outside
+demand. Authorship alone does not escalate; a maintainer's idea is
+`new-by-policy` only once it is proposed or adopted as policy on record.
+
+An issue may have more than one label when each label fits its demonstrated
+scope and impact. For example, a policy-required capability with security
+implications may be labeled `new-by-policy` and `security/accessibility`.
+
+Consider the combined impact of applicable labels, not only the highest-ranked
+category. Do not add unsupported labels to inflate priority. The ordering is
+qualitative: no numeric weights, formula, or deterministic sort order is
+defined.
+
+The `wontfix` and `tracking` labels describe issue disposition, not impact
+categories, so they do not change the priority ordering above. `wontfix` means
+there are no current plans to address the issue. `tracking` means the issue
+records work whose implementation or next steps are not yet settled; update or
+close it when a clear path forward is recorded.
+
+Use `documentation` for issues focused on writing, reviewing, organizing, or
+publishing documentation, including contributor policy and recorded design
+rationale. It is a work-focus label, not an impact category or a priority
+modifier; combine it with applicable impact and disposition labels. It supports
+documentation-focused sessions without changing the triage ordering. A code or
+operational issue does not need this label merely because its acceptance
+criteria include updating documentation.
+
+This label rubric is the canonical triage policy for this repository. Other
+repositories may link here when adopting it or maintain their own policy when
+their needs differ.
+
+## Change classification
+
+A *refactoring* changes the internal structure of software to make it easier to
+understand and cheaper to modify without changing its observable behavior; the
+test suite passes before and after, unmodified. A *re-engineering* changes the
+internal structure while also changing observable behavior or explicit
+developer-facing contracts (public APIs, URLs, configuration).
+
+## Engineering philosophy
 
 There are a lot of philosphical things tied in to the way we strive to do software development. Some you are most likely familiar with, others maybe not so much.
 

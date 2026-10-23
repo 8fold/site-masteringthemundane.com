@@ -129,6 +129,8 @@ implementation. Do not copy apps' startup environment or database commands.
 
 ## Voice
 
+This communication convention supports [Solutions over Scapegoats](.github/contributing.md#engineering-philosophy): focus on the problem and its resolution rather than assigning blame.
+
 Frame things impersonally — the work and reality matter, not the participants, individually or collectively. Artifacts, arguments, and errors belong to no one in the telling: "the tea cup is broken," not "you broke the tea cup"; "the point presented," not "your point"; "the README," even when one person wrote every line. "Your" survives only when giving credit — "to your point" as acknowledgment, never as preface to a rebuttal or counterargument.
 
 ## Interaction and worktree lifecycle
@@ -158,7 +160,7 @@ use the first suitable canonical home and link elsewhere rather than maintaining
 8. **Contribution and triage conventions:** Follow the commit scope and message
    conventions in [.github/contributing.md](.github/contributing.md#commit-workflow),
    and apply its cumulative issue-triage policy in
-   [Priorities](.github/contributing.md#priorities).
+   [Issue triage](.github/contributing.md#issue-triage-maintainer-policy).
 9. **Push with every commit:** Keep the origin branch current with each commit;
    pushing also updates any open PR.
 10. **Pre-PR review evidence:** Before opening a PR, verify that its diff
