@@ -14,6 +14,11 @@ their commands, paths, safeguards or enforcement change.
 - All 8fold PHP websites use the repository's `public/` directory as the
   Apache DocumentRoot. Keep application source, dependencies and private
   content outside that directory.
+- Let the web server own routing through physical directories. Use per-route
+  `index.php` files under `public/` as lightweight controllers that delegate
+  application logic and rendering to source classes, rather than routing all
+  requests through a single application front controller. Apply this pattern
+  across all 8fold PHP websites.
 - Store private authored Markdown/metadata and generated HTML/JSON in
   `public_content/` across all 8fold PHP websites.
 - Serve fonts and their licenses from `/assets/fonts/`, UI SVGs from
