@@ -82,5 +82,6 @@ Changes to this behavior require a separately agreed cross-repo improvement.
 
 For web OPcache, use timestamp revalidation or an owner-configured graceful
 reload in `config/deploy-server.sh`. CLI cache reset does not clear the web
-SAPI's OPcache. An absent hook warns but does not fail, matching apps.
+SAPI's OPcache. An absent hook is silently skipped; a present hook still fails
+deployment if it exits unsuccessfully.
 Check versioned/unversioned CSS and font cache headers manually after deploy.
