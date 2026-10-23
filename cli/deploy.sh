@@ -1,11 +1,10 @@
 #!/usr/bin/env bash
 #
-# The deploy path (see docs/deployment.md): pull main, install the
-# lockfile-pinned production dependencies and regenerate the autoloader,
-# then validate the result. Stops at the first failing step and names it;
-# a non-zero exit means the deployment did NOT complete and the output
-# says which step failed. This is an in-place deployment, not an atomic
-# release switch or automatic rollback.
+# The deploy path: pull main, install the lockfile-pinned production
+# dependencies and regenerate the autoloader, then validate the result.
+# Stops at the first failing step and names it; a non-zero exit means the
+# deployment did NOT complete and the output says which step failed.
+# See docs/deployment.md for cutover, rollback and end-to-end verification.
 #
 # Assumes git, PHP 8.5+, and composer on PATH (DreamHost VPS over SSH), run
 # from anywhere -- the script cds to the repository root itself.
@@ -173,13 +172,8 @@
 #        workflow_run requires the workflow file on the default branch.
 #        After activation, watch subsequent main deployments in Actions;
 #        a failed deploy names the failing step in this script's output.
-#        Script success does not verify HTTP: manually check the live
-#        pages, static assets and cache headers per docs/deployment.md.
-#        A rerun of manually installed code does not prove delivery of a
-#        new change. Verify an intended visible change through merge ->
-#        CI -> Deploy -> production HTTPS, without manually deploying it
-#        first. Confirm the changed content, not just HTTP 200; record
-#        the deployment log's revision and the observed production result.
+#        For end-to-end visible-change verification, follow
+#        docs/deployment.md#verify-a-deployed-change.
 #
 
 set -euo pipefail

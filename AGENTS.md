@@ -129,6 +129,10 @@ implementation. Do not copy apps' startup environment or database commands.
 
 ## Interaction and worktree lifecycle
 
+**Information placement:** Follow
+[Information Hierarchy & Purpose](docs/architecture-philosophy.md#information-hierarchy--purpose):
+use the first suitable canonical home and link elsewhere rather than maintaining duplicate facts or procedures.
+
 1. Treat reported friction as primary evidence. Reproduce or inspect the
    reported state before explaining expected behavior.
 2. Give alternatives and honest recommendations rather than reflexive agreement.
