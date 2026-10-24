@@ -91,8 +91,13 @@ to obtain a green build. Test counts are not targets.
 - Production classes are final and do not extend other classes, except built-in
   exceptions. PHPUnit test classes necessarily extend `TestCase`.
 - Immutable data objects, when needed, use final readonly classes with typed
-  promoted properties. Do not add apps' Record/ValueObject markers or entity
-  gateways without an actual domain requirement.
+  promoted properties. Apply `DataObject`, or its `ValueObject` or `Record`
+  specialization, from `MTM\Shared\Attributes`; do not repeat the generic marker
+  on a specialization. After construction, expose properties only, with no
+  public methods or side effects. Get-only computed properties must be pure.
+  Keep file/database access and factories in separate collaborators. Marker
+  docblocks define the contract; importing markers does not add database
+  infrastructure or authorize entity gateways.
 - Import classes through top-level `use` statements. In non-namespaced entry
   points, global classes are already in scope; do not add no-op imports.
 - Surface missing or invalid content/assets explicitly. Do not add

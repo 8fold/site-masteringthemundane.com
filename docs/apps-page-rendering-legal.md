@@ -122,12 +122,21 @@ selection. There is no corresponding `ServicesPage` class: the route definition
 is visible beside its public URL, while the reusable document shell stays in
 source.
 
-Root `MTM\PageMetadata` is a readonly data object that hydrates and validates
-one `meta.json`; it contains no rendering behavior. The marketing
+Root `MTM\PageMetadata` is a readonly data object holding property values only.
+`PageMetadataLoader` reads and validates one `meta.json`. The marketing
 `PageRenderer` owns route ancestry and the transitional composition adapter
 used by other route classes. It supplies the compiled fragment explicitly to
 the same shell, preserving existing behavior while keeping metadata separate
 from HTML rendering.
+
+The `DataObject`, `ValueObject` and `Record` markers use apps' names and
+specialization relationship. The clarified local contract requires immutable
+data, no public methods after construction, and no side effects; pure get-only
+property hooks are permitted. Unlike the inspected apps implementation, this
+does not permit static factories on data/value objects. Apps'
+`PageMetadata::fromFile()` performs file I/O, so that work lives in the separate
+loader here. Apps' record-only PHPStan rule is not imported or represented as
+enforcing the broader contract.
 The current pilot changes no request-path handling, initialization, or response
 policy. Those boundaries remain proposals until implemented and verified.
 

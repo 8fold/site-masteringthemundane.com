@@ -47,7 +47,8 @@ No synthetic `/home/` route is used.
 Every shared-shell page reads its own `title` and `description` from the
 `meta.json` beside its `content.html`: `public_content/<route>/meta.json` for
 all nine converted pages. `PageRenderer::ROUTES` lists these routes.
-`MTM\PageMetadata` is the readonly data object hydrated from each `meta.json`;
+`MTM\PageMetadata` holds readonly property values;
+`PageMetadataLoader` reads and validates each `meta.json`.
 `PageRenderer` handles route ancestry and HTML composition.
 Following the apps site's `PageTitle` convention, there is no separate heading:
 the header h1 is the page's own `title`, and the browser and social title is

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace MTM\Marketing\UserInterface;
 
 use MTM\PageMetadata;
+use MTM\PageMetadataLoader;
 use MTM\Shared\UserInterface\DocumentBase;
 
 /**
@@ -52,6 +53,6 @@ final class PageRenderer
     private static function read(string $route, string $root): PageMetadata
     {
         $path = ContentFragment::directory($route, $root) . 'meta.json';
-        return PageMetadata::fromFile($path);
+        return PageMetadataLoader::fromFile($path);
     }
 }
