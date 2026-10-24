@@ -12,11 +12,15 @@ use MTM\Marketing\StructuredData;
 
 final class ReadingPage
 {
-    /** @param non-empty-list<string> $titles The page's title, then each ancestor's. */
+    /**
+     * @param non-empty-list<string> $titles The page's title, then each ancestor's.
+     * @param string $content Trusted, already-rendered HTML supplied by the caller.
+     */
     public static function render(
         string $route,
         array $titles,
-        string $description
+        string $description,
+        string $content
     ): string {
         // HtmlBuilder writes text and attribute values verbatim.
         $escape = static fn(string $text): string =>
@@ -93,7 +97,7 @@ final class ReadingPage
             )->props('is nav-header'),
             Element::create(
                 'main',
-                ContentFragment::forRoute($route)
+                $content
             )->props('id main', 'tabindex -1'),
             Element::create(
                 'footer',

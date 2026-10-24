@@ -6,11 +6,56 @@ namespace MTM\Tests;
 
 use DOMDocument;
 use DOMXPath;
+use MTM\Marketing\UserInterface\ContentFragment;
+use MTM\Marketing\UserInterface\PageMetadata;
+use MTM\Marketing\UserInterface\ReadingPage;
 use MTM\Marketing\UserInterface\ServicesPage;
 use PHPUnit\Framework\TestCase;
 
 final class ServicesPageTest extends TestCase
 {
+    public function testCompositionPreservesTheExistingMetadataAndFragmentOutput(): void
+    {
+        self::assertSame(PageMetadata::render('/services/'), ServicesPage::render());
+    }
+
+    public function testShellRendersSuppliedMarkupInsteadOfSelectingTheRouteFragment(): void
+    {
+        $meta = PageMetadata::forRoute('/services/');
+        $content = '<section data-rendering-probe="supplied"><h2>Supplied &amp; ready</h2>'
+            . '<p>Already-rendered <strong>markup</strong>.</p></section>';
+        $html = ReadingPage::render(
+            '/services/',
+            $meta['titles'],
+            $meta['description'],
+            $content
+        );
+
+        self::assertStringContainsString($content, $html);
+        self::assertStringNotContainsString(ContentFragment::forRoute('/services/'), $html);
+    }
+
+    public function testEmptySuppliedContentDoesNotTriggerImplicitFragmentLoading(): void
+    {
+        $meta = PageMetadata::forRoute('/services/');
+        $document = new DOMDocument();
+        $previous = libxml_use_internal_errors(true);
+        try {
+            self::assertTrue($document->loadHTML(ReadingPage::render(
+                '/services/',
+                $meta['titles'],
+                $meta['description'],
+                ''
+            )));
+            $xpath = new DOMXPath($document);
+            self::assertSame('', $xpath->evaluate('string(//main)'));
+            self::assertSame(0.0, $xpath->evaluate('count(//main/*)'));
+        } finally {
+            libxml_clear_errors();
+            libxml_use_internal_errors($previous);
+        }
+    }
+
     public function testPhysicalRouteUsesCompiledContentWithoutRuntimeMarkdown(): void
     {
         $file = dirname(__DIR__) . '/public/services/index.php';

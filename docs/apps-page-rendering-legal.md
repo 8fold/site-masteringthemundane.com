@@ -104,10 +104,19 @@ details remain in their existing executable and repository-specific homes.
 Use `/services/` on `.com` as the first implementation slice. Its role is to
 exercise the generic boundaries, not establish permanent site-specific APIs.
 
-The current `.com` flow delegates from its physical route through `ServicesPage`
-and `PageMetadata` to `ReadingPage`. `ReadingPage` both composes the shared shell
-and selects the fragment through `ContentFragment`. The pilot should move
-fragment selection into route composition and supply the result to the shell.
+The `/services/` pilot delegates from its physical entrypoint to `ServicesPage`
+for route-specific composition. That class resolves metadata through
+`PageMetadata::forRoute()`, selects the compiled fragment through
+`ContentFragment::forRoute()`, and supplies both to `ReadingPage::render()`.
+`ReadingPage` now requires already-rendered content; it no longer selects or
+loads a fragment. Text metadata remains escaped by the shell, while the supplied
+trusted markup is inserted without escaping it a second time.
+
+Other routes retain `PageMetadata::render()` as a transitional composition
+adapter. It supplies the fragment explicitly to the same shell, preserving their
+existing behavior without migrating their route composition in this slice.
+The current pilot changes no request-path handling, initialization, or response
+policy. Those boundaries remain proposals until implemented and verified.
 
 Preserve existing URLs, response behavior, escaping, metadata output, assets,
 navigation, and rendered page behavior while changing those responsibilities.

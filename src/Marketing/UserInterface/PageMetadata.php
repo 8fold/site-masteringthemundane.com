@@ -45,7 +45,12 @@ final class PageMetadata
     public static function render(string $route): string
     {
         $meta = self::forRoute($route);
-        return ReadingPage::render($route, $meta['titles'], $meta['description']);
+        return ReadingPage::render(
+            $route,
+            $meta['titles'],
+            $meta['description'],
+            ContentFragment::forRoute($route)
+        );
     }
 
     /** @return object{title: string, description: string} */

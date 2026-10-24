@@ -116,7 +116,7 @@ final class PageMetadataTest extends TestCase
     public function testMetadataTextIsEscapedInRenderedOutput(): void
     {
         $text = 'A & <b>B</b> "quoted" \'single\'';
-        $html = ReadingPage::render('/resources/', [$text, $text], $text);
+        $html = ReadingPage::render('/resources/', [$text, $text], $text, '');
         self::assertStringNotContainsString('<b>B</b>', $html);
         $xpath = self::parse($html);
         self::assertSame($text, $xpath->evaluate('string(//header/h1)'));

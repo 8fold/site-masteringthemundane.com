@@ -8,6 +8,14 @@ final class ServicesPage
 {
     public static function render(): string
     {
-        return PageMetadata::render('/services/');
+        $route = '/services/';
+        $meta = PageMetadata::forRoute($route);
+
+        return ReadingPage::render(
+            $route,
+            $meta['titles'],
+            $meta['description'],
+            ContentFragment::forRoute($route)
+        );
     }
 }
