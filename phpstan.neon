@@ -5,3 +5,5 @@ parameters:
 		- cli
 		- config
 		- tests
+	stubFiles:
+		- phpstan-stubs/html-builder-element.php

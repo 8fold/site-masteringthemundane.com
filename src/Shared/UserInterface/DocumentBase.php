@@ -139,7 +139,7 @@ final class DocumentBase implements Stringable
         $content = array_map('strval', $this->content);
 
         return (string) Document::create(PageTitle::create($titles), 'en-US')->head(...$head)->body(
-            Element::create('a', 'Skip to main content')->props('is skip-link', 'href #main'),
+            Element::a('Skip to main content')->props('is skip-link', 'href #main'),
             Element::create(
                 'header',
                 self::navigation('Menu', 'primary-navigation', $this->route, [
@@ -149,14 +149,14 @@ final class DocumentBase implements Stringable
                     '/resources/' => 'Resources',
                     '/books/' => 'Books'
                 ]),
-                Element::create('h1', $heading),
-                NewTabLink::decorate((string) Element::create('a', 'Apps')->props(
+                Element::h1($heading),
+                NewTabLink::decorate((string) Element::a('Apps')->props(
                     'href https://apps.mastering-the-mundane.com',
                     'target _blank',
                     'rel noopener noreferrer'
                 ))
             )->props('is nav-header'),
-            Element::create('main', ...$introContent, ...$content)->props('id main', 'tabindex -1'),
+            Element::main(...$introContent, ...$content)->props('id main', 'tabindex -1'),
             Element::create(
                 'footer',
                 Copyright::create('Mastering the Mundane', '2023')
@@ -180,16 +180,16 @@ final class DocumentBase implements Stringable
     ): Element {
         $items = [];
         foreach ($destinations as $href => $text) {
-            $link = Element::create('a', $text)->props('href ' . $href);
+            $link = Element::a($text)->props('href ' . $href);
             if ($href === $route) {
                 $link = $link->prop('aria-current page');
             }
-            $items[] = Element::create('li', $link);
+            $items[] = Element::li($link);
         }
         return Element::create(
             'nav',
-            Element::create('button', $label)->props('type button', 'popovertarget ' . $id),
-            Element::create('div', Element::create('ul', ...$items))->props(
+            Element::button($label)->props('type button', 'popovertarget ' . $id),
+            Element::div(Element::ul(...$items))->props(
                 'is nav-panel',
                 'id ' . $id,
                 'popover auto'
