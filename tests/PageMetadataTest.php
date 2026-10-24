@@ -141,13 +141,13 @@ final class PageMetadataTest extends TestCase
         )
             ->headCss('/assets/css/main.min.css')
             ->headCss('/assets/css/reading.css')
-            ->headJs(Element::create('script', 'first script'))
-            ->headJs(Element::create('script', 'second script'))
-            ->introContent(Element::create('p', 'Introduction'))
-            ->introContent(Element::create('p', 'Replacement introduction'))
+            ->headJs(Element::script('first script'))
+            ->headJs(Element::script('second script'))
+            ->introContent(Element::p('Introduction'))
+            ->introContent(Element::p('Replacement introduction'))
             ->content(
-                Element::create('h2', 'Task'),
-                Element::create('p', 'Service details')
+                Element::h2('Task'),
+                Element::p('Service details')
             );
 
         self::assertInstanceOf(\Stringable::class, $document);

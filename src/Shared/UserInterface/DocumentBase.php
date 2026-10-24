@@ -131,7 +131,7 @@ final class DocumentBase implements Stringable
         $head = [
             ...$head,
             ...$this->headJs,
-            Element::create('script', StructuredData::forRoute($this->route))
+            Element::script(StructuredData::forRoute($this->route))
                 ->props('type application/ld+json')
         ];
 
@@ -140,8 +140,7 @@ final class DocumentBase implements Stringable
 
         return (string) Document::create(PageTitle::create($titles), 'en-US')->head(...$head)->body(
             Element::a('Skip to main content')->props('is skip-link', 'href #main'),
-            Element::create(
-                'header',
+            Element::header(
                 self::navigation('Menu', 'primary-navigation', $this->route, [
                     '/' => 'Home',
                     '/coaching-and-mentoring/' => 'Coaching',
@@ -157,8 +156,7 @@ final class DocumentBase implements Stringable
                 ))
             )->props('is nav-header'),
             Element::main(...$introContent, ...$content)->props('id main', 'tabindex -1'),
-            Element::create(
-                'footer',
+            Element::footer(
                 Copyright::create('Mastering the Mundane', '2023')
             )
         );
@@ -186,8 +184,7 @@ final class DocumentBase implements Stringable
             }
             $items[] = Element::li($link);
         }
-        return Element::create(
-            'nav',
+        return Element::nav(
             Element::button($label)->props('type button', 'popovertarget ' . $id),
             Element::div(Element::ul(...$items))->props(
                 'is nav-panel',
@@ -199,7 +196,7 @@ final class DocumentBase implements Stringable
 
     private static function meta(string $attribute, string $name, string $content): Element
     {
-        return Element::create('meta')->omitEndTag()->props(
+        return Element::meta()->omitEndTag()->props(
             $attribute . ' ' . $name,
             'content ' . $content
         );
@@ -207,6 +204,6 @@ final class DocumentBase implements Stringable
 
     private static function link(string $rel, string $href): Element
     {
-        return Element::create('link')->omitEndTag()->props('rel ' . $rel, 'href ' . $href);
+        return Element::link()->omitEndTag()->props('rel ' . $rel, 'href ' . $href);
     }
 }

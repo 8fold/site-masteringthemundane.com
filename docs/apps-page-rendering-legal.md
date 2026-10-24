@@ -114,9 +114,8 @@ through `ContentFragment::forRoute()`, and supplies those inputs to
 stringable builder with replaceable `headCss()`, `headJs()`, `introContent()`
 and `content()` slots. It serializes the shared shell only when converted to a
 string; page-specific markup may be supplied as `Eightfold\HtmlBuilder\Element`
-values such as `Element::create('h2', 'Task')`, or as trusted, already-rendered
-HTML. Using `Element::create($tag, ...)` explicitly designates each element to
-render and keeps route-specific headings in the route composition.
+values such as `Element::h2('Task')`, which makes the rendered element explicit,
+or as trusted, already-rendered HTML.
 Metadata text is escaped by the builder, while supplied markup is inserted
 without escaping it a second time. The class owns no route discovery or content
 selection. There is no corresponding `ServicesPage` class: the route definition
