@@ -8,8 +8,8 @@ use DOMDocument;
 use DOMXPath;
 use MatthiasMullie\Minify\CSS;
 use MatthiasMullie\Minify\JS;
-use MTM\Marketing\UserInterface\AssetUrl;
 use MTM\Marketing\UserInterface\HomePage;
+use MTM\Shared\UserInterface\AssetUrl;
 use PHPUnit\Framework\TestCase;
 
 final class AssetLayoutTest extends TestCase
@@ -64,6 +64,18 @@ final class AssetLayoutTest extends TestCase
                 foreach ($xpath->query($favicons . '/@href') ?: [] as $href) {
                     self::assertFileExists($root . $href->nodeValue);
                 }
+                self::assertSame(
+                    '#ffffff',
+                    $xpath->evaluate('string(//meta[@name="msapplication-TileColor"]/@content)')
+                );
+                self::assertSame(
+                    '#ffffff',
+                    $xpath->evaluate('string(//meta[@name="theme-color"]/@content)')
+                );
+                self::assertSame(
+                    '#000000',
+                    $xpath->evaluate('string(//link[@rel="mask-icon"]/@color)')
+                );
             } finally {
                 libxml_clear_errors();
                 libxml_use_internal_errors($previous);

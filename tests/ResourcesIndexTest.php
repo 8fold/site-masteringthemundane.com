@@ -6,7 +6,7 @@ namespace MTM\Tests;
 
 use MTM\Marketing\ResourcesIndex;
 use MTM\Marketing\UserInterface\ContentFragment;
-use MTM\Marketing\UserInterface\PageMetadata;
+use MTM\Marketing\UserInterface\PageRenderer;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
@@ -258,7 +258,7 @@ final class ResourcesIndexTest extends TestCase
     {
         mkdir($this->root . '/cli', 0700);
         mkdir($this->root . '/vendor', 0700);
-        foreach (PageMetadata::ROUTES as $route) {
+        foreach (PageRenderer::ROUTES as $route) {
             $directory = ContentFragment::directory($route, $this->root);
             if (!is_dir($directory)) {
                 mkdir($directory, 0700, true);

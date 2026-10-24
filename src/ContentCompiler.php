@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MTM\Marketing;
+namespace MTM;
 
 use Eightfold\Markdown\Markdown;
 use MTM\Marketing\UserInterface\NewTabLink;

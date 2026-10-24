@@ -8,6 +8,6 @@ final class FivePsPage
 {
     public static function render(): string
     {
-        return PageMetadata::render('/resources/the-5-ps/');
+        return PageRenderer::render('/resources/the-5-ps/');
     }
 }

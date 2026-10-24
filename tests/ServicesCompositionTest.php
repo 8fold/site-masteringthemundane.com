@@ -6,11 +6,48 @@ namespace MTM\Tests;
 
 use DOMDocument;
 use DOMXPath;
-use MTM\Marketing\UserInterface\ServicesPage;
+use MTM\Marketing\UserInterface\ContentFragment;
+use MTM\Marketing\UserInterface\PageRenderer;
+use MTM\Shared\UserInterface\DocumentBase;
 use PHPUnit\Framework\TestCase;
 
-final class ServicesPageTest extends TestCase
+final class ServicesCompositionTest extends TestCase
 {
+    public function testShellRendersSuppliedMarkupInsteadOfSelectingTheRouteFragment(): void
+    {
+        $meta = PageRenderer::forRoute('/services/');
+        $content = '<section data-rendering-probe="supplied"><h2>Supplied &amp; ready</h2>'
+            . '<p>Already-rendered <strong>markup</strong>.</p></section>';
+        $html = (string) DocumentBase::create(
+            '/services/',
+            $meta['titles'],
+            $meta['description']
+        )->content($content);
+
+        self::assertStringContainsString($content, $html);
+        self::assertStringNotContainsString(ContentFragment::forRoute('/services/'), $html);
+    }
+
+    public function testEmptySuppliedContentDoesNotTriggerImplicitFragmentLoading(): void
+    {
+        $meta = PageRenderer::forRoute('/services/');
+        $document = new DOMDocument();
+        $previous = libxml_use_internal_errors(true);
+        try {
+            self::assertTrue($document->loadHTML((string) DocumentBase::create(
+                '/services/',
+                $meta['titles'],
+                $meta['description']
+            )->content('')));
+            $xpath = new DOMXPath($document);
+            self::assertSame('', $xpath->evaluate('string(//main)'));
+            self::assertSame(0.0, $xpath->evaluate('count(//main/*)'));
+        } finally {
+            libxml_clear_errors();
+            libxml_use_internal_errors($previous);
+        }
+    }
+
     public function testPhysicalRouteUsesCompiledContentWithoutRuntimeMarkdown(): void
     {
         $file = dirname(__DIR__) . '/public/services/index.php';
@@ -33,7 +70,7 @@ final class ServicesPageTest extends TestCase
         fclose($pipes[2]);
         self::assertSame(0, proc_close($process));
         self::assertSame('', $errors);
-        self::assertSame(ServicesPage::render(), $html);
+        self::assertSame(PageRenderer::render('/services/'), $html);
     }
 
     public function testServiceStructureNavigationAndLinks(): void
@@ -41,7 +78,7 @@ final class ServicesPageTest extends TestCase
         $previous = libxml_use_internal_errors(true);
         try {
             $document = new DOMDocument();
-            self::assertTrue($document->loadHTML(ServicesPage::render()));
+            self::assertTrue($document->loadHTML(PageRenderer::render('/services/')));
             $xpath = new DOMXPath($document);
             self::assertSame(1.0, $xpath->evaluate('count(//h1)'));
             self::assertSame('Services', $xpath->evaluate('string(//header/h1)'));

@@ -18,12 +18,16 @@ portable facts.
   are included in the PHPCS scan.
 - PHP 8.5+, `ext-dom` at runtime; `ext-uri` is a development requirement.
 - PSR-4 application namespace: `MTM\`, rooted at `src/`.
-- Reading presentation: `src/Marketing/UserInterface/ReadingPage.php`.
-- `PageMetadata::ROUTES` defines the converted routes for content in
+- Shared HTML shell: `src/Shared/UserInterface/DocumentBase.php`
+  (`MTM\Shared\UserInterface`).
+- `PageRenderer::ROUTES` defines the converted routes for content in
   `public_content/`.
+- Root `MTM\PageMetadata` holds immutable page values. `PageMetadataLoader`
+  reads and validates each `meta.json`; the marketing `PageRenderer` resolves
+  route ancestry and composes the shared document.
 - Legacy asset URLs redirect; do not remove compatibility incidentally.
-- Branded `/favicons/` remains unchanged. The shared favicon convention is
-  explicitly deferred.
+- Branded `/favicons/` assets and URLs remain unchanged; `DocumentBase` uses the
+  HTML Builder `Favicons` component to emit their declarations.
 - Physical PHP routes and some legacy templates remain. Do not convert unrelated
   pages or rewrite their behavior as agent-infrastructure cleanup.
 - No application database, account provisioning, Stripe SDK, book-order ledger
@@ -74,8 +78,12 @@ workflow. Do not call these as if they exist.
   `config/` and `tests/`. Public entry points are not selected or explicitly
   excluded. Apps' migrations path, custom analysis rules and PDO restrictions
   are not configured here because their supporting infrastructure is absent.
-- Apps' MethodScopeConventionRule, RecordPurityRule, data-object marker tests
-  and locked-migration checks are not installed in this repository.
+- The `DataObject`, `ValueObject` and `Record` class markers are adopted from
+  apps. Their docblocks describe the local immutable, property-only contract.
+  `PageMetadataTest` checks the current metadata object's shape and marker
+  declarations; it is not a general side-effect or deep-immutability analyzer.
+- Apps' MethodScopeConventionRule, RecordPurityRule and locked-migration
+  checks are not installed in this repository.
 - Legacy PHP does not uniformly use strict types. Guidance is not a claim of
   complete enforcement or permission to bulk-refactor these files.
 
@@ -86,9 +94,11 @@ The current saved local preview is
 It is trusted MAMP HTTPS, not a loopback development server.
 Verify its returned markup and versioned stylesheet against the current
 checkout before relying on browser results.
-After the webroot migration, the existing MAMP DocumentRoot may still target
-the removed `site-root/public/`. Request a user-managed change to this checkout's
-`public/` or use isolated HTTP checks; do not silently repair the shared host.
+The repository no longer contains `site-root/`. The existing MAMP DocumentRoot
+may still target the former `site-root/public/`; removing the directory does not
+update that external configuration. Request a user-managed change to this
+checkout's `public/` or use isolated HTTP checks; do not silently repair the
+shared host.
 
 Do not retarget MAMP, edit shared/root-owned vhost configuration, move `current`
 symlinks or access another checkout to force the preview to match. If it is

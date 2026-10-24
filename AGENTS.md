@@ -15,10 +15,13 @@ their commands, paths, safeguards or enforcement change.
   Apache DocumentRoot. Keep application source, dependencies and private
   content outside that directory.
 - Let the web server own routing through physical directories. Use per-route
-  `index.php` files under `public/` as lightweight controllers that delegate
-  application logic and rendering to source classes, rather than routing all
-  requests through a single application front controller. Apply this pattern
-  across all 8fold PHP websites.
+  `index.php` files under `public/` as lightweight composition roots: define
+  route-specific document inputs there and delegate shared structure and
+  serialization to reusable source code. Do not add a one-to-one page class
+  solely to move a short route definition out of its entrypoint; use a separate
+  class when route composition warrants it. Do not route all requests through
+  a single application front controller. Apply this pattern across all 8fold
+  PHP websites.
 - Store private authored Markdown/metadata and generated HTML/JSON in
   `public_content/` across all 8fold PHP websites.
 - Keep environment configuration under the repository's `config/` directory
@@ -88,8 +91,13 @@ to obtain a green build. Test counts are not targets.
 - Production classes are final and do not extend other classes, except built-in
   exceptions. PHPUnit test classes necessarily extend `TestCase`.
 - Immutable data objects, when needed, use final readonly classes with typed
-  promoted properties. Do not add apps' Record/ValueObject markers or entity
-  gateways without an actual domain requirement.
+  promoted properties. Apply `DataObject`, or its `ValueObject` or `Record`
+  specialization, from `MTM\Shared\Attributes`; do not repeat the generic marker
+  on a specialization. After construction, expose properties only, with no
+  public methods or side effects. Get-only computed properties must be pure.
+  Keep file/database access and factories in separate collaborators. Marker
+  docblocks define the contract; importing markers does not add database
+  infrastructure or authorize entity gateways.
 - Import classes through top-level `use` statements. In non-namespaced entry
   points, global classes are already in scope; do not add no-op imports.
 - Surface missing or invalid content/assets explicitly. Do not add

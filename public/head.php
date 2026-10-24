@@ -39,7 +39,7 @@
     <!-- Legacy pages share the content-versioned asset policy. -->
     <?php require_once dirname(__DIR__) . '/vendor/autoload.php'; ?>
     <link type="text/css" rel="stylesheet" blocking="render"
-        href="<?php echo \MTM\Marketing\UserInterface\AssetUrl::versioned('/assets/css/main.min.css'); ?>">
+        href="<?php echo \MTM\Shared\UserInterface\AssetUrl::versioned('/assets/css/main.min.css'); ?>">
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",

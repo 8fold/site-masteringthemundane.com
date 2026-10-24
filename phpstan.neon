@@ -5,3 +5,5 @@ parameters:
 		- cli
 		- config
 		- tests
+	ignoreErrors:
+		- '#Call to an undefined static method Eightfold\\HtmlBuilder\\Element::(.*)#'

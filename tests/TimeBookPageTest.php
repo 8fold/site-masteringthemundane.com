@@ -6,7 +6,7 @@ namespace MTM\Tests;
 
 use DOMDocument;
 use DOMXPath;
-use MTM\Marketing\ContentCompiler;
+use MTM\ContentCompiler;
 use MTM\Marketing\UserInterface\TimeBookPage;
 use PHPUnit\Framework\TestCase;
 

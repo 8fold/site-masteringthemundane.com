@@ -8,6 +8,6 @@ final class MotivatorsPage
 {
     public static function render(): string
     {
-        return PageMetadata::render('/resources/motivators/');
+        return PageRenderer::render('/resources/motivators/');
     }
 }
