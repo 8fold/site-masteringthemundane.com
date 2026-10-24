@@ -55,7 +55,7 @@ non-empty strings, and a `heading` field is rejected. `composer compile-content`
 `composer check-content` validate every route before preparing fragments, and
 requests validate the page they render; failures name the `meta.json` path.
 Values are HTML-escaped when rendered. Edit wording in `meta.json`, not in the
-page adapters.
+route entrypoints.
 Each domain links to Coaching and Services. Copy draws on the operational
 domains and calm, practical, autonomy-first voice in the apps repository's
 `docs/brand-style-guide-2026v1.md` reference snapshot, without advertising
@@ -308,10 +308,12 @@ The shared shell is `src/Marketing/UserInterface/ReadingPage.php`;
 navigation uses the shared `nav-header`, `nav-primary` and `nav-panel` selectors.
 Header controls size to their content rather than reserving fixed side columns.
 The current menu destination remains bold with a double underline.
-Each page adapter (`HomePage`, `CoachingPage`, `ServicesPage`, `ResourcesPage`,
-`ActionLoopPage`, `MotivatorsPage`, `FivePsPage`, `BooksPage`, `TimeBookPage`)
-only names its route; metadata
-comes from `PageMetadata`. Each entry point only loads Composer and renders its page.
+Most converted routes currently use a small page adapter to bind the route to
+`PageMetadata`; `/services/` is the composition pilot, with metadata, compiled
+content selection and the shared shell call defined in
+`public/services/index.php`. This keeps route-specific document composition
+beside its public URL without duplicating the shell. Other routes have not yet
+been migrated to this pattern.
 `public/assets/css/reading.css` adapts
 the apps legal page's executable CSS: 16px base typography, exact `70ch` main
 width and responsive padding, heading defaults, footer,

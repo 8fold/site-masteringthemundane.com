@@ -9,16 +9,10 @@ use DOMXPath;
 use MTM\Marketing\UserInterface\ContentFragment;
 use MTM\Marketing\UserInterface\PageMetadata;
 use MTM\Marketing\UserInterface\ReadingPage;
-use MTM\Marketing\UserInterface\ServicesPage;
 use PHPUnit\Framework\TestCase;
 
-final class ServicesPageTest extends TestCase
+final class ServicesCompositionTest extends TestCase
 {
-    public function testCompositionPreservesTheExistingMetadataAndFragmentOutput(): void
-    {
-        self::assertSame(PageMetadata::render('/services/'), ServicesPage::render());
-    }
-
     public function testShellRendersSuppliedMarkupInsteadOfSelectingTheRouteFragment(): void
     {
         $meta = PageMetadata::forRoute('/services/');
@@ -78,7 +72,7 @@ final class ServicesPageTest extends TestCase
         fclose($pipes[2]);
         self::assertSame(0, proc_close($process));
         self::assertSame('', $errors);
-        self::assertSame(ServicesPage::render(), $html);
+        self::assertSame(PageMetadata::render('/services/'), $html);
     }
 
     public function testServiceStructureNavigationAndLinks(): void
@@ -86,7 +80,7 @@ final class ServicesPageTest extends TestCase
         $previous = libxml_use_internal_errors(true);
         try {
             $document = new DOMDocument();
-            self::assertTrue($document->loadHTML(ServicesPage::render()));
+            self::assertTrue($document->loadHTML(PageMetadata::render('/services/')));
             $xpath = new DOMXPath($document);
             self::assertSame(1.0, $xpath->evaluate('count(//h1)'));
             self::assertSame('Services', $xpath->evaluate('string(//header/h1)'));

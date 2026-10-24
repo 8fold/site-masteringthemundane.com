@@ -2,8 +2,18 @@
 
 declare(strict_types=1);
 
-use MTM\Marketing\UserInterface\ServicesPage;
+use MTM\Marketing\UserInterface\ContentFragment;
+use MTM\Marketing\UserInterface\PageMetadata;
+use MTM\Marketing\UserInterface\ReadingPage;
 
 require_once dirname(__DIR__, 2) . '/vendor/autoload.php';
 
-echo ServicesPage::render();
+$route = '/services/';
+$meta = PageMetadata::forRoute($route);
+
+echo ReadingPage::render(
+    $route,
+    $meta['titles'],
+    $meta['description'],
+    ContentFragment::forRoute($route)
+);

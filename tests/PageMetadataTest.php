@@ -16,7 +16,6 @@ use MTM\Marketing\UserInterface\MotivatorsPage;
 use MTM\Marketing\UserInterface\PageMetadata;
 use MTM\Marketing\UserInterface\ReadingPage;
 use MTM\Marketing\UserInterface\ResourcesPage;
-use MTM\Marketing\UserInterface\ServicesPage;
 use MTM\Marketing\UserInterface\TimeBookPage;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
@@ -29,7 +28,10 @@ final class PageMetadataTest extends TestCase
     {
         yield 'home' => ['/', HomePage::render(...)];
         yield 'coaching' => ['/coaching-and-mentoring/', CoachingPage::render(...)];
-        yield 'services' => ['/services/', ServicesPage::render(...)];
+        yield 'services' => [
+            '/services/',
+            static fn (): string => PageMetadata::render('/services/')
+        ];
         yield 'resources' => ['/resources/', ResourcesPage::render(...)];
         yield 'action loop' => ['/resources/the-action-loop/', ActionLoopPage::render(...)];
         yield 'motivators' => ['/resources/motivators/', MotivatorsPage::render(...)];

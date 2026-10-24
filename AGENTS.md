@@ -15,10 +15,13 @@ their commands, paths, safeguards or enforcement change.
   Apache DocumentRoot. Keep application source, dependencies and private
   content outside that directory.
 - Let the web server own routing through physical directories. Use per-route
-  `index.php` files under `public/` as lightweight controllers that delegate
-  application logic and rendering to source classes, rather than routing all
-  requests through a single application front controller. Apply this pattern
-  across all 8fold PHP websites.
+  `index.php` files under `public/` as lightweight composition roots: define
+  route-specific document inputs there and delegate shared structure and
+  serialization to reusable source code. Do not add a one-to-one page class
+  solely to move a short route definition out of its entrypoint; use a separate
+  class when route composition warrants it. Do not route all requests through
+  a single application front controller. Apply this pattern across all 8fold
+  PHP websites.
 - Store private authored Markdown/metadata and generated HTML/JSON in
   `public_content/` across all 8fold PHP websites.
 - Keep environment configuration under the repository's `config/` directory

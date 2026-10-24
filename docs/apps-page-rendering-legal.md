@@ -48,9 +48,12 @@ HTTP request
   -> HTTP response: status, headers, rendered body
 ```
 
-Physical per-route entrypoints remain lightweight controllers. This is not a
-single-front-controller design. Source, dependencies, authored inputs, and
-private generated artifacts remain outside `public/`.
+Physical per-route entrypoints remain lightweight composition roots: they
+define route-specific document inputs and delegate shared structure and
+serialization to reusable source code. A short route definition need not be
+wrapped in a one-to-one page class; use a separate class when composition
+warrants it. This is not a single-front-controller design. Source, dependencies,
+authored inputs, and private generated artifacts remain outside `public/`.
 
 ## Current apps reference
 
@@ -104,13 +107,15 @@ details remain in their existing executable and repository-specific homes.
 Use `/services/` on `.com` as the first implementation slice. Its role is to
 exercise the generic boundaries, not establish permanent site-specific APIs.
 
-The `/services/` pilot delegates from its physical entrypoint to `ServicesPage`
-for route-specific composition. That class resolves metadata through
-`PageMetadata::forRoute()`, selects the compiled fragment through
-`ContentFragment::forRoute()`, and supplies both to `ReadingPage::render()`.
-`ReadingPage` now requires already-rendered content; it no longer selects or
-loads a fragment. Text metadata remains escaped by the shell, while the supplied
-trusted markup is inserted without escaping it a second time.
+The `/services/` physical entrypoint is the route composition root. It resolves
+metadata through `PageMetadata::forRoute()`, selects the compiled fragment
+through `ContentFragment::forRoute()`, and supplies both to
+`ReadingPage::render()`. `ReadingPage` requires already-rendered content; it
+does not select or load a fragment. Text metadata remains escaped by the shell,
+while the supplied trusted markup is inserted without escaping it a second
+time. There is no corresponding `ServicesPage` class: the route definition is
+visible beside its public URL, while the reusable document shell stays in
+source.
 
 Other routes retain `PageMetadata::render()` as a transitional composition
 adapter. It supplies the fragment explicitly to the same shell, preserving their
