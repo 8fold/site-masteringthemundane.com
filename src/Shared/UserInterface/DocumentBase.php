@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MTM\Shared\UserInterface;
 
+use Stringable;
 use Eightfold\HtmlBuilder\Document;
 use Eightfold\HtmlBuilder\Element;
 use Eightfold\HtmlBuilder\Components\Copyright;
@@ -12,33 +13,80 @@ use MTM\Marketing\UserInterface\AssetUrl;
 use MTM\Marketing\UserInterface\NewTabLink;
 use MTM\Marketing\StructuredData;
 
-final class DocumentBase
+final class DocumentBase implements Stringable
 {
+    /** @var list<string|Stringable> */
+    private array $headJs = [];
+
+    /** @var list<string> */
+    private array $headCss = [];
+
+    /** @var list<string|Stringable> */
+    private array $introContent = [];
+
+    /** @var list<string|Stringable> */
+    private array $content = [];
+
     /**
-     * @param non-empty-list<string> $titles The page's title, then each ancestor's.
-     * @param string $content Trusted, already-rendered HTML supplied by the caller.
+     * @param non-empty-list<string> $titles
      */
-    public static function render(
-        string $route,
-        array $titles,
-        string $description,
-        string $content
-    ): string {
-        // HtmlBuilder writes text and attribute values verbatim.
-        $escape = static fn(string $text): string =>
-            htmlspecialchars($text, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
-        $titles = array_map($escape, $titles);
-        $description = $escape($description);
+    public static function create(string $route, array $titles, string $description): self
+    {
+        return new self($route, $titles, $description);
+    }
+
+    /**
+     * @param non-empty-list<string> $titles
+     */
+    private function __construct(
+        private readonly string $route,
+        private readonly array $titles,
+        private readonly string $description
+    ) {
+    }
+
+    /** @param string|Stringable $js Script components or inline script elements. */
+    public function headJs(string|Stringable ...$js): self
+    {
+        $this->headJs = array_values($js);
+        return $this;
+    }
+
+    /** @param string $cssFiles Local stylesheet paths under the public webroot. */
+    public function headCss(string ...$cssFiles): self
+    {
+        $this->headCss = array_values($cssFiles);
+        return $this;
+    }
+
+    /** @param string|Stringable $content Trusted, already-rendered HTML. */
+    public function introContent(string|Stringable ...$content): self
+    {
+        $this->introContent = array_values($content);
+        return $this;
+    }
+
+    /** @param string|Stringable $content Trusted, already-rendered HTML. */
+    public function content(string|Stringable ...$content): self
+    {
+        $this->content = array_values($content);
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        $titles = array_map(self::escape(...), $this->titles);
+        $description = self::escape($this->description);
         $heading = $titles[0];
-        $pageTitle = PageTitle::create($titles);
         $title = implode(' | ', $titles);
+        $domain = 'mastering-the-mundane.com';
+        $url = 'https://' . $domain;
+        $poster = $url . '/assets/media/poster.png';
         $keywords = 'Time Management, Self Management, Life Management, Life Coaching, '
             . 'Productivity Coaching, Financial Coaching, Professional Organization, '
             . 'bookkeeping, accoutability partner, digital organization, onsite, on-site, '
             . 'remote, hybrid, josh, bruce, josh bruce';
-        $domain = 'mastering-the-mundane.com';
-        $url = 'https://' . $domain;
-        $poster = $url . '/assets/media/poster.png';
+
         $head = [
             self::meta('name', 'viewport', 'width=device-width,initial-scale=1'),
             self::link('apple-touch-icon', '/favicons/apple-touch-icon.png')->prop('sizes 180x180'),
@@ -74,16 +122,27 @@ final class DocumentBase
             self::meta('name', 'twitter:description', $description),
             self::meta('name', 'twitter:image', $poster),
             self::link('stylesheet', AssetUrl::versioned('/assets/css/reading.min.css'))
-                ->prop('blocking render'),
-            Element::create('script', StructuredData::forRoute($route))
+                ->prop('blocking render')
+        ];
+        foreach ($this->headCss as $path) {
+            $head[] = self::link('stylesheet', AssetUrl::versioned($path))
+                ->prop('blocking render');
+        }
+        $head = [
+            ...$head,
+            ...$this->headJs,
+            Element::create('script', StructuredData::forRoute($this->route))
                 ->props('type application/ld+json')
         ];
 
-        return (string) Document::create($pageTitle, 'en-US')->head(...$head)->body(
+        $introContent = array_map('strval', $this->introContent);
+        $content = array_map('strval', $this->content);
+
+        return (string) Document::create(PageTitle::create($titles), 'en-US')->head(...$head)->body(
             Element::create('a', 'Skip to main content')->props('is skip-link', 'href #main'),
             Element::create(
                 'header',
-                self::navigation('Menu', 'primary-navigation', $route, [
+                self::navigation('Menu', 'primary-navigation', $this->route, [
                     '/' => 'Home',
                     '/coaching-and-mentoring/' => 'Coaching',
                     '/services/' => 'Services',
@@ -97,15 +156,17 @@ final class DocumentBase
                     'rel noopener noreferrer'
                 ))
             )->props('is nav-header'),
-            Element::create(
-                'main',
-                $content
-            )->props('id main', 'tabindex -1'),
+            Element::create('main', ...$introContent, ...$content)->props('id main', 'tabindex -1'),
             Element::create(
                 'footer',
                 Copyright::create('Mastering the Mundane', '2023')
             )
         );
+    }
+
+    private static function escape(string $text): string
+    {
+        return htmlspecialchars($text, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
     }
 
     /**

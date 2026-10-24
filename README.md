@@ -315,6 +315,10 @@ content selection and the shared shell call defined in
 `public/services/index.php`. This keeps route-specific document composition
 beside its public URL without duplicating the shell. Other routes have not yet
 been migrated to this pattern.
+`DocumentBase::create()` returns a stringable builder; page-specific headings
+and other HTML Builder elements can be supplied through `content()` and
+`introContent()`, while `headCss()` and `headJs()` replace their respective
+asset slots.
 `public/assets/css/reading.css` adapts
 the apps legal page's executable CSS: 16px base typography, exact `70ch` main
 width and responsive padding, heading defaults, footer,

@@ -18,12 +18,11 @@ final class ServicesCompositionTest extends TestCase
         $meta = PageMetadata::forRoute('/services/');
         $content = '<section data-rendering-probe="supplied"><h2>Supplied &amp; ready</h2>'
             . '<p>Already-rendered <strong>markup</strong>.</p></section>';
-        $html = DocumentBase::render(
+        $html = (string) DocumentBase::create(
             '/services/',
             $meta['titles'],
-            $meta['description'],
-            $content
-        );
+            $meta['description']
+        )->content($content);
 
         self::assertStringContainsString($content, $html);
         self::assertStringNotContainsString(ContentFragment::forRoute('/services/'), $html);
@@ -35,12 +34,11 @@ final class ServicesCompositionTest extends TestCase
         $document = new DOMDocument();
         $previous = libxml_use_internal_errors(true);
         try {
-            self::assertTrue($document->loadHTML(DocumentBase::render(
+            self::assertTrue($document->loadHTML((string) DocumentBase::create(
                 '/services/',
                 $meta['titles'],
-                $meta['description'],
-                ''
-            )));
+                $meta['description']
+            )->content('')));
             $xpath = new DOMXPath($document);
             self::assertSame('', $xpath->evaluate('string(//main)'));
             self::assertSame(0.0, $xpath->evaluate('count(//main/*)'));

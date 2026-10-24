@@ -11,9 +11,10 @@ require_once dirname(__DIR__, 2) . '/vendor/autoload.php';
 $route = '/services/';
 $meta = PageMetadata::forRoute($route);
 
-echo DocumentBase::render(
+$document = DocumentBase::create(
     $route,
     $meta['titles'],
-    $meta['description'],
-    ContentFragment::forRoute($route)
-);
+    $meta['description']
+)->content(ContentFragment::forRoute($route));
+
+echo $document;

@@ -6,6 +6,7 @@ namespace MTM\Tests;
 
 use DOMDocument;
 use DOMXPath;
+use Eightfold\HtmlBuilder\Element;
 use MTM\Marketing\UserInterface\ActionLoopPage;
 use MTM\Marketing\UserInterface\BooksPage;
 use MTM\Marketing\UserInterface\CoachingPage;
@@ -118,7 +119,8 @@ final class PageMetadataTest extends TestCase
     public function testMetadataTextIsEscapedInRenderedOutput(): void
     {
         $text = 'A & <b>B</b> "quoted" \'single\'';
-        $html = DocumentBase::render('/resources/', [$text, $text], $text, '');
+        $html = (string) DocumentBase::create('/resources/', [$text, $text], $text)
+            ->content('');
         self::assertStringNotContainsString('<b>B</b>', $html);
         $xpath = self::parse($html);
         self::assertSame($text, $xpath->evaluate('string(//header/h1)'));
@@ -128,6 +130,51 @@ final class PageMetadataTest extends TestCase
         foreach (['description', 'twitter:description'] as $property) {
             self::assertSame($text, self::metaContent($xpath, $property));
         }
+    }
+
+    public function testDocumentBaseUsesElementsAsContentAndReplacesSlots(): void
+    {
+        $document = DocumentBase::create(
+            '/services/',
+            ['Services & <Practice>', 'Mastering the Mundane'],
+            'About & <work>.'
+        )
+            ->headCss('/assets/css/main.min.css')
+            ->headCss('/assets/css/reading.css')
+            ->headJs(Element::create('script', 'first script'))
+            ->headJs(Element::create('script', 'second script'))
+            ->introContent(Element::create('p', 'Introduction'))
+            ->introContent(Element::create('p', 'Replacement introduction'))
+            ->content(
+                Element::create('h2', 'Task'),
+                Element::create('p', 'Service details')
+            );
+
+        self::assertInstanceOf(\Stringable::class, $document);
+        $xpath = self::parse((string) $document);
+
+        self::assertSame('Services & <Practice>', $xpath->evaluate('string(//header/h1)'));
+        self::assertSame(
+            'Services & <Practice> | Mastering the Mundane',
+            $xpath->evaluate('string(//title)')
+        );
+        self::assertSame('About & <work>.', self::metaContent($xpath, 'description'));
+        self::assertSame('Replacement introduction', $xpath->evaluate('string(//main/p[1])'));
+        self::assertSame('Task', $xpath->evaluate('string(//main/h2)'));
+        self::assertSame('Service details', $xpath->evaluate('string(//main/p[2])'));
+        self::assertSame(0.0, $xpath->evaluate('count(//main/p[text()="Introduction"])'));
+        self::assertSame(1.0, $xpath->evaluate('count(//head/script[text()="second script"])'));
+        self::assertSame(0.0, $xpath->evaluate('count(//head/script[text()="first script"])'));
+        $readingCss = '/assets/css/reading.css?v='
+            . hash_file('xxh3', dirname(__DIR__) . '/public/assets/css/reading.css');
+        self::assertSame(
+            1.0,
+            $xpath->evaluate('count(//head/link[@rel="stylesheet"][@href="' . $readingCss . '"])')
+        );
+        self::assertSame(
+            0.0,
+            $xpath->evaluate('count(//head/link[@href="/assets/css/main.min.css"])')
+        );
     }
 
     /** @return iterable<string, array{?string, string}> */

@@ -109,12 +109,18 @@ exercise the generic boundaries, not establish permanent site-specific APIs.
 
 The `/services/` physical entrypoint is the route composition root. It resolves
 metadata through `PageMetadata::forRoute()`, selects the compiled fragment
-through `ContentFragment::forRoute()`, and supplies both to
-`MTM\Shared\UserInterface\DocumentBase::render()`. `DocumentBase` requires already-rendered content; it
-does not select or load a fragment. Text metadata remains escaped by the shell,
-while the supplied trusted markup is inserted without escaping it a second
-time. There is no corresponding `ServicesPage` class: the route definition is
-visible beside its public URL, while the reusable document shell stays in
+through `ContentFragment::forRoute()`, and supplies those inputs to
+`MTM\Shared\UserInterface\DocumentBase::create()`. `DocumentBase` is a
+stringable builder with replaceable `headCss()`, `headJs()`, `introContent()`
+and `content()` slots. It serializes the shared shell only when converted to a
+string; page-specific markup may be supplied as `Eightfold\HtmlBuilder\Element`
+values such as `Element::create('h2', 'Task')`, or as trusted, already-rendered
+HTML. Using `Element::create($tag, ...)` explicitly designates each element to
+render and keeps route-specific headings in the route composition.
+Metadata text is escaped by the builder, while supplied markup is inserted
+without escaping it a second time. The class owns no route discovery or content
+selection. There is no corresponding `ServicesPage` class: the route definition
+is visible beside its public URL, while the reusable document shell stays in
 source.
 
 Other routes retain `PageMetadata::render()` as a transitional composition

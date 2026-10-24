@@ -46,12 +46,11 @@ final class PageMetadata
     public static function render(string $route): string
     {
         $meta = self::forRoute($route);
-        return DocumentBase::render(
+        return (string) DocumentBase::create(
             $route,
             $meta['titles'],
             $meta['description'],
-            ContentFragment::forRoute($route)
-        );
+        )->content(ContentFragment::forRoute($route));
     }
 
     /** @return object{title: string, description: string} */
