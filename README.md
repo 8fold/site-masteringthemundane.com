@@ -304,7 +304,7 @@ The orphaned resource `article.html` JSON-LD-only files were removed; they were
 not inputs to the compiler or canonical converted pages. No compatibility
 redirects were added. Their historical Article dates were not transferred.
 
-The shared shell is `src/Marketing/UserInterface/ReadingPage.php`;
+The shared HTML shell is `src/Shared/ReadingPage.php` (`MTM\Shared`);
 navigation uses the shared `nav-header`, `nav-primary` and `nav-panel` selectors.
 Header controls size to their content rather than reserving fixed side columns.
 The current menu destination remains bold with a double underline.

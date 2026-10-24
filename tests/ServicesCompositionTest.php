@@ -8,7 +8,7 @@ use DOMDocument;
 use DOMXPath;
 use MTM\Marketing\UserInterface\ContentFragment;
 use MTM\Marketing\UserInterface\PageMetadata;
-use MTM\Marketing\UserInterface\ReadingPage;
+use MTM\Shared\ReadingPage;
 use PHPUnit\Framework\TestCase;
 
 final class ServicesCompositionTest extends TestCase

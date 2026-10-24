@@ -2,12 +2,14 @@
 
 declare(strict_types=1);
 
-namespace MTM\Marketing\UserInterface;
+namespace MTM\Shared;
 
 use Eightfold\HtmlBuilder\Document;
 use Eightfold\HtmlBuilder\Element;
 use Eightfold\HtmlBuilder\Components\Copyright;
 use Eightfold\HtmlBuilder\Components\PageTitle;
+use MTM\Marketing\UserInterface\AssetUrl;
+use MTM\Marketing\UserInterface\NewTabLink;
 use MTM\Marketing\StructuredData;
 
 final class ReadingPage

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace MTM\Marketing\UserInterface;
 
 use JsonException;
+use MTM\Shared\ReadingPage;
 use RuntimeException;
 use stdClass;
 
