@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 final class NewTabLinkPerformanceTest extends TestCase
 {
-    public function testTwentyNewTabLinksAreDecoratedWithinFiveMillisecondsOnAverage(): void
+    public function testTwentyNewTabLinksAreDecoratedWithinTwoMillisecondsOnAverage(): void
     {
         $html = '';
         for ($i = 0; $i < 20; $i++) {
@@ -29,10 +29,10 @@ final class NewTabLinkPerformanceTest extends TestCase
         $averageNanoseconds = (hrtime(true) - $started) / $iterations;
 
         self::assertLessThan(
-            5_000_000,
+            2_000_000,
             $averageNanoseconds,
             sprintf(
-                'Average decoration time was %.3f ms; the budget is 5 ms.',
+                'Average decoration time was %.3f ms; the budget is 2 ms.',
                 $averageNanoseconds / 1_000_000
             )
         );
