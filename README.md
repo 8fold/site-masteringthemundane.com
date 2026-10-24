@@ -393,10 +393,9 @@ CSS in already-open documents. Those documents can request additional font
 styles or glyph ranges later. Redirects keep these lazy font requests working
 without retaining duplicate binaries.
 
-The branded `/favicons/` files, manifest, browser configuration and declarations
-remain intact. Apps currently has no favicon files or declarations to copy;
-the user deferred a shared favicon convention. This does not imply centralized
-hosting. No JavaScript is currently shipped by this site.
+The branded `/favicons/` files, manifest and browser configuration remain
+intact. `DocumentBase` uses the HTML Builder `Favicons` component to emit their
+declarations. No JavaScript is currently shipped by this site.
 
 The following cold payload comparison is from an isolated WebKit HTTP fixture at
 640 CSS pixels, with local font candidates deliberately removed in **both**

@@ -23,8 +23,8 @@ portable facts.
 - `PageMetadata::ROUTES` defines the converted routes for content in
   `public_content/`.
 - Legacy asset URLs redirect; do not remove compatibility incidentally.
-- Branded `/favicons/` remains unchanged. The shared favicon convention is
-  explicitly deferred.
+- Branded `/favicons/` assets and URLs remain unchanged; `DocumentBase` uses the
+  HTML Builder `Favicons` component to emit their declarations.
 - Physical PHP routes and some legacy templates remain. Do not convert unrelated
   pages or rewrite their behavior as agent-infrastructure cleanup.
 - No application database, account provisioning, Stripe SDK, book-order ledger

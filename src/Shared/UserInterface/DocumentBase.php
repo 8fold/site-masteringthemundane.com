@@ -8,6 +8,7 @@ use Stringable;
 use Eightfold\HtmlBuilder\Document;
 use Eightfold\HtmlBuilder\Element;
 use Eightfold\HtmlBuilder\Components\Copyright;
+use Eightfold\HtmlBuilder\Components\Favicons;
 use Eightfold\HtmlBuilder\Components\PageTitle;
 use MTM\Marketing\UserInterface\AssetUrl;
 use MTM\Marketing\UserInterface\NewTabLink;
@@ -89,25 +90,9 @@ final class DocumentBase implements Stringable
 
         $head = [
             self::meta('name', 'viewport', 'width=device-width,initial-scale=1'),
-            self::link('apple-touch-icon', '/favicons/apple-touch-icon.png')->prop('sizes 180x180'),
-            self::link('icon', '/favicons/favicon-32x32.png')->props(
-                'rel icon',
-                'type image/png',
-                'sizes 32x32',
-                'href /favicons/favicon-32x32.png'
-            ),
-            self::link('icon', '/favicons/favicon-16x16.png')->props(
-                'rel icon',
-                'type image/png',
-                'sizes 16x16',
-                'href /favicons/favicon-16x16.png'
-            ),
-            self::link('manifest', '/favicons/site.webmanifest'),
-            self::link('mask-icon', '/favicons/safari-pinned-tab.svg')->prop('color #000000'),
-            self::link('shortcut icon', '/favicons/favicon.ico'),
-            self::meta('name', 'msapplication-TileColor', '#ffffff'),
-            self::meta('name', 'msapplication-config', '/favicons/browserconfig.xml'),
-            self::meta('name', 'theme-color', '#ffffff'),
+            Favicons::create('/favicons', '#ffffff')
+                ->withMetro('#ffffff')
+                ->withSafariThemeColor('#000000'),
             self::meta('name', 'description', $description),
             self::meta('name', 'keywords', $keywords),
             self::meta('property', 'og:url', $domain),
