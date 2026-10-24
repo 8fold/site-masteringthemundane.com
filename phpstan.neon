@@ -5,5 +5,5 @@ parameters:
 		- cli
 		- config
 		- tests
-	stubFiles:
-		- phpstan-stubs/html-builder-element.php
+	ignoreErrors:
+		- '#Call to an undefined static method Eightfold\\HtmlBuilder\\Element::(.*)#'
