@@ -6,7 +6,7 @@ namespace MTM\Tests;
 
 use DOMDocument;
 use DOMXPath;
-use MTM\Marketing\ContentCompiler;
+use MTM\ContentCompiler;
 use PHPUnit\Framework\AssertionFailedError;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;

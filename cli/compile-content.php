@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use MTM\Marketing\ContentCompiler;
+use MTM\ContentCompiler;
 use MTM\Marketing\ResourcesIndex;
 use MTM\Marketing\StructuredData;
 use MTM\Marketing\UserInterface\ContentFragment;

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace MTM\Tests;
 
 use InvalidArgumentException;
-use MTM\Marketing\ContentCompiler;
+use MTM\ContentCompiler;
 use MTM\Marketing\UserInterface\ContentFragment;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
