@@ -10,16 +10,21 @@ The owner confirmed the October 22, 2026 blank-page incident was a stale
 autoloader: the old deployment webhook did not run Composer. The owner repaired
 production. The `/public` move is layout alignment, not the diagnosed cause.
 
+The old in-repository `site-root/` directory has been removed. A production or
+local web-server configuration can still retain its former
+`<repository>/site-root/public` DocumentRoot; removing repository files does not
+change external hosting or MAMP configuration.
+
 Before switching a production checkout to this deployment, disable any previous
 automatic deployment webhook and preserve the working revision and host
 configuration. Do not run both deployment mechanisms against the same checkout.
 
-Prepare the reviewed checkout and its locked dependencies, then change the
-hosting panel's DocumentRoot from `<repository>/site-root/public` to
-`<repository>/public`. The old directory is not retained. This requires an
-owner-managed hosting change; code cannot update the panel. Local MAMP likewise
-needs an explicit user-managed DocumentRoot correction. Agents must not alter
-shared hosts or symlinks silently.
+Prepare the reviewed checkout and its locked dependencies, then ensure the
+hosting panel's DocumentRoot is `<repository>/public`. If it still points to
+`<repository>/site-root/public`, update it through an owner-managed hosting
+change; code cannot update the panel. Local MAMP likewise needs an explicit
+user-managed DocumentRoot correction. Agents must not alter shared hosts or
+symlinks silently.
 
 Verify the web runtime against the [repository's PHP and extension
 requirements](agent-context.md#layout-and-runtime). The deploy user's

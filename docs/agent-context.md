@@ -86,9 +86,11 @@ The current saved local preview is
 It is trusted MAMP HTTPS, not a loopback development server.
 Verify its returned markup and versioned stylesheet against the current
 checkout before relying on browser results.
-After the webroot migration, the existing MAMP DocumentRoot may still target
-the removed `site-root/public/`. Request a user-managed change to this checkout's
-`public/` or use isolated HTTP checks; do not silently repair the shared host.
+The repository no longer contains `site-root/`. The existing MAMP DocumentRoot
+may still target the former `site-root/public/`; removing the directory does not
+update that external configuration. Request a user-managed change to this
+checkout's `public/` or use isolated HTTP checks; do not silently repair the
+shared host.
 
 Do not retarget MAMP, edit shared/root-owned vhost configuration, move `current`
 symlinks or access another checkout to force the preview to match. If it is

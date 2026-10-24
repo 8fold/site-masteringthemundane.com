@@ -30,7 +30,9 @@ For the canonical home of new or changed information, see
 [Information Hierarchy & Purpose](docs/architecture-philosophy.md#information-hierarchy--purpose).
 
 Deployment and the owner-managed move from the former `site-root/public/`
-DocumentRoot are documented in [deployment and cutover](docs/deployment.md).
+DocumentRoot are documented in [deployment and cutover](docs/deployment.md);
+the repository's `site-root/` directory has been removed, but external web-server
+configurations may still need that owner-managed update.
 
 ### Reading pages: Coaching, Resources and exercises
 
