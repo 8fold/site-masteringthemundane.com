@@ -16,7 +16,7 @@ use MTM\Marketing\UserInterface\MotivatorsPage;
 use MTM\Marketing\UserInterface\PageMetadata;
 use MTM\Marketing\UserInterface\ResourcesPage;
 use MTM\Marketing\UserInterface\TimeBookPage;
-use MTM\Shared\UserInterface\ReadingPage;
+use MTM\Shared\UserInterface\DocumentBase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
@@ -118,7 +118,7 @@ final class PageMetadataTest extends TestCase
     public function testMetadataTextIsEscapedInRenderedOutput(): void
     {
         $text = 'A & <b>B</b> "quoted" \'single\'';
-        $html = ReadingPage::render('/resources/', [$text, $text], $text, '');
+        $html = DocumentBase::render('/resources/', [$text, $text], $text, '');
         self::assertStringNotContainsString('<b>B</b>', $html);
         $xpath = self::parse($html);
         self::assertSame($text, $xpath->evaluate('string(//header/h1)'));

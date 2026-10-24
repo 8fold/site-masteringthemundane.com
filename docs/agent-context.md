@@ -18,7 +18,7 @@ portable facts.
   are included in the PHPCS scan.
 - PHP 8.5+, `ext-dom` at runtime; `ext-uri` is a development requirement.
 - PSR-4 application namespace: `MTM\`, rooted at `src/`.
-- Shared HTML shell: `src/Shared/UserInterface/ReadingPage.php`
+- Shared HTML shell: `src/Shared/UserInterface/DocumentBase.php`
   (`MTM\Shared\UserInterface`).
 - `PageMetadata::ROUTES` defines the converted routes for content in
   `public_content/`.

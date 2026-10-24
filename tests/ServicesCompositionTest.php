@@ -8,7 +8,7 @@ use DOMDocument;
 use DOMXPath;
 use MTM\Marketing\UserInterface\ContentFragment;
 use MTM\Marketing\UserInterface\PageMetadata;
-use MTM\Shared\UserInterface\ReadingPage;
+use MTM\Shared\UserInterface\DocumentBase;
 use PHPUnit\Framework\TestCase;
 
 final class ServicesCompositionTest extends TestCase
@@ -18,7 +18,7 @@ final class ServicesCompositionTest extends TestCase
         $meta = PageMetadata::forRoute('/services/');
         $content = '<section data-rendering-probe="supplied"><h2>Supplied &amp; ready</h2>'
             . '<p>Already-rendered <strong>markup</strong>.</p></section>';
-        $html = ReadingPage::render(
+        $html = DocumentBase::render(
             '/services/',
             $meta['titles'],
             $meta['description'],
@@ -35,7 +35,7 @@ final class ServicesCompositionTest extends TestCase
         $document = new DOMDocument();
         $previous = libxml_use_internal_errors(true);
         try {
-            self::assertTrue($document->loadHTML(ReadingPage::render(
+            self::assertTrue($document->loadHTML(DocumentBase::render(
                 '/services/',
                 $meta['titles'],
                 $meta['description'],

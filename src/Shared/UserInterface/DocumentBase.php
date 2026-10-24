@@ -12,7 +12,7 @@ use MTM\Marketing\UserInterface\AssetUrl;
 use MTM\Marketing\UserInterface\NewTabLink;
 use MTM\Marketing\StructuredData;
 
-final class ReadingPage
+final class DocumentBase
 {
     /**
      * @param non-empty-list<string> $titles The page's title, then each ancestor's.

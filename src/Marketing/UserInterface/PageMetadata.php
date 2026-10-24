@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace MTM\Marketing\UserInterface;
 
 use JsonException;
-use MTM\Shared\UserInterface\ReadingPage;
+use MTM\Shared\UserInterface\DocumentBase;
 use RuntimeException;
 use stdClass;
 
@@ -46,7 +46,7 @@ final class PageMetadata
     public static function render(string $route): string
     {
         $meta = self::forRoute($route);
-        return ReadingPage::render(
+        return DocumentBase::render(
             $route,
             $meta['titles'],
             $meta['description'],
