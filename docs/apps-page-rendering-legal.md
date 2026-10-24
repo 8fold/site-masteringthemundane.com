@@ -1,206 +1,137 @@
-# Apps page rendering: `/legal/`
+# Shared PHP website page rendering
 
-Source-grounded architecture handoff for the `.com` session.
+## Purpose and status
 
-Snapshot: `8fold/site-mastering-the-mundane.apps`, commit
+Develop a generic HTTP request -> PHP rendering -> HTTP response approach for
+all 8fold PHP website projects. Apps supplies the current implementation
+reference; `.com` is the initial proving ground because its primarily static
+page rendering permits work on the rendering boundary without application
+workflow dependencies.
+
+Decisions established here are intended to become the generic approach, not a
+separate `.com` architecture. Intentional differences should be minimal and
+supported by concrete requirements. This document describes the rendering
+pipeline, not the content or editorial structure of individual pages.
+
+The original reference was apps' `/legal/` route at commit
 `4605629129cf03ffd87588b8c31f85edf118f48a`, inspected October 24, 2026.
-Paths below are repository-relative. This document describes existing behavior,
-not a proposed migration. No runtime changes, database resets, or vhost changes
-were made for this investigation.
+Apps paths below are relative to that repository. The design is being refined;
+the proposed shared boundary is not yet implemented across either site.
 
-## 1. The architecture in one view
+## Scope
 
-Apps uses physical PHP routes, server-side component composition, and
-precompiled authored content. It does not use a front controller or parse
-Markdown during page requests.
+Cover physical route dispatch, required initialization, request-path handling,
+metadata resolution, server-side composition, document serialization, and HTTP
+response delivery.
 
-```text
-Browser GET /legal/
-  -> Apache public/ document root, physical public/legal/index.php
-  -> config/bootstrap-web.php
-       -> Composer/application autoloading and bootstrap-headless.php
-       -> environment, session, account/tenant/subscription context
-       -> Request(REQUEST_URI, public_content root)
-       -> shared terms gate
-  -> route-specific composition in public/legal/index.php
-       -> Request::titleStack() -> PageMetadata -> PageTitle
-       -> optional acceptance forms
-       -> explicit legal h2 + ContentFragment::forRoute('/legal')
-  -> DocumentBase::__toString()
-       -> stringify intro/content, then collect unclaimed messages
-       -> shared head, navigation/application h1, main, footer
-       -> HTML Builder Document -> echoed response
-```
+Account/session resolution, authentication, tenant and subscription context,
+billing, and terms-acceptance workflows are outside this document and the
+generic rendering approach. A public static page must not acquire those
+dependencies merely to use the shared renderer.
 
-The other half runs before deployment:
+Page prose, visible titles and heading choices, dates, offerings, and other
+page-specific editorial decisions are outside this document. Existing page
+behavior remains protected during architectural changes; this work does not
+authorize content or presentation redesign.
+
+## Rendering pipeline
 
 ```text
-public_content/legal/content.md
-  -> composer compile-content / cli/compile-content.php
-  -> public_content/legal/content.html (committed generated artifact)
-  -> read by ContentFragment at request time
+HTTP request
+  -> Apache: public/ DocumentRoot and physical route dispatch
+  -> public/<route>/index.php
+  -> required public-site initialization and Composer autoloading
+  -> resolve request path and rendering metadata
+  -> route selects and composes renderable inputs
+  -> shared document shell composes common structure and assets
+  -> HTML Builder serializes the document
+  -> HTTP response: status, headers, rendered body
 ```
 
-## 2. Request entry and bootstrap
+Physical per-route entrypoints remain lightweight controllers. This is not a
+single-front-controller design. Source, dependencies, authored inputs, and
+private generated artifacts remain outside `public/`.
 
-`public/legal/index.php:4` includes
-`dirname($_SERVER['DOCUMENT_ROOT']) . '/config/bootstrap-web.php'`.
-The deployment contract is therefore that `public/` is the document root;
-private code and authored content are outside it.
-`public/.htaccess` supplies security headers, static error-document mappings,
-and asset caching; it does not implement a central application router.
+## Current apps reference
 
-`config/bootstrap-web.php` includes `autoload-mtm-htmlbuilder.php` and
-`bootstrap-headless.php`. The headless foundation selects initialization,
-constructs the environment from configuration, initializes encryption, and
-sets up error fallback and request telemetry. The web layer constructs
-`Request` from the incoming URI and the `public_content` directory, starts
-the PHP session, resolves the account/session, tenant, and subscription, and
-constructs `AccountContext`. Presentation receives this context rather than
-performing account or entitlement lookups inside the shell.
+The useful rendering trace through `/legal/` is:
 
-Public reading does not mean this endpoint bypasses shared bootstrapping.
-In particular, the bootstrap's session-resolution exception path logs the
-failure, adds a generic message, and redirects non-home requests to `/`.
-Thus `/legal/` does not have an unconditional database-independent 200 path.
+1. `public/legal/index.php` includes `config/bootstrap-web.php`, which loads
+   the application's initialization and autoloading.
+2. `Request` represents the incoming request and locates rendering metadata.
+   `Request::titleStack()` reads ancestor metadata through
+   `PageMetadata::fromFile()`; `PageTitle` receives the resulting values.
+3. The route composes renderable inputs, including an existing compiled
+   fragment selected through `ContentFragment::forRoute()`.
+4. `DocumentBase` receives those inputs and composes the common document
+   structure, navigation, head assets, and footer.
+5. HTML Builder's `Document` serializes the composed structure for output.
 
-## 3. Metadata and document title
+These are existing implementation reference points, not prescribed class names
+or APIs. The shared design must separate rendering from apps' application
+initialization dependencies rather than copy the existing bootstrap wholesale.
 
-The route calls `PageTitle::create($request->titleStack())`
-(`public/legal/index.php:29-33`).
-`Request::titleStack()` (`src/Shared/Http/Request.php:82-115`) walks from
-the content directory to its ancestors and reads `meta.json` through
-`PageMetadata::fromFile()`.
+The reference also has request-path caveats: `Request::pageDirectory()` assumes
+a trailing slash, and `titleStack()` removes empty values with `array_filter()`
+despite its comment describing visible empty segments. These observations are
+not generic contracts to reproduce. Path handling and metadata validation need
+explicit behavior before any implementation is reused.
 
-For canonical `/legal/`, the inputs are:
+## Proposed shared responsibilities
 
-| Input | Existing value or role |
+| Boundary | Responsibility |
 | --- | --- |
-| `public_content/legal/meta.json` | Title `Unified Terms of Service and Privacy Policy`; `updatedAt` and `effectiveAt` both `2026-10-21` |
-| `public_content/meta.json` | Site title `MtM - Apps` |
-| `PageMetadata` | Typed metadata: title plus optional updated/effective/created `IsoDate` values |
-| `PageTitle` | HTML Builder component receiving the nearest-first title array |
+| Web server | Dispatch physical routes and apply server-level redirects, headers, and error handling. |
+| Initialization | Load only dependencies required by public rendering. Do not introduce application workflows as renderer prerequisites. |
+| Request handling | Distinguish the URL path from query parameters and validate the route used for metadata and fragment lookup. |
+| Metadata resolution | Resolve and validate rendering metadata independently of document composition. |
+| Route composition | Select and compose renderable inputs, including compiled fragments where applicable. |
+| Document shell | Compose shared document structure and assets from supplied inputs rather than choose a page's fragment itself. |
+| Serialization | Produce HTML with explicit text/attribute escaping and deliberate treatment of trusted generated markup. |
+| Response delivery | Return the intended status, headers, and body; expose missing or invalid rendering inputs rather than disguise failures as successful empty pages. |
 
-The browser title, application `h1`, and content `h2` are separate inputs.
-The route explicitly emits `h2('Unified Terms of Service and Privacy Policy')`;
-the shell does not derive a content heading from the metadata.
+These are responsibility boundaries, not a requirement for one new class per
+row, a configurable framework, or a shared package. Prefer the smallest
+implementation that establishes them.
 
-Implementation caveat: `Request::pageDirectory()` uses
-`substr($this->path, 0, -1)`, not a general URL-path normalization function,
-and `titleStack()` finishes with `array_filter($titles)`. Its comment describes
-visible empty segments, but the executable code removes empty values.
-The canonical trailing-slash example is the scope of this trace; query-string
-and noncanonical-path metadata behavior should not be inferred from the
-comment. This handoff does not propose or apply a fix.
+Precompiled fragments are inputs to rendering. They are generated before
+deployment, committed, checked for freshness, and deployed as-is; request-time
+Markdown conversion is not part of this pipeline. Build commands and compiler
+details remain in their existing executable and repository-specific homes.
 
-## 4. Authored legal content and compilation
+## Pilot and migration
 
-`public_content/legal/content.md` owns the long-form legal text, including
-its displayed update/effective dates and inner section markup/headings.
-Those displayed dates are authored text, not substituted from `meta.json`.
+Use `/services/` on `.com` as the first implementation slice. Its role is to
+exercise the generic boundaries, not establish permanent site-specific APIs.
 
-`cli/compile-content.php` is standalone and needs Composer autoloading, not
-sessions or configured databases. It walks Markdown sources under
-`public_content/` and `messages/` (excluding email Markdown), converts them
-with `Eightfold\Markdown\Markdown`, enables tables and abbreviations, allows
-authored raw HTML, rejects unsafe links, and passes output through
-`NewTabLink::decorate()`. It writes sibling `.html` files.
+The current `.com` flow delegates from its physical route through `ServicesPage`
+and `PageMetadata` to `ReadingPage`. `ReadingPage` both composes the shared shell
+and selects the fragment through `ContentFragment`. The pilot should move
+fragment selection into route composition and supply the result to the shell.
 
-`ContentFragment::forRoute('/legal')`
-(`src/Shared/UserInterface/ContentFragment.php:24-58`) trims surrounding
-slashes and defaults to `content.html`. Stringification resolves
-`public_content/legal/content.html`, reads it, and returns the compiled markup.
-A failed read throws rather than silently rendering an empty document.
-It does not read metadata, parse Markdown, wrap a whole page, or generate the
-page's heading. Its output is intentional HTML, not text to escape again.
+Preserve existing URLs, response behavior, escaping, metadata output, assets,
+navigation, and rendered page behavior while changing those responsibilities.
+Do not combine the architectural refactor with editorial or visual changes.
+Remove obsolete adapters only when their responsibilities have moved.
 
-Generated content is committed, checked for freshness, and deployed as-is.
-Editing Markdown without regenerating the sibling artifact does not update
-the content read by a request.
+Review the pilot before migrating the remaining routes in bounded slices.
+Update this document alongside each accepted architectural decision, clearly
+distinguishing proposed responsibilities from implemented behavior. Validate
+generic reuse against apps before treating the approach as established across
+all sites.
 
-## 5. Route-specific composition and terms acceptance
+## Verification
 
-`public/legal/index.php:16-38` initializes empty top/bottom acceptance slots.
-When `AccountContext::isPendingTermsAcceptance` is true, it creates one `Form`
-component and places it in both slots. The same component is rendered twice:
-once as `introContent`, once after the legal fragment.
+Use actual HTTP requests to verify canonical public views return the intended
+status and HTML response. Protect the shared document invariants with the
+identical generic HTML assertions already used by both sites, and retain
+page-specific checks where they protect behavior not established by the
+generic HTTP checks.
 
-The form posts to `/legal/accept/`, has accessible label `Accept Terms of
-Service`, and contains an explicitly typed `I accept` submit button.
-`src/Shared/UserInterface/Form.php` supplies the default POST method,
-session CSRF hidden input, and return-path hidden input. Anonymous accounts
-and accounts current on terms receive no acceptance form.
+Exercise missing or malformed rendering inputs and relevant request-path edge
+cases. A successful renderer call alone does not establish correct HTTP
+delivery. PHP's isolated loopback server can exercise physical page routes but
+does not verify Apache `.htaccess` behavior; report that distinction explicitly.
 
-`AccountContext::isPendingTermsAcceptance` delegates to
-`LatestTerms::haveNotBeenAcceptedBy()` (`src/Legal/LatestTerms.php:29-64`).
-The policy compares acceptance time with the legal metadata's `updatedAt`,
-not `effectiveAt` or the date prose in Markdown. That metadata is therefore
-both presentation input and an onboarding-policy input.
-
-The global gate in `bootstrap-web.php` confines pending accounts to
-`/legal/`, `/legal/accept/`, and `/account/sign-out/`, redirecting other
-paths with 303. The acceptance endpoint
-`public/legal/accept/index.php` independently requires an account, POST,
-and valid CSRF, records acceptance, and redirects to `/account/` with a
-confirmation; a recording failure returns to `/legal/`. Anonymous requests
-to the endpoint redirect to `/subscribe/`.
-
-## 6. Shared document rendering
-
-`DocumentBase::create()` accepts `PageTitle`, `AccountContext`, `Request`,
-and `Application` (`src/Shared/UserInterface/DocumentBase.php:54-69`).
-The legal route explicitly uses `Application::Core`.
-The enum supplies label `Mastering the Mundane Apps`, slug `core`, and
-domain `time` (`src/Billing/Application.php`).
-
-At stringification (`DocumentBase.php:154` onward):
-
-1. Intro content and body content are stringified once in that order.
-   This permits form fields to claim keyed warnings before the shared message
-   container consumes unclaimed messages.
-2. Main contains messages, intro, then content, with `id="main"`,
-   `tabindex="-1"`, and `is="core"`.
-3. HTML Builder's `Document` receives the page title. The root gets
-   `is="time"`; product pages otherwise follow the user's color-scheme choice.
-4. Head includes the viewport meta tag, versioned `/assets/css/base.min.css`
-   first, optional page styles/scripts, and the device-times module when
-   account time-zone mode follows the device. The legal route itself supplies
-   no custom head assets.
-5. Body includes the skip link, `NavigationPrimary`, main, and footer.
-   The application's single `h1` is in the shared navigation header.
-   Legal's own title is the route-supplied `h2`.
-6. Footer links to `/legal/` and renders HTML Builder's Copyright component
-   for Mastering the Mundane, with starting year `2023`.
-
-`NavigationPrimary` renders native Menu/Profile popovers and chooses
-anonymous or signed-in links from `AccountContext`. It uses
-`Request::isCurrentPage()` for exact destination matching.
-`Stylesheet` delegates versioning to `AssetUrl::versioned()`; the server's
-cache rules recognize hash-versioned asset URLs. No client-side hydration
-is needed to render or read the legal text.
-
-## 7. Verification boundaries and adaptation to `.com`
-
-Existing evidence in source:
-
-- `tests/HttpSmokeTest.php` includes expected anonymous `GET /legal/` 200
-  and anonymous acceptance-endpoint redirects, plus a legal navigation check.
-- `tests/HttpAuthenticatedSmokeTest.php` covers stale acceptance, the shared
-  terms gate, and acceptance flow.
-- `tests/CompileContentTest.php` exercises the content compilation boundary.
-- `tests/HtmlDocumentAssertions.php` and `tests/HttpServerHarness.php`
-  apply document-heading/ID assertions to reached HTTP responses.
-
-These are references to existing checks, not a claim that they were rerun
-for this research. No live-browser or deployed-Apache verification is claimed.
-
-For `.com`, the reusable architectural idea is the separation of physical
-route, request metadata, authored precompiled fragment, and shared document
-shell. The apps-specific account bootstrap, terms gate, tenant/subscription
-context, application identity, and acceptance form are existing apps behavior,
-not requirements or recommendations for `.com`.
-
-This document makes no recommendation to change runtime behavior. Before
-copying code, compare `.com`'s own route/metadata contracts and shell API;
-the trace describes apps at the pinned revision rather than promising
-drop-in compatibility.
+Use each repository's documented validation entrypoints. Do not infer database
+setup, remote-test prerequisites, or shared-host changes from this design.
