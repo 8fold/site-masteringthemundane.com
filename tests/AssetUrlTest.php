@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace MTM\Tests;
 
 use InvalidArgumentException;
-use MTM\Marketing\UserInterface\AssetUrl;
+use MTM\Shared\UserInterface\AssetUrl;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
 

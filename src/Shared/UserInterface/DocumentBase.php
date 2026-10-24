@@ -10,7 +10,6 @@ use Eightfold\HtmlBuilder\Element;
 use Eightfold\HtmlBuilder\Components\Copyright;
 use Eightfold\HtmlBuilder\Components\Favicons;
 use Eightfold\HtmlBuilder\Components\PageTitle;
-use MTM\Marketing\UserInterface\AssetUrl;
 use MTM\Marketing\UserInterface\NewTabLink;
 use MTM\Marketing\StructuredData;
 

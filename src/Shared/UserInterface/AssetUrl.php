@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MTM\Marketing\UserInterface;
+namespace MTM\Shared\UserInterface;
 
 use InvalidArgumentException;
 use RuntimeException;

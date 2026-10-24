@@ -8,8 +8,8 @@ use DOMDocument;
 use DOMXPath;
 use MatthiasMullie\Minify\CSS;
 use MatthiasMullie\Minify\JS;
-use MTM\Marketing\UserInterface\AssetUrl;
 use MTM\Marketing\UserInterface\HomePage;
+use MTM\Shared\UserInterface\AssetUrl;
 use PHPUnit\Framework\TestCase;
 
 final class AssetLayoutTest extends TestCase
