@@ -63,7 +63,7 @@ The useful rendering trace through `/legal/` is:
    the application's initialization and autoloading.
 2. `Request` represents the incoming request and locates rendering metadata.
    `Request::titleStack()` reads ancestor metadata through
-   `PageMetadata::fromFile()`; `PageTitle` receives the resulting values.
+   `MTM\PageMetadata::fromFile()`; `PageTitle` receives the resulting values.
 3. The route composes renderable inputs, including an existing compiled
    fragment selected through `ContentFragment::forRoute()`.
 4. `DocumentBase` receives those inputs and composes the common document
@@ -108,8 +108,8 @@ Use `/services/` on `.com` as the first implementation slice. Its role is to
 exercise the generic boundaries, not establish permanent site-specific APIs.
 
 The `/services/` physical entrypoint is the route composition root. It resolves
-metadata through `PageMetadata::forRoute()`, selects the compiled fragment
-through `ContentFragment::forRoute()`, and supplies those inputs to
+rendering inputs through `PageRenderer::forRoute()`, selects the compiled
+fragment through `ContentFragment::forRoute()`, and supplies those inputs to
 `MTM\Shared\UserInterface\DocumentBase::create()`. `DocumentBase` is a
 stringable builder with replaceable `headCss()`, `headJs()`, `introContent()`
 and `content()` slots. It serializes the shared shell only when converted to a
@@ -122,9 +122,12 @@ selection. There is no corresponding `ServicesPage` class: the route definition
 is visible beside its public URL, while the reusable document shell stays in
 source.
 
-Other routes retain `PageMetadata::render()` as a transitional composition
-adapter. It supplies the fragment explicitly to the same shell, preserving their
-existing behavior without migrating their route composition in this slice.
+Root `MTM\PageMetadata` is a readonly data object that hydrates and validates
+one `meta.json`; it contains no rendering behavior. The marketing
+`PageRenderer` owns route ancestry and the transitional composition adapter
+used by other route classes. It supplies the compiled fragment explicitly to
+the same shell, preserving existing behavior while keeping metadata separate
+from HTML rendering.
 The current pilot changes no request-path handling, initialization, or response
 policy. Those boundaries remain proposals until implemented and verified.
 

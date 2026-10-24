@@ -46,7 +46,9 @@ No synthetic `/home/` route is used.
 
 Every shared-shell page reads its own `title` and `description` from the
 `meta.json` beside its `content.html`: `public_content/<route>/meta.json` for
-all nine converted pages. `PageMetadata::ROUTES` lists these routes.
+all nine converted pages. `PageRenderer::ROUTES` lists these routes.
+`MTM\PageMetadata` is the readonly data object hydrated from each `meta.json`;
+`PageRenderer` handles route ancestry and HTML composition.
 Following the apps site's `PageTitle` convention, there is no separate heading:
 the header h1 is the page's own `title`, and the browser and social title is
 `PageTitle` of that title followed by each ancestor route's title, joined with
@@ -272,7 +274,7 @@ are validated at request time. There is no new dependency, search or filtering.
 #### Compiled structured data
 
 `composer compile-content` also generates a committed private sibling
-`structured-data.json` for each route in `PageMetadata::ROUTES`.
+`structured-data.json` for each route in `PageRenderer::ROUTES`.
 `composer check-content` verifies all 18 HTML/JSON artifacts without writing.
 All artifacts are prepared and validated before any are written. Metadata
 changes require regeneration; deploy the generated JSON alongside the HTML.
@@ -310,7 +312,7 @@ navigation uses the shared `nav-header`, `nav-primary` and `nav-panel` selectors
 Header controls size to their content rather than reserving fixed side columns.
 The current menu destination remains bold with a double underline.
 Most converted routes currently use a small page adapter to bind the route to
-`PageMetadata`; `/services/` is the composition pilot, with metadata, compiled
+`PageRenderer`; `/services/` is the composition pilot, with metadata, compiled
 content selection and the shared shell call defined in
 `public/services/index.php`. This keeps route-specific document composition
 beside its public URL without duplicating the shell. Other routes have not yet

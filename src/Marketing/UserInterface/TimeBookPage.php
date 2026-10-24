@@ -8,6 +8,6 @@ final class TimeBookPage
 {
     public static function render(): string
     {
-        return PageMetadata::render('/books/time-mastering-the-mundane/');
+        return PageRenderer::render('/books/time-mastering-the-mundane/');
     }
 }

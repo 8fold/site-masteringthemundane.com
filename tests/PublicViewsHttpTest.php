@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MTM\Tests;
 
-use MTM\Marketing\UserInterface\PageMetadata;
+use MTM\Marketing\UserInterface\PageRenderer;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
 
@@ -36,7 +36,7 @@ final class PublicViewsHttpTest extends TestCase
         try {
             $baseUrl = 'http://127.0.0.1:' . $port;
             self::waitForServer($baseUrl);
-            foreach (PageMetadata::ROUTES as $route) {
+            foreach (PageRenderer::ROUTES as $route) {
                 $url = $baseUrl . $route;
                 $context = stream_context_create([
                     'http' => [

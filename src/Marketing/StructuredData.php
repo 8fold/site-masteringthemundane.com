@@ -6,7 +6,7 @@ namespace MTM\Marketing;
 
 use JsonException;
 use MTM\Marketing\UserInterface\ContentFragment;
-use MTM\Marketing\UserInterface\PageMetadata;
+use MTM\Marketing\UserInterface\PageRenderer;
 use RuntimeException;
 use stdClass;
 
@@ -17,7 +17,7 @@ final class StructuredData
 
     public static function compile(string $route, ?string $root = null): string
     {
-        $meta = PageMetadata::forRoute($route, $root);
+        $meta = PageRenderer::forRoute($route, $root);
         $url = self::ORIGIN . $route;
         $site = self::ORIGIN . '/#website';
         $provider = self::PROVIDER_URL . '/#person';

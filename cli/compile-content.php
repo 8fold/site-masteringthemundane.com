@@ -6,7 +6,7 @@ use MTM\ContentCompiler;
 use MTM\Marketing\ResourcesIndex;
 use MTM\Marketing\StructuredData;
 use MTM\Marketing\UserInterface\ContentFragment;
-use MTM\Marketing\UserInterface\PageMetadata;
+use MTM\Marketing\UserInterface\PageRenderer;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -20,8 +20,8 @@ if ($argc > 2 || ($argc === 2 && $argv[1] !== '--check')) {
 }
 
 $check = $argc === 2;
-foreach (\MTM\Marketing\UserInterface\PageMetadata::ROUTES as $route) {
-    \MTM\Marketing\UserInterface\PageMetadata::forRoute($route, dirname(__DIR__));
+foreach (PageRenderer::ROUTES as $route) {
+    PageRenderer::forRoute($route, dirname(__DIR__));
 }
 $sources = [];
 $entries = new RecursiveIteratorIterator(
@@ -51,7 +51,7 @@ foreach ($sources as $source) {
     }
     $artifacts[$target] = ['html' => ContentCompiler::compile($markdown), 'source' => $source];
 }
-foreach (PageMetadata::ROUTES as $route) {
+foreach (PageRenderer::ROUTES as $route) {
     $directory = ContentFragment::directory($route, __DIR__ . '/..');
     $artifacts[$directory . 'structured-data.json'] = [
         'html' => StructuredData::compile($route, dirname(__DIR__)),

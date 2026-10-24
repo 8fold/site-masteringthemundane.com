@@ -8,7 +8,7 @@ use DOMDocument;
 use DOMXPath;
 use MTM\Marketing\StructuredData;
 use MTM\Marketing\UserInterface\ContentFragment;
-use MTM\Marketing\UserInterface\PageMetadata;
+use MTM\Marketing\UserInterface\PageRenderer;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
 
@@ -16,7 +16,7 @@ final class StructuredDataTest extends TestCase
 {
     public function testEveryArtifactIsDeterministicApplicableAndEmbeddedExactly(): void
     {
-        foreach (PageMetadata::ROUTES as $route) {
+        foreach (PageRenderer::ROUTES as $route) {
             $json = StructuredData::forRoute($route);
             self::assertSame($json, StructuredData::compile($route));
             $data = json_decode($json, true, 512, JSON_THROW_ON_ERROR);
@@ -32,7 +32,7 @@ final class StructuredDataTest extends TestCase
             );
             $page = $data['@graph'][count($data['@graph']) - 1];
             self::assertIsArray($page);
-            $meta = PageMetadata::forRoute($route);
+            $meta = PageRenderer::forRoute($route);
             self::assertSame($meta['titles'][0], $page['name']);
             self::assertSame($meta['description'], $page['description']);
             self::assertSame('https://mastering-the-mundane.com' . $route, $page['url']);
@@ -42,7 +42,7 @@ final class StructuredDataTest extends TestCase
             $previous = libxml_use_internal_errors(true);
             try {
                 $document = new DOMDocument();
-                self::assertTrue($document->loadHTML(PageMetadata::render($route)));
+                self::assertTrue($document->loadHTML(PageRenderer::render($route)));
                 $xpath = new DOMXPath($document);
                 self::assertSame(
                     1.0,
@@ -113,7 +113,7 @@ final class StructuredDataTest extends TestCase
 
     public function testArtifactsArePrivateSiblings(): void
     {
-        foreach (PageMetadata::ROUTES as $route) {
+        foreach (PageRenderer::ROUTES as $route) {
             self::assertFileExists(
                 ContentFragment::directory($route, dirname(__DIR__)) . 'structured-data.json'
             );

@@ -8,6 +8,6 @@ final class HomePage
 {
     public static function render(): string
     {
-        return PageMetadata::render('/');
+        return PageRenderer::render('/');
     }
 }

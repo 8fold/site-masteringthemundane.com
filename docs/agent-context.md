@@ -20,8 +20,10 @@ portable facts.
 - PSR-4 application namespace: `MTM\`, rooted at `src/`.
 - Shared HTML shell: `src/Shared/UserInterface/DocumentBase.php`
   (`MTM\Shared\UserInterface`).
-- `PageMetadata::ROUTES` defines the converted routes for content in
+- `PageRenderer::ROUTES` defines the converted routes for content in
   `public_content/`.
+- Root `MTM\PageMetadata` hydrates each page's `meta.json`; the marketing
+  `PageRenderer` resolves route ancestry and composes the shared document.
 - Legacy asset URLs redirect; do not remove compatibility incidentally.
 - Branded `/favicons/` assets and URLs remain unchanged; `DocumentBase` uses the
   HTML Builder `Favicons` component to emit their declarations.

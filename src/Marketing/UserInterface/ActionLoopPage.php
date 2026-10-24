@@ -8,6 +8,6 @@ final class ActionLoopPage
 {
     public static function render(): string
     {
-        return PageMetadata::render('/resources/the-action-loop/');
+        return PageRenderer::render('/resources/the-action-loop/');
     }
 }

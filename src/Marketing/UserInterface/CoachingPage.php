@@ -8,6 +8,6 @@ final class CoachingPage
 {
     public static function render(): string
     {
-        return PageMetadata::render('/coaching-and-mentoring/');
+        return PageRenderer::render('/coaching-and-mentoring/');
     }
 }

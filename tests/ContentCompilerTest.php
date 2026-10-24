@@ -139,7 +139,7 @@ final class ContentCompilerTest extends TestCase
         $jsonLines = array_values(array_filter($lines, static fn(string $line): bool =>
             str_ends_with($line, ' -> structured-data.json')));
         $expectedJson = [];
-        foreach (\MTM\Marketing\UserInterface\PageMetadata::ROUTES as $route) {
+        foreach (\MTM\Marketing\UserInterface\PageRenderer::ROUTES as $route) {
             $expectedJson[] = 'compiled (mastering-the-mundane.com): /public_content'
                 . $route . 'meta.json -> structured-data.json';
         }

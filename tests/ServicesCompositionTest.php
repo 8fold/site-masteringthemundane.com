@@ -7,7 +7,7 @@ namespace MTM\Tests;
 use DOMDocument;
 use DOMXPath;
 use MTM\Marketing\UserInterface\ContentFragment;
-use MTM\Marketing\UserInterface\PageMetadata;
+use MTM\Marketing\UserInterface\PageRenderer;
 use MTM\Shared\UserInterface\DocumentBase;
 use PHPUnit\Framework\TestCase;
 
@@ -15,7 +15,7 @@ final class ServicesCompositionTest extends TestCase
 {
     public function testShellRendersSuppliedMarkupInsteadOfSelectingTheRouteFragment(): void
     {
-        $meta = PageMetadata::forRoute('/services/');
+        $meta = PageRenderer::forRoute('/services/');
         $content = '<section data-rendering-probe="supplied"><h2>Supplied &amp; ready</h2>'
             . '<p>Already-rendered <strong>markup</strong>.</p></section>';
         $html = (string) DocumentBase::create(
@@ -30,7 +30,7 @@ final class ServicesCompositionTest extends TestCase
 
     public function testEmptySuppliedContentDoesNotTriggerImplicitFragmentLoading(): void
     {
-        $meta = PageMetadata::forRoute('/services/');
+        $meta = PageRenderer::forRoute('/services/');
         $document = new DOMDocument();
         $previous = libxml_use_internal_errors(true);
         try {
@@ -70,7 +70,7 @@ final class ServicesCompositionTest extends TestCase
         fclose($pipes[2]);
         self::assertSame(0, proc_close($process));
         self::assertSame('', $errors);
-        self::assertSame(PageMetadata::render('/services/'), $html);
+        self::assertSame(PageRenderer::render('/services/'), $html);
     }
 
     public function testServiceStructureNavigationAndLinks(): void
@@ -78,7 +78,7 @@ final class ServicesCompositionTest extends TestCase
         $previous = libxml_use_internal_errors(true);
         try {
             $document = new DOMDocument();
-            self::assertTrue($document->loadHTML(PageMetadata::render('/services/')));
+            self::assertTrue($document->loadHTML(PageRenderer::render('/services/')));
             $xpath = new DOMXPath($document);
             self::assertSame(1.0, $xpath->evaluate('count(//h1)'));
             self::assertSame('Services', $xpath->evaluate('string(//header/h1)'));
