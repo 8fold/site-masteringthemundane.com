@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MTM\Shared;
+namespace MTM\Shared\UserInterface;
 
 use Eightfold\HtmlBuilder\Document;
 use Eightfold\HtmlBuilder\Element;

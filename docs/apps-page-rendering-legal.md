@@ -110,7 +110,7 @@ exercise the generic boundaries, not establish permanent site-specific APIs.
 The `/services/` physical entrypoint is the route composition root. It resolves
 metadata through `PageMetadata::forRoute()`, selects the compiled fragment
 through `ContentFragment::forRoute()`, and supplies both to
-`MTM\Shared\ReadingPage::render()`. `ReadingPage` requires already-rendered content; it
+`MTM\Shared\UserInterface\ReadingPage::render()`. `ReadingPage` requires already-rendered content; it
 does not select or load a fragment. Text metadata remains escaped by the shell,
 while the supplied trusted markup is inserted without escaping it a second
 time. There is no corresponding `ServicesPage` class: the route definition is

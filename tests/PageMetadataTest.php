@@ -16,7 +16,7 @@ use MTM\Marketing\UserInterface\MotivatorsPage;
 use MTM\Marketing\UserInterface\PageMetadata;
 use MTM\Marketing\UserInterface\ResourcesPage;
 use MTM\Marketing\UserInterface\TimeBookPage;
-use MTM\Shared\ReadingPage;
+use MTM\Shared\UserInterface\ReadingPage;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;

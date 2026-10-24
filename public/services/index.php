@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use MTM\Marketing\UserInterface\ContentFragment;
 use MTM\Marketing\UserInterface\PageMetadata;
-use MTM\Shared\ReadingPage;
+use MTM\Shared\UserInterface\ReadingPage;
 
 require_once dirname(__DIR__, 2) . '/vendor/autoload.php';
 
