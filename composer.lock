@@ -8,24 +8,27 @@
     "packages": [
         {
             "name": "8fold/php-html-builder",
-            "version": "5.0.0",
+            "version": "5.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/8fold/php-html-builder.git",
-                "reference": "cc94159a81868ee8e2b6a425a2734881790720c1"
+                "reference": "32fe921504d0d798eb8303cfb02ce6a9b0fd9727"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/8fold/php-html-builder/zipball/cc94159a81868ee8e2b6a425a2734881790720c1",
-                "reference": "cc94159a81868ee8e2b6a425a2734881790720c1",
+                "url": "https://api.github.com/repos/8fold/php-html-builder/zipball/32fe921504d0d798eb8303cfb02ce6a9b0fd9727",
+                "reference": "32fe921504d0d798eb8303cfb02ce6a9b0fd9727",
                 "shasum": ""
             },
             "require": {
                 "php": "^8.4"
             },
             "require-dev": {
-                "phpstan/phpstan": "^2.2",
-                "phpunit/phpunit": "^13.2",
+                "phpstan/extension-installer": "*",
+                "phpstan/phpstan": "^2.3",
+                "phpstan/phpstan-strict-rules": "^2.1",
+                "phpunit/phpunit": "^13.4",
+                "spaze/phpstan-disallowed-calls": "^4.15",
                 "squizlabs/php_codesniffer": "^4.0"
             },
             "type": "library",
@@ -47,7 +50,7 @@
             "description": "A library for building HTML document and element strings.",
             "support": {
                 "issues": "https://github.com/8fold/php-html-builder/issues",
-                "source": "https://github.com/8fold/php-html-builder/tree/5.0.0"
+                "source": "https://github.com/8fold/php-html-builder/tree/5.1.0"
             },
             "funding": [
                 {
@@ -59,7 +62,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-10-15T17:54:44+00:00"
+            "time": "2026-11-11T23:11:04+00:00"
         }
     ],
     "packages-dev": [
@@ -559,16 +562,16 @@
         },
         {
             "name": "matthiasmullie/minify",
-            "version": "1.3.75",
+            "version": "1.3.76",
             "source": {
                 "type": "git",
                 "url": "https://github.com/matthiasmullie/minify.git",
-                "reference": "76ba4a5f555fd7bf4aa408af608e991569076671"
+                "reference": "bbd1844c257a49488d914f4c7c7ba74cc8861fdc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/matthiasmullie/minify/zipball/76ba4a5f555fd7bf4aa408af608e991569076671",
-                "reference": "76ba4a5f555fd7bf4aa408af608e991569076671",
+                "url": "https://api.github.com/repos/matthiasmullie/minify/zipball/bbd1844c257a49488d914f4c7c7ba74cc8861fdc",
+                "reference": "bbd1844c257a49488d914f4c7c7ba74cc8861fdc",
                 "shasum": ""
             },
             "require": {
@@ -617,7 +620,7 @@
             ],
             "support": {
                 "issues": "https://github.com/matthiasmullie/minify/issues",
-                "source": "https://github.com/matthiasmullie/minify/tree/1.3.75"
+                "source": "https://github.com/matthiasmullie/minify/tree/1.3.76"
             },
             "funding": [
                 {
@@ -625,7 +628,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-06-25T09:56:19+00:00"
+            "time": "2026-11-03T11:28:38+00:00"
         },
         {
             "name": "matthiasmullie/path-converter",
@@ -1075,11 +1078,11 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "2.3.1",
+            "version": "2.3.6",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/6155239b488e95d26d1ebd95c6b4bb294d7f09db",
-                "reference": "6155239b488e95d26d1ebd95c6b4bb294d7f09db",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/00cedebb76cc82c1592414fa4f616cefdccda16f",
+                "reference": "00cedebb76cc82c1592414fa4f616cefdccda16f",
                 "shasum": ""
             },
             "require": {
@@ -1135,7 +1138,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-10-08T21:09:11+00:00"
+            "time": "2026-11-15T19:58:26+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
